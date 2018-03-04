@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <%
+    <%-- <%
         // 인코딩 처리
         request.setCharacterEncoding("euc-kr"); 
         
@@ -27,8 +27,9 @@
         { 
             // 세션에 현재 아이디 세팅
             session.setAttribute("sessionID", email);
+         
             /* msg = "MainForm.jsp"; */
-            msg="/Story_Blog/Project/view/user_main.jsp";
+            msg="/Story_Blog_m2/Project/view/user_main.jsp";
         }
         else if(check == 0) // 비밀번호가 틀릴경우
         {
@@ -42,7 +43,7 @@
         // sendRedirect(String URL) : 해당 URL로 이동
         // URL뒤에 get방식 처럼 데이터를 전달가능
         response.sendRedirect(msg);
-    %>
+    %> --%>
 
 </body>
 </html>

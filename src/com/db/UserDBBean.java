@@ -55,27 +55,18 @@ public class UserDBBean {
 		
 		int number=0;
 		try {
-			pstmt = conn.prepareStatement("select userSer.nextval from dual");
-			rs = pstmt.executeQuery();
-			if (rs.next())
-				number = rs.getInt(1) + 1;
-			else number = 1;
 			
-			sql = "insert into userlist(num, email, name, pwd, tel, birth, cdate, ip)";
-			sql += "values(?,?,?,?,?,?, sysdate, ?)";
 			
+			sql = "insert into userlist(email, name, pwd, tel, birth, cdate, ip)";
+			sql += "values(?,?,?,?,?, sysdate, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, number);
-			pstmt.setString(2, user.getEmail());
-			pstmt.setString(3, user.getName());
-			pstmt.setString(4, user.getPwd());
-			pstmt.setString(5, user.getTel());
-			pstmt.setString(6, user.getBirth());
-			pstmt.setString(7, user.getIp());
-
-			
-			
-			pstmt.executeUpdate();
+			pstmt.setString(1, user.getEmail());
+			pstmt.setString(2, user.getName());
+			pstmt.setString(3, user.getPwd());
+			pstmt.setString(4, user.getTel());
+			pstmt.setString(5, user.getBirth());
+			pstmt.setString(6, user.getIp());
+		    pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -117,7 +108,7 @@ public class UserDBBean {
 		String sql = "";
 		try {
 			conn = getConnection();
-			sql = "select * from (select rownum rnum, a.* from (select num, email, name, pwd, tel, birth, cdate, ip from userlist)"
+			sql = "select * from (select rownum rnum, a.* from (select email, name, pwd, tel, birth, cdate, ip from userlist)"
 					+ " a) where rnum between ? and ? order by cdate desc";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -130,7 +121,6 @@ public class UserDBBean {
 			
 				do {
 					UserDataBean user = new UserDataBean();
-					user.setNum(rs.getInt("num"));
 					user.setEmail(rs.getString("email"));
 					user.setName(rs.getString("name"));
 					user.setPwd(rs.getString("pwd"));
@@ -167,7 +157,6 @@ public class UserDBBean {
 			
 			user = new UserDataBean();
 			if(rs.next()) {
-				user.setNum(rs.getInt("num"));
 				user.setEmail(rs.getString("email"));
 				user.setName(rs.getString("name"));
 				user.setPwd(rs.getString("pwd"));
@@ -228,7 +217,59 @@ public class UserDBBean {
         	 close(conn, null, pstmt);
         }
     } // end loginCheck()
-
+    
+    
+   /* // 이메일 중복체크
+    public boolean duplicateIdCheck(String email) {
+    	Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean x = false;
+    	
+		try {
+            StringBuffer query = new StringBuffer();
+            query.append("select email from userlist where email=?");
+            
+            conn = getConnection();
+            pstmt = conn.prepareStatement(query.toString());
+            pstmt.setString(1, email);
+            rs = pstmt.executeQuery();
+            
+            if(rs.next()) x= true; //해당 이메일 존재
+            
+            return x;
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			try {
+				close(conn, null, pstmt);
+			} catch (Exception e2) {
+				throw new RuntimeException(e2.getMessage());
+			}
+		}	
+    }*/
+    // 이메일 중복확인 ver.2
+    public boolean confirmEmail(String email) {
+    	Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+    	boolean result = false;
+    	try {
+    		conn = getConnection();
+    		String sql = "select email from userlist where email =?";
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setString(1, email);
+    		rs = pstmt.executeQuery();
+    		if (rs.next()) {
+    			result = true;
+    		}
+    	} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, rs, pstmt);
+		}
+    	return result;
+    }
 	
     
     public int deleteUser (String email, String pwd) throws Exception {
@@ -260,7 +301,7 @@ public class UserDBBean {
 		
 		try {
 			conn = getConnection();
-			sql = "update userlist set email=?, name=?, pwd=?, tel=?, birth=? where num=?";
+			sql = "update userlist set email=?, name=?, pwd=?, tel=?, birth=? where email=?";
 			pstmt = conn.prepareStatement(sql);
 		
 			pstmt.setString(1, user.getEmail());
@@ -268,7 +309,7 @@ public class UserDBBean {
 			pstmt.setString(3, user.getPwd());
 			pstmt.setString(4, user.getTel());
 			pstmt.setString(5, user.getBirth());
-			pstmt.setInt(6, user.getNum());
+			pstmt.setString(6, user.getEmail());
 			
 			chk = pstmt.executeUpdate(); //컬럼이 업데이트가 되었을때 숫자를 반환
 			/*pstmt.executeUpdate(); <- 썼던거.*/
@@ -282,35 +323,4 @@ public class UserDBBean {
 		
 	}
     
-    // 관리자..?
-    /*public boolean admin_login(String admin_id,String admin_pass){
-    	Connection conn = null;
-    	PreparedStatement pstmt = null;
-    	ResultSet rs = null;
-    	
-    	boolean b = false;
-		
-		try {
-			String sql = "select * from userlist where email = 'admin' and pwd = 9005242";
-			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, admin_id);
-			pstmt.setString(2, admin_pass);
-			rs = pstmt.executeQuery();
-			b=rs.next();
-		} catch (Exception e) {
-			System.out.println("admin_login err : " + e);
-		} finally {
-			try {
-				if(rs!=null)rs.close();
-				if(pstmt!=null)pstmt.close();
-				if(conn!=null)conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				close(conn, rs, pstmt);
-			}
-		}
-		return b;
-	}*/
 }

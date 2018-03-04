@@ -19,7 +19,6 @@
 		UserDBBean userPro = UserDBBean.getInstance();
 		int chk = userPro.updateUser(user);
 		
-		/* int num = Integer.parseInt(request.getParameter("num")); */
 		String email = request.getParameter("email");
 		String pwd= request.getParameter("pwd");
 		String pageNum = request.getParameter("pageNum");

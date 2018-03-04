@@ -3,7 +3,6 @@ package com.db;
 import java.util.Date;
 
 public class UserDataBean {
-	private int num;
 	private String email; //회원 이메일 (아이디)
 	private String name;  //회원 이름
 	private String pwd;   //회원 비밀번호
@@ -12,12 +11,6 @@ public class UserDataBean {
 	private Date cdate;	//회원 생성 날짜
 	private String ip; //회원 아이피
 	
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
-		this.num = num;
-	}
 	public String getEmail() {
 		return email;
 	}
@@ -62,10 +55,9 @@ public class UserDataBean {
 	}
 	@Override
 	public String toString() {
-		return "UserDataBean [num=" + num + ", email=" + email + ", name=" + name + ", pwd=" + pwd + ", tel=" + tel
-				+ ", birth=" + birth + ", cdate=" + cdate + ", ip=" + ip + "]";
+		return "UserDataBean [email=" + email + ", name=" + name + ", pwd=" + pwd + ", tel=" + tel + ", birth=" + birth
+				+ ", cdate=" + cdate + ", ip=" + ip + "]";
 	}
-	
 	
 	
 	

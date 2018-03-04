@@ -4,14 +4,12 @@
 <%@ page import="com.db.UserDataBean" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% 
-	/* int num = Integer.parseInt(request.getParameter("num")); */
 	String email=request.getParameter("email");
 	String pwd=request.getParameter("pwd");
 	
 	try {
 		UserDBBean userPro = UserDBBean.getInstance();
-		UserDataBean user = userPro.getUser(email, pwd);
-	 
+		UserDataBean user = userPro.getUser(email, pwd); 
 %>
 
 <html>
@@ -25,6 +23,13 @@
 			    min-height: 100%;
 			    background-position: center;
 			    background-size: cover;		
+			}
+		.w3-input {
+				padding: 8px;
+				display: block;
+				border: none;
+				border-bottom: 1px solid #ccc;
+				width: 98%
 			}
 	</style>
 </head>
@@ -41,37 +46,37 @@
 			
 			   
 				<div class="w3-row w3-section">
-				  <div class="w3-col" style="width:100px">이메일</div>
+				  <div class="w3-col w3-red w3-round" style="width:100px; font-size: 9pt;">이메일 <br>(수정 불가)</div>
 				    <div class="w3-rest">
-				      <input class="w3-input w3-border"  name="email" type="text" value ="<%=request.getParameter("email")%>">
+				      <input class="w3-input w3-border w3-light-gray"  name="email" type="text" value ="<%=user.getEmail()%>" readonly="readonly" style="margin-left: 2%;">
 				    </div>
 				</div>
 		
 				<div class="w3-row w3-section">
-				  <div class="w3-col" style="width:100px">이름</div>
+				  <div class="w3-col w3-blue w3-round" style="width:100px;">이름</div>
 				    <div class="w3-rest">
-				      <input class="w3-input w3-border"  name="name" type="text" value="<%=user.getName() %>">
+				      <input class="w3-input w3-border"  name="name" type="text" value="<%=user.getName() %>" style="margin-left: 2%;">
 				    </div>
 				</div>
 		
 				<div class="w3-row w3-section">
-				  <div class="w3-col" style="width:100px">비밀번호</div>
+				  <div class="w3-col w3-blue w3-round" style="width:100px;">비밀번호</div>
 				    <div class="w3-rest">
-				      <input class="w3-input w3-border"  name="pwd" type="text" value="<%=user.getPwd() %>">
+				      <input class="w3-input w3-border"  name="pwd" type="text" value="<%=user.getPwd() %>" style="margin-left: 2%;">
 				    </div>
 				</div>
 		
 				<div class="w3-row w3-section">
-				  <div class="w3-col" style="width:100px">전화번호</div>
+				  <div class="w3-col w3-blue w3-round" style="width:100px;">전화번호</div>
 				    <div class="w3-rest">
-				      <input class="w3-input w3-border"  name="tel" type="text" value="<%=user.getTel() %>">
+				      <input class="w3-input w3-border"  name="tel" type="text" value="<%=user.getTel() %>" style="margin-left: 2%;">
 				    </div>
 				</div>
 		
 				<div class="w3-row w3-section">
-				  <div class="w3-col" style="width:100px">생일</div>
+				  <div class="w3-col w3-blue w3-round" style="width:100px;">생일</div>
 				    <div class="w3-rest">
-				      <input class="w3-input w3-border"  name="birth" type="text" value="<%=user.getBirth()%>">
+				      <input class="w3-input w3-border"  name="birth" type="text" value="<%=user.getBirth()%>" style="margin-left: 2%;">
 				    </div>
 				</div>
 				
@@ -85,7 +90,7 @@
 					<input type="hidden" name="email" value="<%= user.getEmail() %>">
 					<input type="hidden" name="pwd" value="<%= user.getPwd() %>">
 					<input type="hidden" name="pageNum" value="<%= pageNum %>">
-					<input type="hidden" name="num" value="<%=user.getNum() %>">
+
 					
 					<input type="submit" value="Send" class="w3-button w3-large w3-pink">
 				</div>

@@ -1,5 +1,11 @@
-	<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%  
+	String diaryid = request.getParameter("diaryid");
+	String subject = request.getParameter("subject");
+	
+	if (diaryid==null) diaryid = "Main"; 
+	if (subject==null) subject = "하루의 끝";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,18 +27,20 @@
 			<form action="/Story_Blog/Project/view/user_write.jsp" method="post">
 				
 				<!-- 하루의 끝 -->
-				<div class="w3-row-padding">
-					<div class="w3-col m12">
-						<div class="w3-card w3-round w3-white">
-							<div class="w3-container w3-padding">
-								<h6 class="w3-text-gray">오늘 하루를 요약해보세요.</h6>
-								<input class="w3-input w3-border" name="subject" type="text" placeholder="하루의 끝"><br>
-								<button type="submit" class="w3-button w3-theme w3-pink w3-right" 
-									onclick="location.href='/Story_Blog/Project/view/user_write.jsp'">글쓰기</button>
-							</div>
+			<div class="w3-row-padding">
+				<div class="w3-col m12">
+					<div class="w3-card w3-round w3-white">
+						<div class="w3-container w3-padding">
+							<h6 class="w3-text-gray">오늘 하루를 요약해보세요.</h6>
+							<input class="w3-input w3-border w3-text-grey" name="subject" type="text" style="font-size: 9pt;" value="<%=subject %>"><br>
+							<button type="submit" class="w3-button w3-theme w3-pink w3-right" 
+								onclick="location.href='/Story_Blog/Project/view/user_write.jsp'">글쓰기</button>
+								<input type="hidden" name="diaryid" value="<%= diaryid %>">
+								<input type="hidden" name="subject" value="<%= subject %>">
 						</div>
 					</div>
 				</div>
+			</div>
 				<!-- end. 하루의 끝 -->
 				
 			</form>

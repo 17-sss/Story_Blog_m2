@@ -27,10 +27,6 @@ public class StoryController extends Action {
 		UserDBBean dbPro = UserDBBean.getInstance();
 		UserDataBean user = new UserDataBean();
 		
-		if (req.getParameter("num") != null && !req.getParameter("num").equals("")) {
-			user.setNum(Integer.parseInt(req.getParameter("num")));
-		}
-		
 		user.setEmail(req.getParameter("email"));
 		user.setName(req.getParameter("name"));
 		user.setPwd(req.getParameter("pwd"));
@@ -47,6 +43,50 @@ public class StoryController extends Action {
 		
 		return null; 
 	} 
+	
+	public String LoginPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
+		 // 로그인 화면에 입력된 아이디와 비밀번호를 가져온다
+        String email= req.getParameter("email");
+        String pwd = req.getParameter("pwd");
+        
+     	// DB에서 아이디, 비밀번호 확인
+        UserDBBean dbPro = UserDBBean.getInstance();
+        int check = dbPro.loginCheck(email, pwd);
+        
+        UserDataBean user = new UserDataBean();
+        
+		user.setEmail(req.getParameter("email"));
+		user.setPwd(req.getParameter("pwd"));
+		/*user.setName(req.getParameter("name"));
+		user.setTel(req.getParameter("tel"));*/
+		/*user.setCdate(Date date);*/
+		user.setIp(req.getRemoteAddr());
+        
+        // URL 및 로그인관련 전달 메시지
+        String msg = "";
+        
+        if(check == 1)    // 로그인 성공
+        { 
+            // 세션에 현재 아이디 세팅
+            req.setAttribute("sessionID", email);
+            msg="/Story_Blog_m2/story/user_main";
+        }
+        else if(check == 0) // 비밀번호가 틀릴경우
+        {
+            msg = "index?msg=0";
+        }
+        else    // 아이디가 틀릴경우
+        {
+            msg = "index?msg=-1";
+        }
+        res.sendRedirect(msg);
+		return null; 
+	}
+	
+	public String user_main (HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+
+		return "/Project/view/user_main.jsp";
+	}
 	
 	
 	

@@ -47,74 +47,49 @@ public class DiaryDBBean {
 		if (rs != null) try {rs.close();} catch (SQLException ex) {}
 	}
 	
-	
-	
-
-	public void insertArticle(DiaryDataBean article) {
-		String sql ="";
-		Connection con = getConnection();
+	// 일기 추가
+	public void insertDiary(DiaryDataBean diary) {
+		String sql="";
+		Connection conn = getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		int number=0;
 		try {
-			pstmt = con.prepareStatement("select boardser.nextval from dual");
+			pstmt = conn.prepareStatement("select diarySer.nextval from dual");
 			rs = pstmt.executeQuery();
-			if(rs.next())
+			if (rs.next())
 				number = rs.getInt(1) + 1;
 			else number = 1;
 			
-			// 답글관련
-			int num = article.getNum();
-			int ref = article.getRef();
-			int re_step = article.getRe_step();
-			int re_level = article.getRe_level();
-			if (num != 0) {
-				sql = "update board set re_step=re_step+1 where ref=? and re_step > ? and boardid = ?"; 
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, ref);
-				pstmt.setInt(2, re_step);
-				pstmt.setString(3, article.getBoardid());
-				pstmt.executeUpdate();
-				re_step = re_step +1;
-				re_level = re_level +1;
-			} else { // 2. 답글 쓰기========================
-				ref = number; 
-				re_step = 0;
-				re_level = 0;
-			}
-		
-		sql = "insert into board(num, writer, email, subject, passwd, reg_date, ref, re_step, re_level, content, ip, boardid) ";
-		sql+= "values(?,?,?,?,?, sysdate, ?,?,?,?,?,?)";
-		
-		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, number);
-		pstmt.setString(2, article.getWriter());
-		pstmt.setString(3, article.getEmail());
-		pstmt.setString(4, article.getSubject());
-		pstmt.setString(5, article.getPasswd());
-		pstmt.setInt(6, ref); 
-		pstmt.setInt(7, re_step);
-		pstmt.setInt(8, re_level);
-		pstmt.setString(9, article.getContent());
-		pstmt.setString(10, article.getIp());
-		pstmt.setString(11, article.getBoardid());
-		pstmt.executeUpdate();
-		
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+			System.out.println(diary.getEmail()); // Test
 			
+			sql = "insert into diary(num, email, diaryid, subject, cdate, content, ip)";
+			sql += "values(?,?,?,?, sysdate, ?, ?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, number);
+			pstmt.setString(2, diary.getEmail()); // !!
+			pstmt.setString(3, diary.getDiaryid());
+			pstmt.setString(4, diary.getSubject());
+			pstmt.setString(5, diary.getContent());
+			pstmt.setString(6, diary.getIp());
+			
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
-			close(con, rs, pstmt);
+			close(conn, rs, pstmt);
 		}
+		
 	}
 	
-	
-	
-	
-	public int getArticleCount(String boardid) throws SQLException {
+	// 각 일기장의 일기 수
+	public int getDiaryCount(String diaryid, String email) throws SQLException {
 		int x = 0;
-		String sql = "SELECT nvl(count(*),0) FROM BOARD WHERE boardid = ?";
+		String sql = "SELECT nvl(count(*),0) FROM diary WHERE diaryid = ? and email=?";
 		Connection conn = getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -122,7 +97,8 @@ public class DiaryDBBean {
 		
 		try {
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, boardid);
+		pstmt.setString(1, diaryid);
+		pstmt.setString(2, email);
 		
 		rs = pstmt.executeQuery();
 		if (rs.next()) { x = rs.getInt(1); }
@@ -135,47 +111,41 @@ public class DiaryDBBean {
 		return x;
 	}
 	
-	
-	
-	
-	public List getArticles(int startRow, int endRow, String boardid) {
+	// 일기(목록) 가져오기
+	public List getDiaries(int startRow, int endRow, String email, String diaryid) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List articleList = null;
+		List diaryList = null;
+		
+		System.out.println(startRow+":"+endRow+"/"+email+"/"+diaryid); // Test
+		
 		String sql = "";
 		try {
 			conn = getConnection();
-			sql = "select * from (select rownum rnum, a.* from (select num, writer, email, subject, passwd, reg_date,"
-					+ "readcount, ref, re_step, re_level, content, ip from board where boardid = ? order by ref desc, re_step)"
-					+ " a) where rnum between ? and ?";
-			
+			sql = "select * from (select rownum rnum, b.* from (select num, email, diaryid, subject, cdate, content, ip "
+					+ "from diary where diaryid = ? and email = ?) b) where rnum between ? and ? order by cdate desc";
+			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, boardid);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			pstmt.setString(1, diaryid);
+			pstmt.setString(2, email);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
-				articleList = new ArrayList();
-				//BoardDataBean article = new BoardDataBean(); <-- 이렇게 여기다 선언하면...
-				//게시판에선 메모리 allocation이 계속 생성되어야하는데 위에다가 이렇게 선언하면 계속 100번지만 잡고있음.
-				//게시글 1개가 계속 중복되게 할 순 없잖아?
+				diaryList = new ArrayList();
 				do {
-					DiaryDataBean article = new DiaryDataBean();
-					article.setNum(rs.getInt("num"));
-					article.setWriter(rs.getString("writer"));
-					article.setEmail(rs.getString("email"));
-					article.setSubject(rs.getString("subject"));
-					article.setPasswd(rs.getString("passwd"));
-					article.setReg_date(rs.getTimestamp("reg_date"));
-					article.setReadcount(rs.getInt("readcount"));
-					article.setRef(rs.getInt("ref"));
-					article.setRe_step(rs.getInt("re_step"));
-					article.setRe_level(rs.getInt("re_level"));
-					article.setContent(rs.getString("content"));
-					article.setIp(rs.getString("ip"));
-					articleList.add(article);
+					DiaryDataBean diary = new DiaryDataBean();
+					diary.setNum(rs.getInt("num"));
+					diary.setEmail(rs.getString("email"));
+					diary.setDiaryid(rs.getString("diaryid"));
+					diary.setSubject(rs.getString("subject"));
+					/*diary.setCdate(rs.getString("cdate"));*/
+					diary.setCdate(rs.getTimestamp("cdate"));
+					diary.setContent(rs.getString("content"));
+					diary.setIp(rs.getString("ip"));
+					diaryList.add(diary);
 				} while (rs.next()); 
 			}
 		} catch (Exception ex) {
@@ -183,50 +153,36 @@ public class DiaryDBBean {
 		} finally {
 			close(conn, rs, pstmt);
 		}
-		return articleList;
+		return diaryList;
 		
 	}
 	
-	
-	
-	
-	public DiaryDataBean getArticle(int num, String boardid, String chk) {
+	// 일기 수정할때 정보 불러옴.
+	public DiaryDataBean getDiary(int num, String email, String diaryid) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		DiaryDataBean article = null;
+		DiaryDataBean diary = null;
 		String sql = "";
 		try {
 			conn = getConnection();
-			
-			if (chk.equals("content")) {
-				sql="update board set readcount=readcount+1 where num = ? and boardid = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, num);
-				pstmt.setString(2, boardid);
-				pstmt.executeUpdate();
-			}
-			
-			sql="select * from board where num = ? and boardid = ?";
+			sql="select * from diary where num = ? and email = ? and diaryid = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
-			pstmt.setString(2, boardid);
+			pstmt.setString(2, email);
+			pstmt.setString(3, diaryid);
 			rs=pstmt.executeQuery();
 			
+			diary = new DiaryDataBean();
 			if(rs.next()) {
-				article = new DiaryDataBean();
-				article.setNum(rs.getInt("num"));
-				article.setWriter(rs.getString("writer"));
-				article.setEmail(rs.getString("email"));
-				article.setSubject(rs.getString("subject"));
-				article.setPasswd(rs.getString("passwd"));
-				article.setReg_date(rs.getTimestamp("reg_date"));
-				article.setReadcount(rs.getInt("readcount"));
-				article.setRef(rs.getInt("ref"));
-				article.setRe_step(rs.getInt("re_step"));
-				article.setRe_level(rs.getInt("re_level"));
-				article.setContent(rs.getString("content"));
-				article.setIp(rs.getString("ip"));
+				diary.setNum(rs.getInt("num"));
+				diary.setEmail(rs.getString("email"));
+				diary.setDiaryid(rs.getString("diaryid"));
+				diary.setSubject(rs.getString("subject"));
+				/*diary.setCdate(rs.getString("cdate"));*/
+				diary.setCdate(rs.getTimestamp("cdate"));
+				diary.setContent(rs.getString("content"));
+				diary.setIp(rs.getString("ip"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -234,32 +190,31 @@ public class DiaryDBBean {
 			close(conn, rs, pstmt);
 		}
 	
-		return article;
+		return diary;
 		
 	}
 	
-	
-	public int updateArticle (DiaryDataBean article) {
+	// 일기 수정Pro 메소드 
+	public int updateDiary (DiaryDataBean diary) {
 		String sql ="";
 		Connection conn = getConnection();
 		PreparedStatement pstmt = null;
 		int chk= 0; // int 변수 하나 생성.
-		ResultSet rs = null; <- 썼던거.(오답)
+		ResultSet rs = null; 
 		
 		try {
-			conn = getConnection(); //
-			sql = "update board set writer=?, email=?, subject=?, content=? where num=? and passwd = ?";
+			conn = getConnection();
+			sql = "update diary set diaryid=?, subject=?, content=? where num=? and email = ?";
 			pstmt = conn.prepareStatement(sql);
 		
-			pstmt.setString(1, article.getWriter());
-			pstmt.setString(2, article.getEmail());
-			pstmt.setString(3, article.getSubject());
-			pstmt.setString(4, article.getContent());
-			pstmt.setInt(5, article.getNum());
-			pstmt.setString(6, article.getPasswd());
+			pstmt.setString(1, diary.getDiaryid());
+			pstmt.setString(2, diary.getSubject());
+			pstmt.setString(3, diary.getContent());
+			pstmt.setInt(4, diary.getNum());
+			pstmt.setString(5, diary.getEmail());
 			
 			chk = pstmt.executeUpdate(); //컬럼이 업데이트가 되었을때 숫자를 반환
-			pstmt.executeUpdate(); <- 썼던거.
+			pstmt.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -270,17 +225,18 @@ public class DiaryDBBean {
 		
 	}
 	
-	public int deleteArticle (int num, String passwd, String boardid) throws Exception {
+	public int deleteDiary (int num, String email, String diaryid) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "delete from board where num=? and passwd = ?";
+		String sql = "delete from diary where num=? and email = ? and diaryid =?";
 		int x = -1;
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
-			pstmt.setString(2, passwd);
+			pstmt.setString(2, email);
+			pstmt.setString(3, diaryid);
 			x=pstmt.executeUpdate();
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -246,7 +246,7 @@
 			    
 			    <div class= "container">
 	    			<p class="w3-right">
-	    				<a href="<%=request.getContextPath() %>/Project/accountForm.jsp" class="w3-text-black">Sign Up</a>
+	    				<a href="<%=request.getContextPath() %>/story/accountForm" class="w3-text-black">Sign Up</a>
 	    			</p>
 	    		</div>
 		    </div>

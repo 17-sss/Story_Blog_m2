@@ -33,32 +33,58 @@
 	/* 이메일, 비번 체크 */
     function checkValue()
     {
-        if(!document.userInfo.email.value){
+		var form = document.userInfo;
+		
+        if(!form.email.value){
             alert("이메일을 입력하세요.");
             return false;
         }
-        if(!document.userInfo.name.value){
+        if(!form.name.value){
             alert("이름을 입력하세요.");
             return false;
         }
         
       
-        if(!document.userInfo.pwd.value){
+        if(!form.pwd.value){
             alert("비밀번호를 입력하세요.");
             return false;
         }
         
-        if(document.userInfo.pwd.value != document.userInfo.passchk.value){
+        if(form.pwd.value != form.passchk.value){
         	alert("비밀번호 확인란에 비밀번호를 동일하게 입력하세요.");
             return false;
         } 
+        
+       /*  if(form.idDuplication.value != "idCheck"){
+            alert("아이디 중복체크를 해주세요.");
+            return false;
+        } */
         else {
         	alert("가입이 완료되었습니다.");
         }
 
     }
     /* end. 이메일, 비번 체크 */
+	
+    /* 이메일 중복확인 화면 띄우기 */
+    /* function openIdChk() {
+    	windows.name = "parentForm";
+    	windows.open("/Story_Blog/Project/IdCheckForm.jsp", "chkForm", 
+    			"width=500, height=300, resizable = no, scrollbars = no");
+    }
+    
+    function inputIdChk() {
+		document.userInfo.idDuplication.value = "idUncheck";
+	} */
 
+	function confirmEmail() {
+		if (document.userInfo.email.value == "") {
+			alert("이메일을 입력하세요. (중복확인)");
+			return;
+		}
+		url = "confirmEmail.jsp?id=" + document.userInfo.email.value;
+		open(url, "confirm", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizeble=no, width=300, height=200");
+	}
 </script>
 
 
@@ -75,7 +101,14 @@ action="<%=request.getContextPath()%>/story/accountPro" onsubmit="return checkVa
 <div class="w3-row w3-section">
   <div class="w3-col" style="width:50px"></div>
     <div class="w3-rest">
-      <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*">
+    
+      <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*">	
+      <%-- <input type="hidden" name="email" value="<%= email %>"> --%>
+      <input type="button" value="중복확인" onclick="confirmEmail(this.form)">
+      
+     <!-- <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*" onkeydown="inputIdChk()">
+     	  <input type="button" value="중복확인" onclick="openIdChk()">
+      	  <input type="hidden" name="idDuplication" value="idUncheck"> -->
     </div>
 </div>
 
