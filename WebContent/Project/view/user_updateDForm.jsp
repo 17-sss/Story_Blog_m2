@@ -1,10 +1,10 @@
-<%@page import="com.db.DiaryDataBean"%>
+<%-- <%@page import="com.db.DiaryDataBean"%>
 <%@page import="com.db.DiaryDBBean"%>
-<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%> --%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
-<%
-	String ctx = request.getContextPath(); //콘텍스트명 얻어오기.
+<% String ctx = request.getContextPath(); //콘텍스트명 얻어오기. %>
+<%-- <
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	//제대로 utf-8환경이 아니라 한글 깨짐 그래서 임의로 추가
 	request.setCharacterEncoding("EUC-KR");
@@ -25,7 +25,7 @@
 	try {
 		DiaryDBBean diaryPro = DiaryDBBean.getInstance();
 		DiaryDataBean diary = diaryPro.getDiary(num, (String)session.getAttribute("sessionID"), diaryid); 
-%>
+%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -54,7 +54,7 @@
 <div>&nbsp;
 	<!-- form -->
 	
-	<form id="frm" action="<%=request.getContextPath()%>/Project/view/user_updateDPro.jsp" method="post">
+	<form id="frm" action="<%=request.getContextPath()%>/story/user_updateDPro" method="post">
 	
 		<!-- 상단 바, 사이드 바 간격 -->
 		<div style="margin-top:54px; margin-left: 10%;"><br>
@@ -73,7 +73,7 @@
 							<div class="w3-row w3-section">
 								<div class="w3-content">
 				 					일기장 선택
-									&nbsp;<input class="w3-input" name="diaryid" type="text" value="<%=diary.getDiaryid()%>"/>
+									&nbsp;<input class="w3-input" name="diaryid" type="text" value="${diary.diaryid}"/>
 								</div>
 							</div>
 	
@@ -81,7 +81,7 @@
 							<div class="w3-row w3-section">
 								<div class="w3-content">
 				 					제목 
-									&nbsp;<input class="w3-input" name="subject" type="text" size="60" value="<%=diary.getSubject() %>" />
+									&nbsp;<input class="w3-input" name="subject" type="text" size="60" value="${diary.subject}" />
 								</div>
 							</div>
 							
@@ -103,7 +103,7 @@
 							<div class="w3-row w3-section">
 								<div class="w3-content">&nbsp;내용
 									<textarea  id="ir1" class="w3-input w3-border" rows="10" cols="30" 	name="content">
-										<%=diary.getContent() %>
+										${diary.content}
 									</textarea>
 									<!-- <textarea id="ir1" class="w3-input w3-border" rows="10" cols="30"
 										style="width: 950px; height: 400px;" name="content">
@@ -124,10 +124,10 @@
 							&nbsp;
 							<input class="w3-button w3-yellow" type="button" value="취소" onClick = "history.back();"/>
 							
-							<input type="hidden" name="diaryid" value="<%= diaryid %>">
-							<input type="hidden" name="email" value="<%= diary.getEmail() %>">
-							<input type="hidden" name="num" value="<%= num %>">
-							<input type="hidden" name="pageNum" value="<%= pageNum %>">	
+							<input type="hidden" name="diaryid" value="${diary.diaryid}">
+							<input type="hidden" name="email" value="${diary.email}">
+							<input type="hidden" name="num" value="${diary.num}">
+							<input type="hidden" name="pageNum" value="${pageNum}">	
 							
 						</div>
 						
@@ -140,7 +140,7 @@
 		<!-- end. 상단 바, 사이드 바 간격 -->
 	</form>
 	<!-- end. form -->
-	<% } catch (Exception e) {} %>
+	<%-- <% } catch (Exception e) {} %> --%>
 </div>
 <script type="text/javascript">
 	var oEditors = [];

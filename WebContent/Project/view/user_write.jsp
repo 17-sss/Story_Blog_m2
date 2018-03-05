@@ -4,7 +4,7 @@
 <%
 	String ctx = request.getContextPath(); //콘텍스트명 얻어오기.
 %>
-<%    
+<%-- <%    
    	 	//제대로 utf-8환경이 아니라 한글 깨짐 그래서 임의로 추가                                                   
 	    request.setCharacterEncoding("EUC-KR");
 	   
@@ -23,7 +23,7 @@
 		if (request.getParameter("num")!=null) {
 			num = Integer.parseInt(request.getParameter("num"));
 		}
-%>
+%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -52,9 +52,9 @@
 <div>&nbsp;
 	<!-- form -->
 	
-	<form id="frm" action="<%=request.getContextPath()%>/Project/view/user_writePro.jsp" method="post">
-	<input type="hidden" name="diaryid" value="<%= diaryid %>">
-	<input type="hidden" name="num" value="<%= num %>">
+	<form id="frm" action="<%=request.getContextPath()%>/story/user_writePro" method="post">
+	<input type="hidden" name="diaryid" value="${diaryid}">
+	<input type="hidden" name="num" value="${num}">
 		
 		<!-- 상단 바, 사이드 바 간격 -->
 		<div style="margin-top:54px; margin-left: 10%;"><br>
@@ -73,7 +73,7 @@
 							<div class="w3-row w3-section">
 								<div class="w3-content">
 				 					일기장 선택
-									&nbsp;<input class="w3-input" name="diaryid" type="text" value="<%= diaryid%>">
+									&nbsp;<input class="w3-input" name="diaryid" type="text" value="${diaryid}">
 								</div>
 							</div>
 	
@@ -81,7 +81,7 @@
 							<div class="w3-row w3-section">
 								<div class="w3-content">
 				 					제목 
-									&nbsp;<input class="w3-input" name="subject" type="text" size="60" value="<%=subject %>" />
+									&nbsp;<input class="w3-input" name="subject" type="text" size="60" value="${subject}" />
 								</div>
 							</div>
 							

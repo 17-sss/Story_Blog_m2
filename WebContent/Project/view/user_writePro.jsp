@@ -1,4 +1,4 @@
-<%@ page import="com.db.DiaryDBBean" %>
+<%-- <%@ page import="com.db.DiaryDBBean" %> --%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<% request.setCharacterEncoding("EUC-KR"); %>
+<%-- <% request.setCharacterEncoding("EUC-KR"); %>
 <%
 	String pageNum = request.getParameter("pageNum");
 	if (pageNum == null || pageNum == "") {
@@ -25,8 +25,8 @@
 </jsp:useBean>
 
 
-<% System.out.println(diary); %>
-<%
+<% System.out.println(diary); %> --%>
+<%-- <%
 	DiaryDBBean dbPro = DiaryDBBean.getInstance();
     
 	diary.setIp(request.getRemoteAddr());
@@ -34,6 +34,6 @@
 	diary.setEmail((String)session.getAttribute("sessionID")); 
 	dbPro.insertDiary(diary);
 	response.sendRedirect("user_timeline.jsp?pageNum="+pageNum+"&diaryid="+diaryid);
-%>
+%> --%>
 </body>
 </html>

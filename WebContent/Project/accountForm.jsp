@@ -83,7 +83,7 @@
 			alert("이메일을 입력하세요. (중복확인)");
 			return;
 		}
-		url = "confirmEmail.jsp?email=" + document.userInfo.email.value;
+		url = "confirmEmail?email=" + document.userInfo.email.value;
 		open(url, "confirm", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizeble=no, width=400, height=150");
 	}
 </script>
@@ -93,7 +93,7 @@
 <body>
 <div class="bgimg formpad">
 <form method="post" name="userInfo" class="w3-container w3-card-4 w3-white w3-text-pink w3-margin w3-animate-bottom w3-round" 
-action="<%=request.getContextPath()%>/Project/accountPro.jsp" onsubmit="return checkValue()">
+action="<%=request.getContextPath()%>/story/accountPro" onsubmit="return checkValue()">
 
 <h2 class="w3-center">Sign Up</h2>
 <h6 class="w3-right">*는 필수 입력입니다.</h6>
