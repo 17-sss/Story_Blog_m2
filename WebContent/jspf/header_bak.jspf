@@ -84,10 +84,10 @@
 	<div class="w3-bar w3-white">
 		<a href="#" class="w3-bar-item w3-button" style="width: 10%">&nbsp;</a>
 		<div>
-			<a href="<%=request.getContextPath() %>/Project/view/user_timeline.jsp" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 17.5%; margin-left: 20%;">Timeline</a>
-			<a href="<%=request.getContextPath() %>/Project/view/user_gallery.jsp" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 17.5%; margin-left: 15%; margin-right: 20%;">Gallery</a>
-			<%-- <a href="<%=request.getContextPath() %>/Project/view/user_map.jsp" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 15%;">Map</a>
-			<a href="<%=request.getContextPath() %>/Project/view/user_calender.jsp" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 15%;">Calendar</a> --%>
+			<a href="<%=request.getContextPath() %>/Project/view/user_timeline.jsp" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 15%; margin-left: 15%;">Timeline</a>
+			<a href="<%=request.getContextPath() %>/Project/view/user_gallery.jsp" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 15%;">Gallery</a>
+			<a href="<%=request.getContextPath() %>/Project/view/user_map.jsp" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 15%;">Map</a>
+			<a href="<%=request.getContextPath() %>/Project/view/user_calender.jsp" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 15%;">Calendar</a>
 		
 		</div>
 	</div>
