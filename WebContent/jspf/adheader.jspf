@@ -40,7 +40,7 @@
 		<script type="text/javascript">
 	        // admin 로그아웃 담당 JSP로 이동
 	        function logoutPro(){
-	            location.href="/Story_Blog/admin/adLogoutPro.jsp";
+	            location.href="/Story_Blog_m2/admin/adLogoutPro.jsp";
 	       	 }
 		 </script>
 		 

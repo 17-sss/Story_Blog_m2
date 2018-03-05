@@ -328,6 +328,8 @@ public class StoryController extends Action {
 	// end. user ====================================
 	
 	// admin ========================================
+	
+	// /story/admin/accountList
 	public String accountList(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		int pageSize= 10;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -367,6 +369,92 @@ public class StoryController extends Action {
 		req.setAttribute("endPage", endPage);
 		
 		return  "/admin/accountList.jsp"; 
+	}
+	
+	
+	// /story/admin/adLogoutPro
+	public String adLogoutPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
+		HttpSession  session = req.getSession();
+	    session.invalidate(); // 모든세션정보 삭제
+	    res.sendRedirect("index"); // 로그인 화면으로 다시 돌아간다.
+		
+	    return null; 
+	}
+	
+	
+	// /story/admin/updateUserForm
+	public String updateUserForm(HttpServletRequest req, HttpServletResponse res) throws Throwable { 
+		String email=req.getParameter("email");
+		String pwd=req.getParameter("pwd");
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null || pageNum == "") { pageNum = "1"; }
+		try {
+			UserDBBean userPro = UserDBBean.getInstance();
+			UserDataBean user = userPro.getUser(email, pwd);
+			
+			req.setAttribute("user", user); 
+		} catch (Exception e) {}
+		return "/admin/updateUserForm.jsp"; 
+	}
+	
+	
+	// /story/admin/updateUserPro
+	public String updateUserPro(HttpServletRequest req, HttpServletResponse res) throws Throwable { 
+		UserDataBean user = new UserDataBean();
+		UserDBBean userPro = UserDBBean.getInstance();
+		
+		String email = req.getParameter("email");
+		String pwd= req.getParameter("pwd");
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null || pageNum == "") {pageNum = "1";}
+		
+		try {
+			user.setEmail(req.getParameter("email"));
+			user.setPwd(req.getParameter("pwd"));
+			user.setName(req.getParameter("name"));
+			user.setTel(req.getParameter("tel"));
+			user.setBirth(req.getParameter("birth"));
+			user.setIp(req.getRemoteAddr());
+			
+			int chk = userPro.updateUser(user);
+			
+			req.setAttribute("chk", chk);
+			req.setAttribute("pageNum", pageNum);
+			req.setAttribute("email", email);
+			req.setAttribute("pwd", pwd);
+			
+			System.out.println("수정여부: " + chk);
+			System.out.println(user);
+			
+			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return  "/admin/updateUserPro.jsp"; 
+	}
+	
+	
+	public String deleteUserPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		UserDataBean user = new UserDataBean();
+		
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null || pageNum == "") {pageNum = "1";}
+		String email = req.getParameter("email");
+		String pwd = req.getParameter("pwd");
+		
+		user.setEmail(req.getParameter("email"));
+		user.setPwd(req.getParameter("pwd"));
+		
+		UserDBBean dbPro = UserDBBean.getInstance();
+		
+		int check = dbPro.deleteUser(email, pwd);
+		
+		System.out.println("삭제여부: " + check);
+		
+		req.setAttribute("pwd", pwd);
+		req.setAttribute("email", email);
+		req.setAttribute("check", check);
+		
+		return "/admin/deleteUserPro.jsp"; 
 	} 
 // {} class
 }

@@ -1,4 +1,4 @@
-<%@page import="com.db.UserDBBean"%>
+<%-- <%@page import="com.db.UserDBBean"%> --%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<% request.setCharacterEncoding("EUC-KR"); %>
+<%-- <% request.setCharacterEncoding("EUC-KR"); %>
 
 <jsp:useBean id="user" class="com.db.UserDataBean">
 <jsp:setProperty name="user" property="*"/>
@@ -29,24 +29,22 @@
 	%>
 	
 	<%
-	System.out.println("수정여부: " + chk);
-	if(chk ==1) { 
-	%>
+	System.out.println("수정여부: " + chk); --%>
+	<c:if test="${chk==1}">
 	
 	<script type="text/javascript">
 		alert("수정 완료");
-		location.href="/Story_Blog/admin/accountList.jsp";
+		location.href="/Story_Blog_m2/story/admin/accountList";
 	</script>
-	<meta http-equiv="Refresh" content="0;url=updateUserForm.jsp?email=<%=email%>&pwd=<%=pwd%>&pageNum=<%=pageNum%>">
-	<%-- <meta http-equiv="Refresh" content="0;url=accountList.jsp?pageNum=<%=pageNum%>"> --%>
-
-	<% } else { %>
+	<meta http-equiv="Refresh" content="0;url=updateUserForm?email=${email}&pwd=${pwd}&pageNum=${pageNum}">
+	<%-- <meta http-equiv="Refresh" content="0;url=accountList?pageNum=<%=pageNum%>"> --%>
+	</c:if>
+	
+	<c:if test="${chk!=1}">
 	<script type="text/javascript">
 		alert("수정 불가");
 		history.go(-1);
 	</script>
-
-	<% } %>
-<% } catch (Exception e) {e.printStackTrace();} %>
+	</c:if>
 </body>
 </html>
