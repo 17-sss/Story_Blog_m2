@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +10,7 @@
 		body,h1 {font-family: "consolas", sans-serif}
 		body, html {height: 100%}
 		.bgimg {
-		    background-image: url("../../Project/img/back2_babypink.jpg");
+		    background-image: url("/Story_Blog_m2/Project/img/back2_babypink.jpg");
 		    min-height: 100%;
 		    background-position: center;
 		    background-size: cover;		
@@ -50,11 +51,11 @@
 <!-- Body - 전부: 배경, 모바일 대응 -->
 <body class="bgimg">
 
-<%
+<%-- <%
 		if(session.getAttribute("sessionID") == null) {response.sendRedirect("/Story_Blog/Project/index.jsp");}
 		else if(session.getAttribute("sessionID").equals("admin"))
         {
-%>
+%> --%>
 <!-- 전체 틀 div ★ -->     
 <div>
 
@@ -118,13 +119,10 @@
 </div>
 <!-- end. 전체 틀 div ★ -->   
 
-		<%-- <div class="footer" style="opacity: 0.4; margin-top: 3%;">
-			<p>Powered by <a href="<%=request.getContextPath() %>/Project/index.jsp" target="_blank">Story Blog</a></p>
-		</div> --%>
-	<% } else {
+<%-- 	<% } else {
 		// 어차피 어드민 아니면 유저 로그아웃 시켜버리기..
 		response.sendRedirect("/Story_Blog/Project/LogoutPro.jsp");
-	}%>
+	}%> --%>
 </body>
 <!-- end. Body - 전부: 배경, 모바일 대응 -->
 

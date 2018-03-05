@@ -124,7 +124,7 @@ public class DiaryDBBean {
 		try {
 			conn = getConnection();
 			sql = "select * from (select rownum rnum, b.* from (select num, email, diaryid, subject, cdate, content, ip "
-					+ "from diary where diaryid = ? and email = ?) b) where rnum between ? and ? order by cdate desc";
+					+ "from diary where diaryid = ? and email = ? order by cdate desc) b) where rnum between ? and ?";
 			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, diaryid);

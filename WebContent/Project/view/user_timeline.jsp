@@ -105,6 +105,29 @@
 			
 		<!-- end. 일기 (타임라인) -->	
 		
+		<!-- 일기 페이지 -->
+		<div class = "w3-center w3-container w3-card w3-white w3-round w3-margin">
+			<c:if test="${count>0}"> 
+				<c:if test="${startPage > bottomLine}">
+					<a href="user_timeline?pageNum=${startPage - bottomLine}">[이전]</a>
+				</c:if>
+				
+				<c:forEach var="i" begin="${startPage}" end="${endPage}">
+					<a href="user_timeline?pageNum=${i}"> <c:if test="${i != currentPage}">[${i}]</c:if>
+						<c:if test="${i == currentPage}">
+							<font color='red'>[${i}]</font>
+						</c:if>
+					</a>
+				</c:forEach>
+				
+				<c:if test="${endPage < pageCount}">
+						<a href="user_timeline?pageNum=${startPage + bottomLine}">[다음]</a>
+		
+					</c:if>
+				</c:if>
+		</div>
+<!-- end. 일기 페이지 -->
+		
       	
 </div>
 <!-- end. 타임라인 margin -->
@@ -114,29 +137,6 @@
 </div>
 <!-- end. 전체 틀 div ★ -->
 
-<!-- 일기 페이지 -->
-
-<div class = "w3-center">
-	<c:if test="${count>0}"> 
-		<c:if test="${startPage > bottomLine}">
-			<a href="user_timeline?pageNum=${startPage - bottomLine}">[이전]</a>
-		</c:if>
-		
-		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			<a href="user_timeline?pageNum=${i}"> <c:if test="${i != currentPage}">[${i}]</c:if>
-				<c:if test="${i == currentPage}">
-					<font color='red'>[${i}]</font>
-				</c:if>
-			</a>
-		</c:forEach>
-		
-		<c:if test="${endPage < pageCount}">
-				<a href="user_timeline?pageNum=${startPage + bottomLine}">[다음]</a>
-
-			</c:if>
-		</c:if>
-</div>
-<!-- end. 일기 페이지 -->
 
 
 </body>

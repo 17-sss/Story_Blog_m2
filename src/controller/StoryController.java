@@ -16,7 +16,7 @@ import com.sist.msk.Action;
 
 public class StoryController extends Action {
 	
-	
+	// user ====================================
 	public String index(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		return  "/Project/index.jsp"; 
 	}
@@ -325,6 +325,48 @@ public class StoryController extends Action {
 		
 		return null;
 	}
+	// end. user ====================================
 	
+	// admin ========================================
+	public String accountList(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
+		int pageSize= 10;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null || pageNum =="") {
+			pageNum = "1";
+		}
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage - 1) * pageSize + 1;  
+		//사칙연산은 곱셈먼저.. +1은 맨나중에! 왼쪽에서부터 오른쪽으로 차례대로 계산
+		int endRow = currentPage * pageSize;
+		int count = 0;
+		int number = 0;
+		List usList = null;
+		UserDBBean dbPro = UserDBBean.getInstance();
+		count = dbPro.getUserCount();
+		//게시판에 있는 글 수 count
+		if (count > 0) {
+			usList = dbPro.getUsers(startRow, endRow); 
+		}
+		number = count - (currentPage - 1) * pageSize;
+		
+		int bottomLine = 3; 
+		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; //곱셈, 나눗셈먼저.
+		int endPage = startPage + bottomLine -1;
+		
+		if (endPage > pageCount) endPage = pageCount;
+		
+		req.setAttribute("count", count);
+		req.setAttribute("usList", usList);
+		req.setAttribute("currentPage", currentPage);
+		req.setAttribute("startPage", startPage);
+		req.setAttribute("bottomLine", bottomLine);
+		req.setAttribute("pageCount", pageCount);
+		req.setAttribute("number", number);
+		req.setAttribute("endPage", endPage);
+		
+		return  "/admin/accountList.jsp"; 
+	} 
 // {} class
 }
