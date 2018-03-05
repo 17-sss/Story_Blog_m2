@@ -7,13 +7,14 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 	<title>Story Blog - Sign Up</title>
-	<%-- <% 
+	<% 
+		String email = request.getParameter("email");
 		int num=0;
 		
 		if (request.getParameter("num")!=null) {
 			num = Integer.parseInt(request.getParameter("num"));
 		}
-	%> --%>
+	%>
 	<style type="text/css">
 		body,h1 {font-family: "consolas", sans-serif}
 		body, html {height: 100%}
@@ -82,8 +83,8 @@
 			alert("이메일을 입력하세요. (중복확인)");
 			return;
 		}
-		url = "confirmEmail.jsp?id=" + document.userInfo.email.value;
-		open(url, "confirm", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizeble=no, width=300, height=200");
+		url = "confirmEmail.jsp?email=" + document.userInfo.email.value;
+		open(url, "confirm", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizeble=no, width=400, height=150");
 	}
 </script>
 
@@ -92,7 +93,7 @@
 <body>
 <div class="bgimg formpad">
 <form method="post" name="userInfo" class="w3-container w3-card-4 w3-white w3-text-pink w3-margin w3-animate-bottom w3-round" 
-action="<%=request.getContextPath()%>/story/accountPro" onsubmit="return checkValue()">
+action="<%=request.getContextPath()%>/Project/accountPro.jsp" onsubmit="return checkValue()">
 
 <h2 class="w3-center">Sign Up</h2>
 <h6 class="w3-right">*는 필수 입력입니다.</h6>
@@ -102,9 +103,9 @@ action="<%=request.getContextPath()%>/story/accountPro" onsubmit="return checkVa
   <div class="w3-col" style="width:50px"></div>
     <div class="w3-rest">
     
-      <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*">	
+      <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*" style="width: 92%; display: inline-block;">	
       <%-- <input type="hidden" name="email" value="<%= email %>"> --%>
-      <input type="button" value="중복확인" onclick="confirmEmail(this.form)">
+      <input class="w3-button w3-blue w3-right" type="button" value="중복확인" onclick="confirmEmail(this.form)" style="margin-left: 1.5%; display: inline-block;">
       
      <!-- <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*" onkeydown="inputIdChk()">
      	  <input type="button" value="중복확인" onclick="openIdChk()">
