@@ -85,6 +85,10 @@ public class StoryController extends Action {
         // URL 및 로그인관련 전달 메시지
         String msg = "";
         
+        /*if(session.getAttribute("sessionID").equals("admin")) {
+        	res.sendRedirect("/Story_Blog_m2/story/accountForm");
+        }*/
+        
         if(check == 1)    // 로그인 성공
         { 
             // 세션에 현재 아이디 세팅

@@ -51,6 +51,10 @@
 
 <!-- Body - 전부: 배경, 모바일 대응 -->
 <body class="bgimg">
+<%-- <c:if test=" ${sessionScope eq admin}">
+<jsp:forward page="/Story_Blog_m2/story/ad_main"/>
+</c:if> --%>
+
 <%-- <%
         if(session.getAttribute("sessionID") == null) // 로그인이 안되었을 때
         { 
