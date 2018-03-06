@@ -102,10 +102,10 @@
 			<!-- 내용 출력 -->
 			<p>${diary.content}</p>
 
-			<!-- 이미지 출력 -->
-			<c:if test="${diary.filename!=null}">
+			<!-- 이미지 출력 / 타임라인에선 사용안함.-->
+			<%-- <c:if test="${diary.filename!=null}">
 				<p><img src="/Story_Blog_m2/fileSave/${diary.filename}" width="400px" height="auto"></p>
-			</c:if>
+			</c:if> --%>
 		</div>
 
 		</c:forEach>
