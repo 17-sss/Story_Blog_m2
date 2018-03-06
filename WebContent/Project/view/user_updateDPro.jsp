@@ -28,9 +28,9 @@
 	<c:if test="${chk==1}">
 		<script type="text/javascript">
 			alert("수정 완료");
-			location.href="/Story_Blog_m2/story/user_timeline";
+			location.href="/Story_Blog_m2/story/user_main"; <!-- 나중엔 각 페이지 마다 뒤로 가게 만들기. 지금은 무조건 main으로감 -->
 		</script>
-	<meta http-equiv="Refresh" content="0;url=user_updateDForm?pageNum=${pageNum}">
+	<meta http-equiv="Refresh" content="0;url=user_updateDForm?pageNum=${pageNum}"> 
 	</c:if>
 	<c:if test="${chk!=1}">
 		<script type="text/javascript">

@@ -25,7 +25,7 @@ config={
 
 
 
-ajax.post(url,'',config).then((response)=>{
+$.ajax.post(url,'',config).then((response)=>{
 	console.log(response.data['weatherStatusCode'])
 	console.log(response.data['weatherStatusDescription'])
 	this.weatherStatusCode= response.data['weatherStatusCode']
