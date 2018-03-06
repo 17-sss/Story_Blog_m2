@@ -112,6 +112,30 @@ public class DiaryDBBean {
 		
 		return x;
 	}
+	// 각 일기장의 사진 수
+		public int getImgDiaryCount(String diaryid, String email) throws SQLException {
+			int x = 0;
+			String sql = "SELECT nvl(count(filename),0) FROM diary WHERE diaryid = ? and email=?";
+			Connection conn = getConnection();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int number = 0;
+			
+			try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, diaryid);
+			pstmt.setString(2, email);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) { x = rs.getInt(1); }
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(conn, rs, pstmt);
+			}
+			
+			return x;
+		}
 	
 	// 일기(목록) 가져오기
 	public List getDiaries(int startRow, int endRow, String email, String diaryid) {
@@ -120,7 +144,7 @@ public class DiaryDBBean {
 		ResultSet rs = null;
 		List diaryList = null;
 		
-		System.out.println(startRow+":"+endRow+"/"+email+"/"+diaryid); // Test
+		System.out.println("getDiaries: "+startRow+":"+endRow+"/"+email+"/"+diaryid); // Test
 		
 		String sql = "";
 		try {
@@ -166,13 +190,13 @@ public class DiaryDBBean {
 		ResultSet rs = null;
 		List diaryList = null;
 		
-		System.out.println(startRow+":"+endRow+"/"+email+"/"+diaryid); // Test
+		System.out.println("getImgDiaries: "+startRow+":"+endRow+"/"+email+"/"+diaryid); // Test
 		
 		String sql = "";
 		try {
 			conn = getConnection();
-			sql = "select * from (select rownum rnum, b.* from (select num, email, diaryid, subject, cdate, content, ip, filename "
-					+ "from diary where diaryid = ? and email = ? order by cdate desc) b) where rnum between ? and ?"; //filename 추가
+			sql = "select * from (select rownum rnum, b.* from (select num, email, filename, diaryid, cdate "
+					+ "from diary where diaryid = ? and email = ? and filename is not null order by cdate desc) b) where rnum between ? and ?"; //filename 추가
 			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, diaryid);
@@ -188,11 +212,7 @@ public class DiaryDBBean {
 					diary.setNum(rs.getInt("num"));
 					diary.setEmail(rs.getString("email"));
 					diary.setDiaryid(rs.getString("diaryid"));
-					diary.setSubject(rs.getString("subject"));
-					/*diary.setCdate(rs.getString("cdate"));*/
 					diary.setCdate(rs.getTimestamp("cdate"));
-					diary.setContent(rs.getString("content"));
-					diary.setIp(rs.getString("ip"));
 					diary.setFilename(rs.getString("filename")); //이미지(파일)
 					diaryList.add(diary);
 				} while (rs.next()); 

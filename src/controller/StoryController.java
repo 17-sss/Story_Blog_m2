@@ -207,7 +207,7 @@ public class StoryController extends Action {
 		int number = 0;
 		List diaryList = null;
 		DiaryDBBean dbPro = DiaryDBBean.getInstance();
-		count = dbPro.getDiaryCount(diaryid, (String)session.getAttribute("sessionID"));
+		count = dbPro.getImgDiaryCount(diaryid, (String)session.getAttribute("sessionID"));
 		//게시판에 있는 글 수 count
 		if (count > 0) {
 			diaryList = dbPro.getImgDiaries(startRow, endRow, (String)session.getAttribute("sessionID"), diaryid);
