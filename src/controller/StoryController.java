@@ -296,6 +296,7 @@ public class StoryController extends Action {
 	
 	public String user_updateDForm(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		HttpSession session = req.getSession();
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		String diaryid = req.getParameter("diaryid");
 		if (diaryid==null) diaryid="Main";
