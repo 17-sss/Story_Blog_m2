@@ -64,8 +64,8 @@ public class DiaryDBBean {
 			
 			System.out.println(diary.getEmail()); // Test
 			
-			sql = "insert into diary(num, email, diaryid, subject, cdate, content, ip)";
-			sql += "values(?,?,?,?, sysdate, ?, ?)";
+			sql = "insert into diary(num, email, diaryid, subject, cdate, content, ip, filename, filesize)";
+			sql += "values(?,?,?,?,sysdate,?,?,?,?)"; //+ filename, filesize 추가 / ? 두개 추가 [파일업로드용]
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, number);
@@ -74,6 +74,8 @@ public class DiaryDBBean {
 			pstmt.setString(4, diary.getSubject());
 			pstmt.setString(5, diary.getContent());
 			pstmt.setString(6, diary.getIp());
+			pstmt.setString(7, diary.getFilename()); //+
+			pstmt.setInt(8, diary.getFilesize()); //+
 			
 			
 			pstmt.executeUpdate();
@@ -123,8 +125,8 @@ public class DiaryDBBean {
 		String sql = "";
 		try {
 			conn = getConnection();
-			sql = "select * from (select rownum rnum, b.* from (select num, email, diaryid, subject, cdate, content, ip "
-					+ "from diary where diaryid = ? and email = ? order by cdate desc) b) where rnum between ? and ?";
+			sql = "select * from (select rownum rnum, b.* from (select num, email, diaryid, subject, cdate, content, ip, filename "
+					+ "from diary where diaryid = ? and email = ? order by cdate desc) b) where rnum between ? and ?"; //filename 추가
 			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, diaryid);
@@ -145,6 +147,7 @@ public class DiaryDBBean {
 					diary.setCdate(rs.getTimestamp("cdate"));
 					diary.setContent(rs.getString("content"));
 					diary.setIp(rs.getString("ip"));
+					diary.setFilename(rs.getString("filename")); //이미지(파일)
 					diaryList.add(diary);
 				} while (rs.next()); 
 			}

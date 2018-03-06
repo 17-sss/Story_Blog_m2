@@ -52,7 +52,7 @@
 <div>&nbsp;
 	<!-- form -->
 	
-	<form id="frm" action="<%=request.getContextPath()%>/story/user_writePro" enctype="multipart/form-data" method="post">
+	<form id="frm" action="<%=request.getContextPath()%>/story/user_writePro" method="post">
 	<input type="hidden" name="diaryid" value="${diaryid}">
 	<input type="hidden" name="num" value="${num}">
 		
@@ -98,14 +98,6 @@
 									&nbsp;<input class="w3-input" name="cdate" type="text" value="" readonly>
 								</div>
 							</div> -->
-					
-							<!-- 파일업로드  -->
-							<div class="w3-row w3-section">
-								<div class="w3-content">
-				 					파일 
-									&nbsp;<input class="w3-input" name="filename" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
-								</div>
-							</div>
 							
 							<!-- 내용 (SE2) -->
 							<div class="w3-row w3-section">

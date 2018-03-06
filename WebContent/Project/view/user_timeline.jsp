@@ -67,11 +67,11 @@
 			<br> 
 			<img src="<%=request.getContextPath()%>/Project/img/Kirby_1.png" alt="kirby1" class="w3-left w3-circle w3-margin-right"
 				style="width: 60px"> 
-			
-			<span class="w3-right w3-text-gray">${diary.cdate}<%-- <%=sdf.format(diary.getCdate()) %> --%></span>
-			
+			<!-- 날짜 출력 -->
+			<span class="w3-right w3-text-gray">${diary.cdate}</span>
+			<!-- 제목 출력 -->
 			<b>제목:</b> ${diary.subject}
-			
+			<!-- 수정, 삭제 -->
 			<div style="margin-top: 6px;">
 				<form method="post" style="display: inline-block; margin-left: 10px;" class="w3-right" action="<%=request.getContextPath() %>/story/user_deleteDPro">
 					<input type="submit" class="w3-button w3-red w3-small" value="삭제">
@@ -93,11 +93,19 @@
                		<!--  -->
 				</form>
 			</div>
-					
-			<p class="w3-text-gray" style="font-size: 9pt;">${diary.email}</p>
-			<hr class="w3-clear">
-			<p>${diary.content}</p>
+			<!-- end. 수정, 삭제 -->
 			
+			<!-- 이메일 출력 -->		
+			<p class="w3-text-gray" style="font-size: 9pt;">${diary.email}</p>
+			
+			<hr class="w3-clear">
+			<!-- 내용 출력 -->
+			<p>${diary.content}</p>
+
+			<!-- 이미지 출력 -->
+			<c:if test="${diary.filename!=null}">
+				<p><img src="/Story_Blog_m2/fileSave/${diary.filename}" width="400px" height="auto"></p>
+			</c:if>
 		</div>
 
 		</c:forEach>
