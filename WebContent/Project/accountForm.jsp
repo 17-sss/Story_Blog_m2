@@ -103,10 +103,11 @@ action="<%=request.getContextPath()%>/story/accountPro" onsubmit="return checkVa
   <div class="w3-col" style="width:50px"></div>
     <div class="w3-rest">
     
-      <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*" style="width: 92%; display: inline-block;">	
-      <%-- <input type="hidden" name="email" value="<%= email %>"> --%>
-      <input class="w3-button w3-blue w3-right" type="button" value="중복확인" onclick="confirmEmail(this.form)" style="margin-left: 1.5%; display: inline-block;">
-      
+	   <div>
+	     <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*" style="display: inline-block;">	
+	     	<%-- <input type="hidden" name="email" value="<%= email %>"> --%>
+	     <input class="w3-button w3-blue w3-right" type="button" value="중복확인" onclick="confirmEmail(this.form)" style="font-size: 8pt;  display: inline-block;">
+	   </div>
      <!-- <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*" onkeydown="inputIdChk()">
      	  <input type="button" value="중복확인" onclick="openIdChk()">
       	  <input type="hidden" name="idDuplication" value="idUncheck"> -->

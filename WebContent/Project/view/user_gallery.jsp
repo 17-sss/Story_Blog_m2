@@ -69,7 +69,9 @@
 				<div class="w3-third w3-container w3-margin w3-border w3-card w3-center"
 					style="width: 600px; height:auto;">
 					<img src="/Story_Blog_m2/fileSave/${diary.filename}" width="500px" height="auto" alt="${diary.filename}"
-						class="w3-hover-opacity w3-margin">
+						class="w3-hover-opacity w3-margin" onclick="location.href=''">
+						<!-- 사진 주소로 이동 만들기 -->
+						<a href="<%=request.getContextPath()%>/story/user_main?num=${diary.num}&pageNum=${currentPage}">${diary.subject}Test</a>
 					<div class="w3-container w3-white">
 						<p>${diary.cdate}</p>
 					</div>
