@@ -88,8 +88,9 @@
 	<div class="w3-bar w3-white">
 		<a href="#" class="w3-bar-item w3-button" style="width: 10%">&nbsp;</a>
 		<div>
-			<a href="<%=request.getContextPath() %>/story/user_timeline" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 17.5%; margin-left: 20%;">Timeline</a>
-			<a href="<%=request.getContextPath() %>/story/user_gallery" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 17.5%; margin-left: 15%; margin-right: 20%;">Gallery</a>
+			<a href="<%=request.getContextPath() %>/story/user_main" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 13.3%; margin-left: 25%;">Main</a>
+			<a href="<%=request.getContextPath() %>/story/user_timeline" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 13.3%;">Timeline</a>
+			<a href="<%=request.getContextPath() %>/story/user_gallery" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 13.3%; margin-right: 25%;">Gallery</a>
 			<%-- <a href="<%=request.getContextPath() %>/story/user_map" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 15%;">Map</a>
 			<a href="<%=request.getContextPath() %>/story/user_calender" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 15%;">Calendar</a> --%>
 		
@@ -107,7 +108,7 @@
 			<div class="w3-container w3-center">
 			
 				<p class="w3-center w3-text-blue" style="font-size: 14.5pt; font-family: fantasy;">
-					<a href="<%=request.getContextPath() %>/story/user_main" 
+					<a href="#" 
 					style="text-decoration: none;">Story</a>
 				</p>
 				

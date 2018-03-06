@@ -309,13 +309,14 @@ public class StoryController extends Action {
 			DiaryDBBean diaryPro = DiaryDBBean.getInstance();
 			DiaryDataBean diary = diaryPro.getDiary(num, (String)session.getAttribute("sessionID"), diaryid);
 			
+			req.setAttribute("pageNum", pageNum); 
 			req.setAttribute("diary", diary); 
 		} catch (Exception e) {}
 		return "/Project/view/user_updateDForm.jsp"; 
 	}
 	
 	// 유저 - 일기 수정 폼 전송
-	public String user_updateDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+	/*public String user_updateDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		DiaryDataBean diary = new DiaryDataBean();
 		DiaryDBBean diaPro = DiaryDBBean.getInstance();
 		int num = Integer.parseInt(req.getParameter("num"));
@@ -344,9 +345,9 @@ public class StoryController extends Action {
 		} catch (Exception e) {e.printStackTrace();}
 			
 		return "/Project/view/user_updateDPro.jsp";
-	}
+	}*/
 	// 수정 - 파일 업로드 시도
-	/*public String user_updateDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+	public String user_updateDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		DiaryDataBean diary = new DiaryDataBean();
 		DiaryDBBean diaPro = DiaryDBBean.getInstance();
 		
@@ -392,7 +393,7 @@ public class StoryController extends Action {
 				diary.setFilename(filename);
 				diary.setFilesize((int)file.length());
 			} else {
-				diary.setFilename(" ");
+				/*diary.setFilename(" ");*/
 				diary.setFilesize(0);
 			}
 			
@@ -408,7 +409,7 @@ public class StoryController extends Action {
 		} catch (Exception e) {e.printStackTrace();}
 			
 		return "/Project/view/user_updateDPro.jsp";
-	}*/
+	}
 		
 	// 유저 - 일기 삭제 전송	
 	public String user_deleteDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 

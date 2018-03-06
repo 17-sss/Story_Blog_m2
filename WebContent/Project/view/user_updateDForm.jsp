@@ -54,7 +54,7 @@
 <div>&nbsp;
 	<!-- form -->
 	
-	<form id="frm" action="<%=request.getContextPath()%>/story/user_updateDPro" method="post">
+	<form id="frm" action="<%=request.getContextPath()%>/story/user_updateDPro" enctype="multipart/form-data" method="post">
 	
 		<!-- 상단 바, 사이드 바 간격 -->
 		<div style="margin-top:54px; margin-left: 10%;"><br>
@@ -73,7 +73,13 @@
 							<div class="w3-row w3-section">
 								<div class="w3-content">
 				 					일기장 선택
-									&nbsp;<input class="w3-input" name="diaryid" type="text" value="${diary.diaryid}"/>
+									&nbsp;
+									<select name="diaryid">
+			   							<!-- <option value="">Select</option> -->
+									    <option value="${diary.diaryid}">${diary.diaryid}</option>
+									</select>
+								
+									<%-- <input class="w3-input" name="diaryid" type="text" value="${diary.diaryid}"> --%>
 								</div>
 							</div>
 	
@@ -135,6 +141,8 @@
 							<input type="hidden" name="diaryid" value="${diary.diaryid}">
 							<input type="hidden" name="email" value="${diary.email}">
 							<input type="hidden" name="num" value="${diary.num}">
+							<input type="hidden" name="filename" value="${diary.filename}">
+							<%-- <input type="hidden" name="filesize" value="${diary.filesize}"> --%>
 							<input type="hidden" name="pageNum" value="${pageNum}">	
 							
 						</div>
