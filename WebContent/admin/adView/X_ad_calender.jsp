@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<title>Story Blog - ADMIN</title>
+	<title>Story Blog - User</title>
 </head>
 <body>
 <!-- 전체 틀 div ★ --> 
@@ -17,11 +17,11 @@
 		
 		<!-- 양 옆 간격 -->
 		<div style="margin-left: 10%; margin-right: 10%;">	
-			<!-- 지도 -->
+			<!-- 캘린더 -->
 			<div class="w3-card w3-round w3-white" >
-				<h1 class=w3-center>지도</h1>
+				<h1 class=w3-center>캘린더</h1>
 			</div>
-			<!-- end. 지도 -->
+			<!-- end. 캘린더 -->
 		</div>
 		<!-- end. 양 옆 간격 -->
 		

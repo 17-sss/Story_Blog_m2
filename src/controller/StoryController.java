@@ -90,36 +90,24 @@ public class StoryController extends Action {
         }*/
         
         if(check == 1)    // 로그인 성공
-        { 
+        {
             // 세션에 현재 아이디 세팅
         	session.setAttribute("sessionID", email);
             
-         msg="/Story_Blog_m2/story/user_main";
+			/* msg="/Story_Blog_m2/story/user_main"; */
+			msg = "/Story_Blog_m2/story/head";
         }
         else if(check == 0) // 비밀번호가 틀릴경우
         {
-            msg = "index?msg=0";
+            msg = "/Story_Blog_m2/story/index?msg=0";  
         }
         else    // 아이디가 틀릴경우
         {
-            msg = "index?msg=-1";
+            msg = "/Story_Blog_m2/story/index?msg=-1";
         }
         res.sendRedirect(msg);
         
         return null;
-        /*if(check != 1)
-        { 
-        	
-        	System.out.println("no");
-        	return "/Project/index.jsp"; 
-        }
-        else {
-        	System.out.println("yes");
-        	session.setAttribute("sessionID", email);
-        	 return "/Project/view/user_main.jsp";
-        }*/
-       
-		
 	}
 	
 	
@@ -329,6 +317,7 @@ public class StoryController extends Action {
 	
 	// admin ========================================
 	
+	// 관리자 유저관리
 	// /story/admin/accountList
 	public String accountList(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		int pageSize= 10;
@@ -374,9 +363,9 @@ public class StoryController extends Action {
 	
 	// /story/admin/adLogoutPro
 	public String adLogoutPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
-		HttpSession  session = req.getSession();
+		HttpSession session = req.getSession();
 	    session.invalidate(); // 모든세션정보 삭제
-	    res.sendRedirect("index"); // 로그인 화면으로 다시 돌아간다.
+	    res.sendRedirect(req.getContextPath()+"/story/index"); // 로그인 화면으로 다시 돌아간다.
 		
 	    return null; 
 	}
@@ -433,6 +422,7 @@ public class StoryController extends Action {
 	}
 	
 	
+	// /story/admin/deleteUserPro
 	public String deleteUserPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		UserDataBean user = new UserDataBean();
 		
@@ -443,6 +433,9 @@ public class StoryController extends Action {
 		
 		user.setEmail(req.getParameter("email"));
 		user.setPwd(req.getParameter("pwd"));
+		user.setName(req.getParameter("name"));
+		user.setTel(req.getParameter("tel"));
+		user.setBirth(req.getParameter("birth"));
 		
 		UserDBBean dbPro = UserDBBean.getInstance();
 		
@@ -455,6 +448,252 @@ public class StoryController extends Action {
 		req.setAttribute("check", check);
 		
 		return "/admin/deleteUserPro.jsp"; 
-	} 
+	}
+	
+	
+	// 관리자 일기장
+	// /story/admin/ad_deleteDPro
+	public String ad_deleteDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
+		
+		HttpSession session = req.getSession();
+		
+		String diaryid = req.getParameter("diaryid");
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null || pageNum == "") {pageNum = "1";}
+		int num = Integer.parseInt(req.getParameter("num"));
+		
+		DiaryDBBean dbPro = DiaryDBBean.getInstance();
+		
+		int check = dbPro.deleteDiary(num, (String)session.getAttribute("sessionID"), diaryid);
+		
+		req.setAttribute("check", check);
+		
+		return "/admin/adView/ad_deleteDPro.jsp"; 
+	}
+	
+	
+	// /story/admin/ad_gallery
+	public String ad_gallery(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		return "/admin/adView/ad_gallery.jsp";
+	}
+	
+	
+	// /story/admin/ad_main
+	public String ad_main(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		String diaryid = req.getParameter("diaryid");
+		String subject = req.getParameter("subject");
+		
+		if (diaryid==null) diaryid = "Main"; 
+		if (subject==null) subject = "하루의 끝";
+
+		req.setAttribute("diaryid", diaryid);
+		req.setAttribute("subject", subject);
+		
+		return "/admin/adView/ad_main.jsp";
+	}
+	
+	
+	// /story/admin/ad_timeline
+	public String ad_timeline(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		HttpSession session = req.getSession();
+		
+		String diaryid = req.getParameter("diaryid");
+		String subject = req.getParameter("subject");
+		
+		if (diaryid==null) diaryid = "Main"; 
+		if (subject==null) subject = "하루의 끝";
+		
+		
+		int pageSize= 5;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null || pageNum =="") {
+			pageNum = "1";
+		}
+		int currentPage = Integer.parseInt(pageNum);
+		
+		int startRow = (currentPage - 1) * pageSize + 1;
+		int endRow = currentPage * pageSize;
+		
+		int count = 0;
+		int number = 0;
+		List diaryList = null;
+		DiaryDBBean dbPro = DiaryDBBean.getInstance();
+		count = dbPro.getDiaryCount(diaryid, (String)session.getAttribute("sessionID"));
+		//게시판에 있는 글 수 count
+		if (count > 0) {
+			diaryList = dbPro.getDiaries(startRow, endRow, (String)session.getAttribute("sessionID"), diaryid);
+		}
+		number = count - (currentPage - 1) * pageSize;
+		
+		System.out.println(count+":"+diaryList);
+		
+		int bottomLine = 3; 
+		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; //곱셈, 나눗셈먼저.
+		int endPage = startPage + bottomLine -1;
+		
+		if (endPage > pageCount) endPage = pageCount;
+		
+		req.setAttribute("subject", subject);
+		req.setAttribute("diaryid", diaryid);
+		req.setAttribute("count", count);
+		req.setAttribute("diaryList", diaryList);
+		req.setAttribute("currentPage", currentPage);
+		req.setAttribute("startPage", startPage);
+		req.setAttribute("bottomLine", bottomLine);
+		req.setAttribute("pageCount", pageCount);
+		req.setAttribute("number", number);
+		req.setAttribute("endPage", endPage);
+		
+		return "/admin/adView/ad_timeline.jsp";
+	}
+	
+	
+	// /story/admin/ad_updateDForm 
+	public String ad_updateDForm(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		HttpSession session = req.getSession();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String diaryid = req.getParameter("diaryid");
+		if (diaryid==null) diaryid="Main";
+		String pageNum = req.getParameter("pageNum");
+			if (pageNum == null || pageNum == "") { 
+				pageNum = "1"; 
+			}
+		int num = Integer.parseInt(req.getParameter("num"));
+		
+		try {
+			DiaryDBBean diaryPro = DiaryDBBean.getInstance();
+			DiaryDataBean diary = diaryPro.getDiary(num, (String)session.getAttribute("sessionID"), diaryid);
+			
+			req.setAttribute("diary", diary); 
+		} catch (Exception e) {}
+		
+		return "/admin/adView/ad_updateDForm.jsp";
+	}
+	
+	
+	// /story/admin/ad_updateDPro
+	public String ad_updateDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		DiaryDataBean diary = new DiaryDataBean();
+		DiaryDBBean diaPro = DiaryDBBean.getInstance();
+		int num = Integer.parseInt(req.getParameter("num"));
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null || pageNum == "") {pageNum = "1";}
+		String diaryid = req.getParameter("diaryid");
+		if (diaryid==null) diaryid = "Main";
+		
+		try {
+			diary.setNum(num);
+			diary.setEmail(req.getParameter("email"));
+			diary.setSubject(req.getParameter("subject"));
+			diary.setContent(req.getParameter("content"));
+			diary.setDiaryid(req.getParameter("diaryid"));
+			diary.setIp(req.getRemoteAddr());
+			
+			int chk = diaPro.updateDiary(diary);
+			
+			req.setAttribute("chk", chk);
+			req.setAttribute("pageNum", pageNum);
+			
+			System.out.println("수정여부: " + chk);
+			System.out.println(diary);
+			
+			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return "/admin/adView/ad_updateDPro.jsp";
+	}
+	
+	
+	// /story/admin/ad_write
+	public String ad_write(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		String subject = req.getParameter("subject");
+	    System.out.println("제목:"+subject);
+	    
+	    int num=0;
+		String diaryid = req.getParameter("diaryid");
+		
+		if (diaryid==null) diaryid = "Main";
+		if (subject==null) subject = "제목없음";
+
+		if (req.getParameter("num")!=null) {num = Integer.parseInt(req.getParameter("num"));}
+		
+		req.setAttribute("diaryid", diaryid);
+		req.setAttribute("subject", subject);
+		
+		return "/admin/adView/ad_write.jsp";
+	}
+	
+	
+	// /story/admin/ad_writePro
+	public String ad_writePro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		HttpSession session = req.getSession();
+		DiaryDataBean diary = new DiaryDataBean();
+		DiaryDBBean dbPro = DiaryDBBean.getInstance();
+		
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null || pageNum == "") {pageNum = "1";}
+		
+		String diaryid = req.getParameter("diaryid");
+		if (diaryid==null) diaryid = "Main";
+		
+		//diary.setNum(num);
+		diary.setEmail((String)session.getAttribute("sessionID")); 
+		diary.setSubject(req.getParameter("subject"));
+		diary.setContent(req.getParameter("content"));
+		diary.setDiaryid(req.getParameter("diaryid"));
+		diary.setIp(req.getRemoteAddr());
+		
+		System.out.println(diary);
+		
+		dbPro.insertDiary(diary);
+		
+		req.setAttribute("pageNum", pageNum);
+		res.sendRedirect("ad_timeline?pageNum="+pageNum+"&diaryid="+diaryid);
+		
+		return null;
+	}
+	// end. admin ========================================
+	
+	
+	// 헤더 테스트 ==========================================
+	// header.jspf - /story/head
+	public String head(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		HttpSession session = req.getSession(); 
+		 
+		// 로그인이 안되었을 때
+		if(session.getAttribute("sessionID") == null)  {
+			res.sendRedirect(req.getContextPath()+"/story/index");
+		}
+		// 회원관리 화면으로 이동 (admin)
+		else if(session.getAttribute("sessionID").equals("admin")) {       
+	        res.sendRedirect(req.getContextPath()+"/story/admin/ad_main");
+	    }
+		// 로그인 되었을 때
+		else {
+	    	res.sendRedirect(req.getContextPath()+"/story/user_main");   
+		}  	
+		return null;
+	}
+	
+	// adheader.jspf - /story/admin/adhead
+	/*public String adhead(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
+		HttpSession session = req.getSession(); 
+		 
+		// admin 아닐 경우 (안먹힘)
+		if(!session.getAttribute("sessionID").equals("admin"))  {
+			session.invalidate();
+			res.sendRedirect(req.getContextPath()+"/story/index");
+		}
+		else {
+			res.sendRedirect(req.getContextPath()+"/story/admin/ad_main");
+		}
+		return null;
+	}*/
+	
+	// end. 헤더 테스트 ========================================
+	
+	
 // {} class
 }

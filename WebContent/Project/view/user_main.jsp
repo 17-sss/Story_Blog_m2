@@ -24,7 +24,7 @@
 		<div style="margin-left: 10%; margin-right: 10%;">
 
 			<!-- 하루의 끝 - form 전송 -->
-			<form action="/Story_Blog/Project/view/user_write.jsp" method="post">
+			<form action="/Story_Blog_m2/story/user_write" method="post">
 				
 				<!-- 하루의 끝 -->
 			<div class="w3-row-padding">
@@ -34,7 +34,7 @@
 							<h6 class="w3-text-gray">오늘 하루를 요약해보세요.</h6>
 							<input class="w3-input w3-border w3-text-grey" name="subject" type="text" style="font-size: 9pt;" value="${subject}"><br>
 							<button type="submit" class="w3-button w3-theme w3-pink w3-right" 
-								onclick="location.href='/Story_Blog/Project/view/user_write.jsp'">글쓰기</button>
+								onclick="location.href='/Story_Blog_m2/story/user_write'">글쓰기</button>
 								<input type="hidden" name="diaryid" value="${diaryid}">
 								<input type="hidden" name="subject" value="${subject}">
 						</div>
