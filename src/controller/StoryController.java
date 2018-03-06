@@ -183,7 +183,57 @@ public class StoryController extends Action {
 	
 	
 	public String user_gallery (HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-
+		HttpSession session = req.getSession();
+		
+		String diaryid = req.getParameter("diaryid");
+		String subject = req.getParameter("subject");
+		
+		if (diaryid==null) diaryid = "Main"; 
+		if (subject==null) subject = "ÇÏ·çÀÇ ³¡";
+		
+		
+		int pageSize= 6;
+		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null || pageNum =="") {
+			pageNum = "1";
+		}
+		int currentPage = Integer.parseInt(pageNum);
+		
+		int startRow = (currentPage - 1) * pageSize + 1;
+		int endRow = currentPage * pageSize;
+		
+		int count = 0;
+		int number = 0;
+		List diaryList = null;
+		DiaryDBBean dbPro = DiaryDBBean.getInstance();
+		count = dbPro.getDiaryCount(diaryid, (String)session.getAttribute("sessionID"));
+		//°Ô½ÃÆÇ¿¡ ÀÖ´Â ±Û ¼ö count
+		if (count > 0) {
+			diaryList = dbPro.getImgDiaries(startRow, endRow, (String)session.getAttribute("sessionID"), diaryid);
+		}
+		number = count - (currentPage - 1) * pageSize;
+		
+		System.out.println(count+":"+diaryList);
+		
+		int bottomLine = 3; 
+		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; //°ö¼À, ³ª´°¼À¸ÕÀú.
+		int endPage = startPage + bottomLine -1;
+		
+		if (endPage > pageCount) endPage = pageCount;
+		
+		req.setAttribute("subject", subject);
+		req.setAttribute("diaryid", diaryid);
+		req.setAttribute("count", count);
+		req.setAttribute("diaryList", diaryList);
+		req.setAttribute("currentPage", currentPage);
+		req.setAttribute("startPage", startPage);
+		req.setAttribute("bottomLine", bottomLine);
+		req.setAttribute("pageCount", pageCount);
+		req.setAttribute("number", number);
+		req.setAttribute("endPage", endPage);
+	
 		return "/Project/view/user_gallery.jsp";
 	}
 	
@@ -381,7 +431,7 @@ public class StoryController extends Action {
 			diary.setFilename(filename);
 			diary.setFilesize((int) file.length());
 		} else {
-			diary.setFilename(" ");
+			/*diary.setFilename(" ");*/
 			diary.setFilesize(0);
 		}
 		// =================================================
@@ -391,7 +441,7 @@ public class StoryController extends Action {
 		dbPro.insertDiary(diary);
 		
 		req.setAttribute("pageNum", pageNum);
-		res.sendRedirect("user_timeline?pageNum="+pageNum+"&diaryid="+diaryid);
+		res.sendRedirect("user_main?pageNum="+pageNum+"&diaryid="+diaryid);
 		
 		return null;
 	}

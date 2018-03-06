@@ -12,11 +12,11 @@
 <!-- 전체 틀 div ★ -->  
 <div>&nbsp;
 
-<!-- 타임라인 (이페이지에서는 사진 X) -->
+<!-- 메인 (이페이지에서는 사진 O) -->
 <div style="margin-top:54px; margin-left: 10%;"><br>
 	<!-- <div class="w3-col m8 w3-row" style="margin-left: 22%; margin-top: 5%; margin-bottom: 3%;"> -->
 
-<!-- 타임라인 margin -->
+<!-- 메인 margin -->
 <div style="margin-left: 10%; margin-right: 10%;">
 
 		<!-- 하루의 끝 - form 전송 -->
@@ -61,7 +61,7 @@
 	    	<h3 class="w3-center">일기 수:${count}</h3>
 	    </div>
 	    
-        <!-- 일기 (타임라인) -->
+        <!-- 일기 (메인) -->
         <c:forEach var="diary" items="${diaryList}">
 		<div class="w3-container w3-card w3-white w3-round w3-margin">
 			<br> 
@@ -104,7 +104,7 @@
 
 			<!-- 이미지 출력 -->
 			<c:if test="${diary.filename!=null}">
-				<p><img src="/Story_Blog_m2/fileSave/${diary.filename}" width="400px" height="auto"></p>
+				<p><img src="/Story_Blog_m2/fileSave/${diary.filename}"width="400px" height="auto"></p>
 			</c:if>
 		</div>
 
@@ -138,9 +138,9 @@
 		
       	
 </div>
-<!-- end. 타임라인 margin -->
+<!-- end. 메인 margin -->
 </div>
-<!-- end. 타임라인 -->
+<!-- end. 메인 -->
 
 </div>
 <!-- end. 전체 틀 div ★ -->

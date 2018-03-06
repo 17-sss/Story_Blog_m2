@@ -159,6 +159,52 @@ public class DiaryDBBean {
 		return diaryList;
 		
 	}
+	// 이미지만 불러오기.
+	public List getImgDiaries (int startRow, int endRow, String email, String diaryid) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List diaryList = null;
+		
+		System.out.println(startRow+":"+endRow+"/"+email+"/"+diaryid); // Test
+		
+		String sql = "";
+		try {
+			conn = getConnection();
+			sql = "select * from (select rownum rnum, b.* from (select num, email, diaryid, subject, cdate, content, ip, filename "
+					+ "from diary where diaryid = ? and email = ? order by cdate desc) b) where rnum between ? and ?"; //filename 추가
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, diaryid);
+			pstmt.setString(2, email);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				diaryList = new ArrayList();
+				do {
+					DiaryDataBean diary = new DiaryDataBean();
+					diary.setNum(rs.getInt("num"));
+					diary.setEmail(rs.getString("email"));
+					diary.setDiaryid(rs.getString("diaryid"));
+					diary.setSubject(rs.getString("subject"));
+					/*diary.setCdate(rs.getString("cdate"));*/
+					diary.setCdate(rs.getTimestamp("cdate"));
+					diary.setContent(rs.getString("content"));
+					diary.setIp(rs.getString("ip"));
+					diary.setFilename(rs.getString("filename")); //이미지(파일)
+					diaryList.add(diary);
+				} while (rs.next()); 
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close(conn, rs, pstmt);
+		}
+		return diaryList;
+		
+	}
 	
 	// 일기 수정할때 정보 불러옴.
 	public DiaryDataBean getDiary(int num, String email, String diaryid) {

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,103 +12,110 @@
 <!-- 전체 틀 div ★ -->  
 <div>&nbsp;
 
-
-<!-- 상단 바, 사이드바  간격 -->
-<div style="margin-top:54px; margin-left: 10%; margin-bottom: 3%;"><br>
+<!-- 메인 (이페이지에서는 사진 O) -->
+<div style="margin-top:54px; margin-left: 10%;"><br>
 	<!-- <div class="w3-col m8 w3-row" style="margin-left: 22%; margin-top: 5%; margin-bottom: 3%;"> -->
 
+<!-- 메인 margin -->
+<div style="margin-left: 10%; margin-right: 10%;">
 
-<!-- 갤러리 컨테이너 + 컨텐츠 여백  -->
-<div style="margin-left: 10%; margin-right: 10%;" class="w3-card w3-round w3-white">
+		<!-- 하루의 끝 - form 전송 -->
+		<form action="/Story_Blog_m2/story/user_write" method="post">
+				
+			<!-- 하루의 끝 -->
+			<div class="w3-row-padding">
+				<div class="w3-col m12">
+					<div class="w3-card w3-round w3-white">
+						<div class="w3-container w3-padding">
+							<h6 class="w3-text-gray">오늘 하루를 요약해보세요.</h6>
+							<input class="w3-input w3-border w3-text-grey" name="subject" type="text" style="font-size: 9pt;" value="${subject}"><br>
+							<button type="submit" class="w3-button w3-theme w3-pink w3-right" 
+								onclick="location.href='/Story_Blog_m2/story/user_write'">글쓰기</button>
+								<input type="hidden" name="diaryid" value="${diaryid}">
+								<input type="hidden" name="subject" value="${subejct}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end. 하루의 끝 -->
+				
+		</form>
+		<!-- end. 하루의 끝 - form 전송 -->
+			
+		
+		<!-- 일기가 없을 때 -->	
+        <c:if test="${count==0}">
+        <div class="w3-container w3-card w3-white w3-round w3-margin">
+       		<h3 class="w3-center">일기 수:${count}</h3>
 
-	   <!-- 갤러리 여백 조정  -->
-	   <div class="w3-row-padding" style="padding: 30px; ">
+	        <div class="w3-center w3-container">
+	       		<p class="w3-pink">일기를 써주세요!!</p>
+	       	</div>	
+        </div>
+        </c:if>
+       
 	    
-	    <!-- 사진 1 -->
-	    <div class="w3-third w3-container w3-margin w3-border w3-card" style="width: 30%;">
-	      <img src="<%=request.getContextPath() %>/Project/img/Kirby_star2.png" alt="star" style="width:100%" class="w3-hover-opacity">
-	      <div class="w3-container w3-white">
-	        <p>별</p>
-	      </div>
-	    </div>
+	    <!-- 일기가 있을 때 -->
+	    <c:if test="${count!=0}">
 	    
-	    <!-- 사진 2 -->
-	    <div class="w3-third w3-container w3-margin w3-border w3-card" style="width: 30%;">
-	      <img src="<%=request.getContextPath() %>/Project/img/Kirby_star2.png" alt="star" style="width:100%" class="w3-hover-opacity">
-	      <div class="w3-container w3-white">
-	        <p>별</p>
-	      </div>
-	    </div>
-	    
-	    <!-- 사진 3 -->
-	   <div class="w3-third w3-container w3-margin w3-border w3-card" style="width: 30%;">
-	      <img src="<%=request.getContextPath() %>/Project/img/Kirby_star2.png" alt="star" style="width:100%" class="w3-hover-opacity">
-	      <div class="w3-container w3-white">
-	        <p>별</p>
-	      </div>
-	    </div>
-	    
-	    <!-- 사진 4 -->
-	    <div class="w3-third w3-container w3-margin w3-border w3-card" style="width: 30%;">
-	      <img src="<%=request.getContextPath() %>/Project/img/Kirby_star2.png" alt="star" style="width:100%" class="w3-hover-opacity">
-	      <div class="w3-container w3-white">
-	        <p>별</p>
-	      </div>
-	    </div>
-	    
-	    <!-- 사진 5 -->
-	    <div class="w3-third w3-container w3-margin w3-border w3-card" style="width: 30%;">
-	      <img src="<%=request.getContextPath() %>/Project/img/Kirby_star2.png" alt="star" style="width:100%" class="w3-hover-opacity">
-	      <div class="w3-container w3-white">
-	        <p>별</p>
-	      </div>
-	    </div>
-	    
-	    <!-- 사진 6 -->
-	   <div class="w3-third w3-container w3-margin w3-border w3-card" style="width: 30%;">
-	      <img src="<%=request.getContextPath() %>/Project/img/Kirby_star2.png" alt="star" style="width:100%" class="w3-hover-opacity">
-	      <div class="w3-container w3-white">
-	        <p>별</p>
-	      </div>
-	    </div>
-	    
-	    <!-- 사진 7 -->
-	    <div class="w3-third w3-container w3-margin w3-border w3-card" style="width: 30%;">
-	      <img src="<%=request.getContextPath() %>/Project/img/Kirby_star2.png" alt="star" style="width:100%" class="w3-hover-opacity">
-	      <div class="w3-container w3-white">
-	        <p>별</p>
-	      </div>
-	    </div>
-	    
-	    <!-- 사진 8 -->
-	    <div class="w3-third w3-container w3-margin w3-border w3-card" style="width: 30%;">
-	      <img src="<%=request.getContextPath() %>/Project/img/Kirby_star2.png" alt="star" style="width:100%" class="w3-hover-opacity">
-	      <div class="w3-container w3-white">
-	        <p>별</p>
-	      </div>
-	    </div>
-	    
-	    <!-- 사진 9 -->
-	   <div class="w3-third w3-container w3-margin w3-border w3-card" style="width: 30%;">
-	      <img src="<%=request.getContextPath() %>/Project/img/Kirby_star2.png" alt="star" style="width:100%" class="w3-hover-opacity">
-	      <div class="w3-container w3-white">
-	        <p>별</p>
-	      </div>
-	    </div>
-	    
-	  </div>
-	  <!-- end. 갤러리 여백 조정  -->
-	    
+        <!-- 일기 (메인) -->
+        <div class="w3-container w3-card w3-white w3-round w3-margin w3-center">
+        <c:forEach var="diary" items="${diaryList}">
+		
+		
+			
+			<!-- 이미지 출력 -->
+			<c:if test="${diary.filename!=null}">
+				<div class="w3-third w3-container w3-margin w3-border w3-card w3-center"
+					style="width: 600px; height:auto;">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename}" width="500px" height="auto" alt="${diary.filename}"
+						class="w3-hover-opacity w3-margin">
+					<div class="w3-container w3-white">
+						<p>${diary.cdate}</p>
+					</div>
+				</div>
+			</c:if>
+		
+
+		</c:forEach>
+		</div>
+		</c:if>
+			
+		<!-- end. 일기 (타임라인) -->	
+		
+		<!-- 일기 페이지 -->
+		<div class = "w3-center w3-container w3-card w3-white w3-round w3-margin">
+			<c:if test="${count>0}"> 
+				<c:if test="${startPage > bottomLine}">
+					<a href="user_gallery?pageNum=${startPage - bottomLine}">[이전]</a>
+				</c:if>
+				
+				<c:forEach var="i" begin="${startPage}" end="${endPage}">
+					<a href="user_gallery?pageNum=${i}"> <c:if test="${i != currentPage}">[${i}]</c:if>
+						<c:if test="${i == currentPage}">
+							<font color='red'>[${i}]</font>
+						</c:if>
+					</a>
+				</c:forEach>
+				
+				<c:if test="${endPage < pageCount}">
+						<a href="user_gallery?pageNum=${startPage + bottomLine}">[다음]</a>
+		
+					</c:if>
+				</c:if>
+		</div>
+<!-- end. 일기 페이지 -->
+		
+      	
+</div>
+<!-- end. 메인 margin -->
+</div>
+<!-- end. 메인 -->
 
 </div>
-<!-- end. 갤러리 컨테이너 + 컨텐츠 여백  -->
-
-</div>
-<!-- end. 상단 바, 사이드바  간격 -->
+<!-- end. 전체 틀 div ★ -->
 
 
 
-</div>
-<!-- end. 전체 틀 div ★ -->  
 </body>
 </html>
