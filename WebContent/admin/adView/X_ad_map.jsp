@@ -8,7 +8,7 @@
 	<title>Story Blog - User</title>
 </head>
 <body>
-<!-- 전체 틀 div ★ --> 
+<!-- 전체 틀 div  ★ --> 
 <div>&nbsp;
 
 <!-- 상단 바, 사이드 바 간격 -->
