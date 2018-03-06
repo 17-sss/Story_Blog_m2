@@ -73,7 +73,13 @@
 							<div class="w3-row w3-section">
 								<div class="w3-content">
 				 					일기장 선택
-									&nbsp;<input class="w3-input" name="diaryid" type="text" value="${diaryid}">
+									&nbsp;
+									<select name="diaryid">
+			   							<!-- <option value="">Select</option> -->
+									    <option value="${diaryid}">${diaryid}</option>
+									</select>
+								
+									<%-- <input class="w3-input" name="diaryid" type="text" value="${diaryid}"> --%>
 								</div>
 							</div>
 	

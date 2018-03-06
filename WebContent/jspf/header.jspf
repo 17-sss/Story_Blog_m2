@@ -108,7 +108,7 @@
 			
 				<p class="w3-center w3-text-blue" style="font-size: 14.5pt; font-family: fantasy;">
 					<a href="<%=request.getContextPath() %>/story/user_main" 
-					style="text-decoration: none;">S&nbsp;t&nbsp;o&nbsp;r&nbsp;y</a>
+					style="text-decoration: none;">Story</a>
 				</p>
 				
 			</div>

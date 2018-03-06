@@ -88,6 +88,41 @@ public class DiaryDBBean {
 		
 	}
 	
+	// 일기장 추가 (미완성)
+	public void insertDiaryid (DiaryDataBean diary) {
+		String sql="";
+		Connection conn = getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int number=0;
+		try {
+			pstmt = conn.prepareStatement("select diarySer.nextval from dual");
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				number = rs.getInt(1) + 1;
+			else number = 1;
+			
+			System.out.println(diary.getEmail()); // Test
+			
+			sql = "insert into diary(num, email, diaryid) ";
+			sql += "values(?,?,?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, number);
+			pstmt.setString(2, diary.getEmail());
+			pstmt.setString(3, diary.getDiaryid());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, rs, pstmt);
+		}
+		
+	}
+	
 	// 각 일기장의 일기 수
 	public int getDiaryCount(String diaryid, String email) throws SQLException {
 		int x = 0;
