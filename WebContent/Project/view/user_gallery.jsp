@@ -12,7 +12,7 @@
 <!-- 전체 틀 div ★ -->  
 <div>&nbsp;
 
-<!-- 메인 (이페이지에서는 사진 O) -->
+<!-- 메인 (이페이지에서는 사진만) -->
 <div style="margin-top:54px; margin-left: 10%;"><br>
 	<!-- <div class="w3-col m8 w3-row" style="margin-left: 22%; margin-top: 5%; margin-bottom: 3%;"> -->
 
@@ -43,35 +43,39 @@
 		<!-- end. 하루의 끝 - form 전송 -->
 			
 		
-		<!-- 일기가 없을 때 -->	
+		<!-- 사진) 일기가 없을 때 -->	
         <c:if test="${count==0}">
         <div class="w3-container w3-card w3-white w3-round w3-margin">
-       		<h3 class="w3-center">일기 수:${count}</h3>
+       		<h3 class="w3-center">사진 수:${count}</h3>
 
 	        <div class="w3-center w3-container">
-	       		<p class="w3-pink">일기를 써주세요!!</p>
+	       		<p class="w3-pink">사진을 첨부해서 일기를 써주세요!!</p>
 	       	</div>	
         </div>
         </c:if>
        
 	    
-	    <!-- 일기가 있을 때 -->
+	    <!-- 사진) 일기가 있을 때 -->
 	    <c:if test="${count!=0}">
+	    <div class="w3-container w3-card w3-white w3-round w3-margin">
+       		<h3 class="w3-center">사진 수:${count}</h3>
+       	</div>
 	    
-        <!-- 일기 (메인) -->
+        <!-- 사진) 일기 (메인) -->
         <div class="w3-container w3-card w3-white w3-round w3-margin w3-center">
         <c:forEach var="diary" items="${diaryList}">
 		
 		
 			
-			<!-- 이미지 출력 -->
+			<!-- 사진) 이미지 출력 -->
 			<c:if test="${diary.filename!=null}">
 				<div class="w3-third w3-container w3-margin w3-border w3-card w3-center"
 					style="width: 600px; height:auto;">
 					<img src="/Story_Blog_m2/fileSave/${diary.filename}" width="500px" height="auto" alt="${diary.filename}"
-						class="w3-hover-opacity w3-margin" onclick="location.href=''">
+						class="w3-margin" onclick="location.href=''">
 						<!-- 사진 주소로 이동 만들기 -->
-						<a href="<%=request.getContextPath()%>/story/user_main?num=${diary.num}&pageNum=${currentPage}">${diary.subject}Test</a>
+						<br>
+						<a href="<%=request.getContextPath()%>/story/user_content?num=${diary.num}&pageNum=${currentPage}">${diary.subject}</a>
 					<div class="w3-container w3-white">
 						<p>${diary.cdate}</p>
 					</div>
@@ -83,9 +87,9 @@
 		</div>
 		</c:if>
 			
-		<!-- end. 일기 (타임라인) -->	
+		<!-- end. 사진) 일기 (타임라인) -->	
 		
-		<!-- 일기 페이지 -->
+		<!-- 사진) 일기 페이지 -->
 		<div class = "w3-center w3-container w3-card w3-white w3-round w3-margin">
 			<c:if test="${count>0}"> 
 				<c:if test="${startPage > bottomLine}">
@@ -106,7 +110,7 @@
 					</c:if>
 				</c:if>
 		</div>
-<!-- end. 일기 페이지 -->
+<!-- end. 사진) 일기 페이지 -->
 		
       	
 </div>

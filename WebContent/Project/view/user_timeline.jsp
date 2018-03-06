@@ -103,9 +103,11 @@
 			<p>${diary.content}</p>
 
 			<!-- 이미지 출력 / 타임라인에선 사용안함.-->
-			<%-- <c:if test="${diary.filename!=null}">
-				<p><img src="/Story_Blog_m2/fileSave/${diary.filename}" width="400px" height="auto"></p>
-			</c:if> --%>
+			<c:if test="${diary.filename!=null}">
+				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
+					!Picture
+				</div>
+			</c:if>
 		</div>
 
 		</c:forEach>

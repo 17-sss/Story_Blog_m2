@@ -9,7 +9,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import com.db.DiaryDBBean;
 import com.db.DiaryDataBean;
@@ -26,7 +25,7 @@ public class StoryController extends Action {
 		return  "/Project/index.jsp"; 
 	}
 	
-	
+	// 유저 - 회원가입
 	public String accountForm(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		int num=0;
 		if (req.getParameter("num")!=null) {
@@ -38,7 +37,7 @@ public class StoryController extends Action {
 		return  "/Project/accountForm.jsp"; 
 	} 
 	
-	
+	// 유저 - 회원가입 전송
 	public String accountPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		UserDBBean dbPro = UserDBBean.getInstance();
 		UserDataBean user = new UserDataBean();
@@ -60,7 +59,7 @@ public class StoryController extends Action {
 		return null; 
 	} 
 	
-	
+	// 유저 - 이메일 확인
 	public String confirmEmail (HttpServletRequest req,HttpServletResponse res)  throws Throwable { 
 		String email = req.getParameter("email"); 
 		UserDBBean dbPro = UserDBBean.getInstance();
@@ -71,7 +70,7 @@ public class StoryController extends Action {
 		return  "/Project/confirmEmail.jsp"; 
 	}
 	
-	
+	// 유저 - 로그인
 	public String LoginPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		 // 로그인 화면에 입력된 아이디와 비밀번호를 가져온다
         String email= req.getParameter("email");
@@ -115,7 +114,7 @@ public class StoryController extends Action {
         return null;
 	}
 	
-	
+	// 유저 - 로그아웃
 	public String LogoutPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		
 	    HttpSession  session = req.getSession();
@@ -125,7 +124,7 @@ public class StoryController extends Action {
 		return null;
 	}
 	
-	
+	// 유저 - 메인
 	public String user_main (HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession();
 		
@@ -136,7 +135,7 @@ public class StoryController extends Action {
 		if (subject==null) subject = "하루의 끝";
 		
 		
-		int pageSize= 3;
+		int pageSize= 5;
 		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		String pageNum = req.getParameter("pageNum");
 		if (pageNum == null || pageNum =="") {
@@ -181,7 +180,7 @@ public class StoryController extends Action {
 		return "/Project/view/user_main.jsp";
 	}
 	
-	
+	// 유저 - 갤러리
 	public String user_gallery (HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession();
 		
@@ -237,7 +236,7 @@ public class StoryController extends Action {
 		return "/Project/view/user_gallery.jsp";
 	}
 	
-	
+	// 유저 - 타임라인
 	public String user_timeline (HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession();
 		
@@ -293,7 +292,7 @@ public class StoryController extends Action {
 		return "/Project/view/user_timeline.jsp";
 	}
 	
-	
+	// 유저 - 일기 수정 폼
 	public String user_updateDForm(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		HttpSession session = req.getSession();
 		
@@ -315,7 +314,7 @@ public class StoryController extends Action {
 		return "/Project/view/user_updateDForm.jsp"; 
 	}
 	
-	
+	// 유저 - 일기 수정 폼 전송
 	public String user_updateDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		DiaryDataBean diary = new DiaryDataBean();
 		DiaryDBBean diaPro = DiaryDBBean.getInstance();
@@ -411,7 +410,7 @@ public class StoryController extends Action {
 		return "/Project/view/user_updateDPro.jsp";
 	}*/
 		
-		
+	// 유저 - 일기 삭제 전송	
 	public String user_deleteDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		HttpSession session = req.getSession();
 		
@@ -429,7 +428,7 @@ public class StoryController extends Action {
 		return "/Project/view/user_deleteDPro.jsp"; 
 	} 
 	
-	
+	// 유저 - 일기 쓰기 폼
 	public String user_write(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		String subject = req.getParameter("subject");
 	    System.out.println("제목:"+subject);
@@ -448,6 +447,7 @@ public class StoryController extends Action {
 		return  "/Project/view/user_write.jsp"; 
 	}
 	
+	// 유저 - 일기 쓰기 폼 전송
 	public String user_writePro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession();
 		DiaryDataBean diary = new DiaryDataBean();
@@ -510,9 +510,34 @@ public class StoryController extends Action {
 		
 		return null;
 	}
+	
+	// 유저 - 콘텐츠 (갤러리에서 이동)
+	public String user_content(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		HttpSession session = req.getSession();
+		int num = Integer.parseInt(req.getParameter("num"));
+		String diaryid = req.getParameter("diaryid");
+		if (diaryid==null) diaryid = "Main"; 
+
+		
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null || pageNum =="") {
+			pageNum = "1";
+		}
+		try {
+			DiaryDBBean dbPro = DiaryDBBean.getInstance();
+			DiaryDataBean diary = dbPro.getDiary(num, (String)session.getAttribute("sessionID"), diaryid);
+			
+			req.setAttribute("diary", diary);
+			req.setAttribute("pageNum", pageNum);
+			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return "/Project/view/user_content.jsp";
+	}
 	// end. user ====================================
 	
 	// admin ========================================
+	
 	
 	// 관리자 유저관리
 	// /story/admin/accountList

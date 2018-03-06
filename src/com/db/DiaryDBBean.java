@@ -202,7 +202,6 @@ public class DiaryDBBean {
 					diary.setEmail(rs.getString("email"));
 					diary.setDiaryid(rs.getString("diaryid"));
 					diary.setSubject(rs.getString("subject"));
-					/*diary.setCdate(rs.getString("cdate"));*/
 					diary.setCdate(rs.getTimestamp("cdate"));
 					diary.setContent(rs.getString("content"));
 					diary.setIp(rs.getString("ip"));
@@ -230,7 +229,7 @@ public class DiaryDBBean {
 		String sql = "";
 		try {
 			conn = getConnection();
-			sql = "select * from (select rownum rnum, b.* from (select num, email, filename, diaryid, cdate "
+			sql = "select * from (select rownum rnum, b.* from (select num, email, diaryid, subject, cdate, content, ip, filename "
 					+ "from diary where diaryid = ? and email = ? and filename is not null order by cdate desc) b) where rnum between ? and ?"; //filename 추가
 			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
@@ -247,7 +246,10 @@ public class DiaryDBBean {
 					diary.setNum(rs.getInt("num"));
 					diary.setEmail(rs.getString("email"));
 					diary.setDiaryid(rs.getString("diaryid"));
+					diary.setSubject(rs.getString("subject"));
 					diary.setCdate(rs.getTimestamp("cdate"));
+					diary.setContent(rs.getString("content"));
+					diary.setIp(rs.getString("ip"));
 					diary.setFilename(rs.getString("filename")); //이미지(파일)
 					diaryList.add(diary);
 				} while (rs.next()); 
@@ -283,10 +285,11 @@ public class DiaryDBBean {
 				diary.setEmail(rs.getString("email"));
 				diary.setDiaryid(rs.getString("diaryid"));
 				diary.setSubject(rs.getString("subject"));
-				/*diary.setCdate(rs.getString("cdate"));*/
 				diary.setCdate(rs.getTimestamp("cdate"));
 				diary.setContent(rs.getString("content"));
 				diary.setIp(rs.getString("ip"));
+				diary.setFilename(rs.getString("filename"));
+				diary.setFilesize(rs.getInt("filesize"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
