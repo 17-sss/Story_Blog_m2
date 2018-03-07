@@ -113,10 +113,15 @@
 				</p>
 				
 			</div>
-		
 		<div class="w3-card w3-round w3-white">
-        	<h4 class="w3-center"><b>${name}</b></h4>
-         	<p class="w3-center"><img src="/Story_Blog_m2/fileSave/${filename}" alt="${user.filename}" class="w3-circle" style="height:106px;width:106px"></p>
+        	<h4 class="w3-center">
+        		<b>${name}</b>
+        		<a href="<%=request.getContextPath() %>/story/user_set">
+        		<img src="/Story_Blog_m2/Project/img/settings.png" style="height:16px;width:16px; display: inline-block; margin-right: -19px;">
+        		</a>
+        	</h4>
+        	
+         	<p class="w3-center"><img src="/Story_Blog_m2/userSave/${filename}" alt="${filename}" class="w3-circle" style="height:106px;width:106px"></p>
          	<br>
         
       	</div>

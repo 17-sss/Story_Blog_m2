@@ -47,7 +47,7 @@ public class StoryController extends Action {
 		String encType = "euc-kr"; // 인코딩 타입
 		int maxSize = 3 *1024 * 1024; // 최대 업로드 될 파일 크기 .. 3MB (회원사진)
 		ServletContext context = req.getServletContext();
-		realFolder =context.getRealPath("fileSave");
+		realFolder =context.getRealPath("userSave");
 		MultipartRequest multi = null;
 		
 		// DefaultFileRenamePolicy는 중복된 파일 업로드할때 자동으로 Rename / aaa있으면 aaa(1)로
@@ -430,6 +430,7 @@ public class StoryController extends Action {
 			
 			req.setAttribute("chk", chk);
 			req.setAttribute("pageNum", pageNum);
+			req.setAttribute("diaryid", diaryid);
 			
 			System.out.println("수정여부: " + chk);
 			System.out.println(diary);
@@ -565,6 +566,114 @@ public class StoryController extends Action {
 		
 		return "/Project/view/user_content.jsp";
 	}
+	
+	// 유저 - 마이페이지 
+	public String user_set(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
+		HttpSession session = req.getSession();
+		
+		try {
+			UserDBBean userPro = UserDBBean.getInstance();
+			UserDataBean user = userPro.getUser((String)session.getAttribute("sessionID"));
+			
+			req.setAttribute("user", user); 
+		} catch (Exception e) {}
+		
+		return  "/Project/view/user_set.jsp"; 
+	}
+	
+	public String user_updateUPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		UserDataBean user = new UserDataBean();
+		UserDBBean userPro = UserDBBean.getInstance();
+		// 사진 업로드용 ============================================
+		String realFolder = ""; //웹 어플리케이션상의 절대경로
+		String encType = "euc-kr"; // 인코딩 타입
+		int maxSize = 3 *1024 * 1024; // 최대 업로드 될 파일 크기 .. 3MB (회원사진)
+		ServletContext context = req.getServletContext();
+		realFolder =context.getRealPath("userSave");
+		MultipartRequest multi = null;
+		
+		// DefaultFileRenamePolicy는 중복된 파일 업로드할때 자동으로 Rename / aaa있으면 aaa(1)로
+		multi = new MultipartRequest(req, realFolder, maxSize, encType,  new DefaultFileRenamePolicy());
+		
+		Enumeration files = multi.getFileNames();
+		String filename="";
+		File file = null;
+		
+		if (files.hasMoreElements()) { // 만약 파일이 다수면 if를 while로..
+			String name = (String) files.nextElement();
+			filename = multi.getFilesystemName(name); // DefaultFileRenamePolicy 적용
+			String original = multi.getOriginalFileName(name); // 파일 원래 이름 (추가해도되고, 안해도..?)
+			String type = multi.getContentType(name); // 파일 타입 (추가해도되고, 안해도..?)
+			file = multi.getFile(name);
+		}
+		
+		// end. 사진 업로드용 ============================================
+		
+		String email = multi.getParameter("email");
+		String pwd= multi.getParameter("pwd");
+		
+		try {
+			user.setEmail(multi.getParameter("email"));
+			user.setPwd(multi.getParameter("pwd"));
+			user.setName(multi.getParameter("name"));
+			user.setTel(multi.getParameter("tel"));
+			user.setBirth(multi.getParameter("birth"));
+			user.setIp(req.getRemoteAddr());
+			
+			// + (사진 관련)
+			if (file != null) {
+				user.setFilename(filename);
+				user.setFilesize((int)file.length());
+			} else {
+				/*user.setFilename(" ");*/
+				user.setFilesize(0);
+			}
+			// ============
+			
+			int chk = userPro.updateUser(user);
+			
+			req.setAttribute("chk", chk);
+			req.setAttribute("email", email);
+			req.setAttribute("pwd", pwd);
+			
+			System.out.println("수정여부: " + chk);
+			System.out.println(user);
+			
+			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return "/Project/view/user_updateUPro.jsp"; 
+	}
+	
+	public String user_deleteUPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		UserDataBean user = new UserDataBean();
+		
+		String pageNum = req.getParameter("pageNum");
+		if (pageNum == null || pageNum == "") {pageNum = "1";}
+		String email = req.getParameter("email");
+		String pwd = req.getParameter("pwd");
+		
+		user.setEmail(req.getParameter("email"));
+		user.setPwd(req.getParameter("pwd"));
+		user.setName(req.getParameter("name"));
+		user.setTel(req.getParameter("tel"));
+		user.setBirth(req.getParameter("birth"));
+		
+		UserDBBean dbPro = UserDBBean.getInstance();
+		
+		int check = dbPro.deleteUser(email, pwd);
+		
+		System.out.println("삭제여부: " + check);
+		
+		req.setAttribute("pwd", pwd);
+		req.setAttribute("email", email);
+		req.setAttribute("check", check);
+		
+		return "/Project/view/user_deleteUPro.jsp"; 
+	}
+	// end. 유저 - 마이페이지 ============================= 
+	
+	
 	// end. user ====================================
 	
 	
@@ -646,18 +755,53 @@ public class StoryController extends Action {
 		UserDataBean user = new UserDataBean();
 		UserDBBean userPro = UserDBBean.getInstance();
 		
-		String email = req.getParameter("email");
-		String pwd= req.getParameter("pwd");
-		String pageNum = req.getParameter("pageNum");
+		// 사진 업로드용 ============================================
+		String realFolder = ""; //웹 어플리케이션상의 절대경로
+		String encType = "euc-kr"; // 인코딩 타입
+		int maxSize = 3 *1024 * 1024; // 최대 업로드 될 파일 크기 .. 3MB (회원사진)
+		ServletContext context = req.getServletContext();
+		realFolder =context.getRealPath("userSave");
+		MultipartRequest multi = null;
+		
+		// DefaultFileRenamePolicy는 중복된 파일 업로드할때 자동으로 Rename / aaa있으면 aaa(1)로
+		multi = new MultipartRequest(req, realFolder, maxSize, encType,  new DefaultFileRenamePolicy());
+		
+		Enumeration files = multi.getFileNames();
+		String filename="";
+		File file = null;
+		
+		if (files.hasMoreElements()) { // 만약 파일이 다수면 if를 while로..
+			String name = (String) files.nextElement();
+			filename = multi.getFilesystemName(name); // DefaultFileRenamePolicy 적용
+			String original = multi.getOriginalFileName(name); // 파일 원래 이름 (추가해도되고, 안해도..?)
+			String type = multi.getContentType(name); // 파일 타입 (추가해도되고, 안해도..?)
+			file = multi.getFile(name);
+		}
+		
+		// end. 사진 업로드용 ============================================
+		
+		String email = multi.getParameter("email");
+		String pwd= multi.getParameter("pwd");
+		String pageNum = multi.getParameter("pageNum");
 		if (pageNum == null || pageNum == "") {pageNum = "1";}
 		
 		try {
-			user.setEmail(req.getParameter("email"));
-			user.setPwd(req.getParameter("pwd"));
-			user.setName(req.getParameter("name"));
-			user.setTel(req.getParameter("tel"));
-			user.setBirth(req.getParameter("birth"));
+			user.setEmail(multi.getParameter("email"));
+			user.setPwd(multi.getParameter("pwd"));
+			user.setName(multi.getParameter("name"));
+			user.setTel(multi.getParameter("tel"));
+			user.setBirth(multi.getParameter("birth"));
 			user.setIp(req.getRemoteAddr());
+			
+			// + (사진 관련)
+			if (file != null) {
+				user.setFilename(filename);
+				user.setFilesize((int)file.length());
+			} else {
+				/*user.setFilename(" ");*/
+				user.setFilesize(0);
+			}
+			// ============
 			
 			int chk = userPro.updateUser(user);
 			
@@ -915,13 +1059,18 @@ public class StoryController extends Action {
 	// header.jspf - /story/head
 	public String head(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession(); 
-		
+		UserDBBean dbPro = UserDBBean.getInstance();
+        UserDataBean user = new UserDataBean();
+        
 		// 로그인이 안되었을 때
 		if(session.getAttribute("sessionID") == null)  {
 			res.sendRedirect(req.getContextPath()+"/story/index");
 		}
 		// 회원관리 화면으로 이동 (admin)
-		else if(session.getAttribute("sessionID").equals("admin")) {       
+		else if(session.getAttribute("sessionID").equals("admin")) {     
+			user=dbPro.getUser((String)session.getAttribute("sessionID"));
+            session.setAttribute("name", user.getName());
+            session.setAttribute("filename", user.getFilename());
 	        res.sendRedirect(req.getContextPath()+"/story/admin/accountList");
 	    }
 		// 로그인 되었을 때

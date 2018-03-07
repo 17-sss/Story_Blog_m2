@@ -22,7 +22,7 @@
         <!-- 일기 (메인) -->
 		<div class="w3-container w3-card w3-white w3-round w3-margin">
 			<br> 
-			<img src="/Story_Blog_m2/fileSave/${filename}" alt="${filename}" alt="${filename}" class="w3-left w3-circle w3-margin-right"
+			<img src="/Story_Blog_m2/userSave/${filename}" alt="${filename}" class="w3-left w3-circle w3-margin-right"
 				style="width: 60px; height: 60px"> 
 			<!-- 날짜 출력 -->
 			<span class="w3-right w3-text-gray">${diary.cdate}</span>

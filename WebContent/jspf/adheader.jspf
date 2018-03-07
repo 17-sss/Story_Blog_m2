@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -50,7 +51,22 @@
 
 <!-- Body - 전부: 배경, 모바일 대응 -->
 <body class="bgimg">
+<%-- <c:if test=" ${sessionScope eq admin}">
+<jsp:forward page="/Story_Blog_m2/story/ad_main"/>
+</c:if> --%>
 
+<%-- <%
+        if(session.getAttribute("sessionID") == null) // 로그인이 안되었을 때
+        { 
+            // 로그인 화면으로 이동
+            response.sendRedirect("/Story_Blog_m2/story/index");
+        } else if(session.getAttribute("sessionID").equals("admin")) {
+        	// 회원관리 화면으로 이동
+            response.sendRedirect("/Story_Blog_m2/story/ad_main");
+        } 
+        else // 로그인 했을 경우
+        {
+%> --%>
 <%-- <%
 		if(session.getAttribute("sessionID") == null) {response.sendRedirect("/Story_Blog/Project/index.jsp");}
 		else if(session.getAttribute("sessionID").equals("admin"))
@@ -67,7 +83,8 @@
 	<a href="http://www.google.com" class="w3-bar-item w3-button w3-pink w3-hover-pink w3-right">Search</a>
 	<input class="w3-button w3-center w3-blue w3-hover-blue w3-right w3-border-right" type="button" value="Logout" onclick="logoutPro()" />
 	<a href="#" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 1%;">!</a>
-		<label class="w3-right w3-small" style="color: white; margin:10px 10px 0px 0px;"> <b>${sessionID}</b> 님 환영합니다.</label>
+		<label class="w3-right w3-small" style="color: white; margin:10px 10px 0px 0px;"> <b>${name}</b> 님 환영합니다.</label>
+		
 		
 	</div>
 <!-- end. 상단바 -->
@@ -76,11 +93,12 @@
 	<div class="w3-bar w3-white">
 		<a href="#" class="w3-bar-item w3-button" style="width: 10%">&nbsp;</a>
 		<div>
-			<a href="<%=request.getContextPath() %>/story/admin/ad_timeline" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 13%; margin-left: 25.5%;">Timeline</a>
-			<a href="<%=request.getContextPath() %>/story/admin/ad_gallery" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 13%;">Gallery</a>
+			<a href="<%=request.getContextPath() %>/story/admin/ad_main" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 10%; margin-left: 25%;">Main</a>
+			<a href="<%=request.getContextPath() %>/story/admin/ad_timeline" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 10%;">Timeline</a>
+			<a href="<%=request.getContextPath() %>/story/admin/ad_gallery" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 10%;">Gallery</a>
 			<%-- <a href="<%=request.getContextPath() %>//story/admin/ad_map" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 13%;">Map</a>
 			<a href="<%=request.getContextPath() %>/story/admin/ad_calender" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 13%;">Calendar</a> --%>
-			<a href="<%=request.getContextPath() %>/story/admin/accountList" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 13%; margin-right: 25.5%;">Account List</a>
+			<a href="<%=request.getContextPath() %>/story/admin/accountList" class="w3-bar-item w3-button w3-pink w3-border-right" style="width: 10%; margin-right: 25%;">Account List</a>
 		
 		</div>
 	</div>
@@ -96,33 +114,36 @@
 			<div class="w3-container w3-center">
 			
 				<p class="w3-center w3-text-blue" style="font-size: 14.5pt; font-family: fantasy;">
-					<a href="<%=request.getContextPath() %>/story/admin/ad_main" 
+					<a href="#" 
 					style="text-decoration: none;">Story</a>
 				</p>
 				
-				
-				
-			
 			</div>
 		
 		<div class="w3-card w3-round w3-white">
-        <h4 class="w3-center">My Profile</h4>
-         <p class="w3-center"><img src="<%=request.getContextPath() %>/Project/img/Kirby_logo.jpg" alt="kirbylogo" class="w3-circle" style="height:106px;width:106px"></p>
-         <br>
+        	<h4 class="w3-center"><b>${name}</b></h4>
+         	<p class="w3-center"><img src="/Story_Blog_m2/userSave/${filename}" alt="${filename}" class="w3-circle" style="height:106px;width:106px"></p>
+         	<br>
+        
       	</div>
       	
-		<a href="#" class="w3-bar-item w3-button w3-hover-pink w3-border-bottom">Story 1</a>
-		<a href="#" class="w3-bar-item w3-button w3-hover-pink w3-border-bottom">Story 2</a>
-		<button class="w3-button w3-circle w3-pink w3-center w3-card-4" onclick="location.href='<%=request.getContextPath() %>/story/index'" style="font-size: 18px; margin:36% 0% 0% 36%">+</button>
+		<a href="#" class="w3-bar-item w3-button w3-hover-pink w3-border-bottom" onClick="alert('준비중입니다.')">Story 1</a>
+		<a href="#" class="w3-bar-item w3-button w3-hover-pink w3-border-bottom" onClick="alert('준비중입니다.')">Story 2</a>
+		<button class="w3-button w3-circle w3-pink w3-center w3-card-4"  onClick="alert('준비중입니다.')" style="font-size: 18px; margin:36% 0% 0% 36%">+</button>
 	</div>
 <!-- end. 사이드바 -->
 </div>
 <!-- end. 전체 틀 div ★ -->   
 
+		<%-- <div class="footer" style="opacity: 0.4; margin-top: 3%;">
+			<p>Powered by <a href="<%=request.getContextPath() %>/Project/index.jsp" target="_blank">Story Blog</a></p>
+		</div> --%>
+	
 <%-- 	<% } else {
 		// 어차피 어드민 아니면 유저 로그아웃 시켜버리기..
 		response.sendRedirect("/Story_Blog/Project/LogoutPro.jsp");
 	}%> --%>
+
 </body>
 <!-- end. Body - 전부: 배경, 모바일 대응 -->
 
