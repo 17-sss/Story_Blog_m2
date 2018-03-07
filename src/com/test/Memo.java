@@ -12,7 +12,7 @@ import com.db.UserDataBean;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-public class MultiFile {
+public class Memo {
 		// 파일 복수
 	/*// 6) fileSave 폴더 webcontent폴더 안에 만들기
 		String realFolder = ""; // 웹 어플리케이션상의 절대경로
@@ -41,6 +41,93 @@ public class MultiFile {
 			file[index] = multi.getFile(name);
 			index++;
 		}*/
+	
+	// 가져옴. (파일 복수 참조)
+	/*public String songInsert(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+
+		String realFolder = "";
+		String encType = "utf-8";
+		int maxSize = 10 * 1024 * 1024;
+		ServletContext context = req.getServletContext();
+		realFolder = context.getRealPath("songSave");
+		MultipartRequest multi = null;
+		multi = new MultipartRequest(req, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
+		Enumeration files = multi.getFileNames();
+		String[] filename = new String[2];
+		File[] file = new File[2];
+		int index = 0;
+
+		String[] original = new String[2];
+		String[] type = new String[2];
+
+		while (files.hasMoreElements()) {
+			String name = (String) files.nextElement();
+			filename[index] = multi.getFilesystemName(name);
+			original[index] = multi.getOriginalFileName(name);
+			type[index] = multi.getContentType(name);
+			file[index] = multi.getFile(name);
+			index++;
+
+		}
+
+		SongDataBean song = new SongDataBean();
+
+		if (req.getParameter("snum") != null && !req.getParameter("snum").equals("")) {
+			song.setSnum(Integer.parseInt(req.getParameter("snum")));
+		}
+
+		song.setSboardid(multi.getParameter("sboardid"));
+		song.setStitle(multi.getParameter("stitle"));
+		song.setGenre(multi.getParameter("genre"));
+		song.setSbio(multi.getParameter("sbio"));
+
+		SongDBBean dbPro = SongDBBean.getInstance();
+
+		String ctype = ".jpg";
+
+		if (filename[0] != null) {
+			ctype = filename[0].substring(filename[0].indexOf(".") + 1);
+		}
+
+		int chk = 0;
+
+		if (!(ctype.equals("jpg") || ctype.equals("jpeg") || ctype.equals("png") || ctype.equals("gif"))) {
+			chk = 1;
+			req.setAttribute("chk", chk);
+			return "/song/typechk.jsp";
+		}
+
+		System.out.println(chk);
+		String stype = filename[1].substring(filename[1].indexOf(".") + 1);
+		if (!(stype.equals("mp3") || stype.equals("mp4") || stype.equals("wav"))) {
+			chk = -1;
+			req.setAttribute("chk", chk);
+			return "/song/typechk.jsp";
+		}
+
+		if (file[0] != null) {
+
+			song.setCfilename(filename[0]);
+			song.setCfilesize((int) file[0].length());
+
+		} else {
+			song.setCfilename("");
+			song.setCfilesize(0);
+
+		}
+
+		song.setSfilename(filename[1]);
+		song.setSfilesize((int) file[1].length());
+
+		System.out.println(song);
+
+		dbPro.insertSong(song);
+		req.setAttribute("chk", chk);
+		req.setAttribute("sboardid", song.getSboardid());
+
+		return "/song/typechk.jsp";
+
+	}*/
 		
 		
 		
