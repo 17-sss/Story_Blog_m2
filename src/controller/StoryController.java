@@ -186,7 +186,7 @@ public class StoryController extends Action {
 		}
 		number = count - (currentPage - 1) * pageSize;
 		
-		System.out.println("일기장 수: "+count+"="+diaryList);
+		System.out.println("일기장 수: "+count);
 		
 		int bottomLine = 3; 
 		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
@@ -344,38 +344,7 @@ public class StoryController extends Action {
 		return "/Project/view/user_updateDForm.jsp"; 
 	}
 	
-	// 유저 - 일기 수정 폼 전송
-	/*public String user_updateDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-		DiaryDataBean diary = new DiaryDataBean();
-		DiaryDBBean diaPro = DiaryDBBean.getInstance();
-		int num = Integer.parseInt(req.getParameter("num"));
-		String pageNum = req.getParameter("pageNum");
-		if (pageNum == null || pageNum == "") {pageNum = "1";}
-		String diaryid = req.getParameter("diaryid");
-		if (diaryid==null) diaryid = "Main";
-		
-		try {
-			diary.setNum(num);
-			diary.setEmail(req.getParameter("email"));
-			diary.setSubject(req.getParameter("subject"));
-			diary.setContent(req.getParameter("content"));
-			diary.setDiaryid(req.getParameter("diaryid"));
-			diary.setIp(req.getRemoteAddr());
-			
-			int chk = diaPro.updateDiary(diary);
-			
-			req.setAttribute("chk", chk);
-			req.setAttribute("pageNum", pageNum);
-			
-			System.out.println("수정여부: " + chk);
-			System.out.println(diary);
-			
-			
-		} catch (Exception e) {e.printStackTrace();}
-			
-		return "/Project/view/user_updateDPro.jsp";
-	}*/
-	// 수정 - 파일 업로드 시도
+	// 일기 수정 전송 - 파일 업로드
 	public String user_updateDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		DiaryDataBean diary = new DiaryDataBean();
 		DiaryDBBean diaPro = DiaryDBBean.getInstance();
@@ -576,7 +545,9 @@ public class StoryController extends Action {
 			UserDBBean userPro = UserDBBean.getInstance();
 			UserDataBean user = userPro.getUser((String)session.getAttribute("sessionID"));
 			
+			System.out.println("마이페이지 정보: " + user);
 			req.setAttribute("user", user); 
+			
 		} catch (Exception e) {}
 		
 		return  "/Project/view/user_set.jsp"; 
@@ -584,11 +555,12 @@ public class StoryController extends Action {
 	
 	public String user_updateUPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		UserDataBean user = new UserDataBean();
-		UserDBBean userPro = UserDBBean.getInstance();
-		// 사진 업로드용 ============================================
+		UserDBBean dbPro = UserDBBean.getInstance();
+		
+		// 6) fileSave 폴더 webcontent폴더 안에 만들기
 		String realFolder = ""; //웹 어플리케이션상의 절대경로
 		String encType = "euc-kr"; // 인코딩 타입
-		int maxSize = 3 *1024 * 1024; // 최대 업로드 될 파일 크기 .. 3MB (회원사진)
+		int maxSize = 5 *1024 * 1024; // 최대 업로드 될 파일 크기 .. 5MB
 		ServletContext context = req.getServletContext();
 		realFolder =context.getRealPath("userSave");
 		MultipartRequest multi = null;
@@ -599,7 +571,8 @@ public class StoryController extends Action {
 		Enumeration files = multi.getFileNames();
 		String filename="";
 		File file = null;
-		
+		// =================================================
+		// 7) 
 		if (files.hasMoreElements()) { // 만약 파일이 다수면 if를 while로..
 			String name = (String) files.nextElement();
 			filename = multi.getFilesystemName(name); // DefaultFileRenamePolicy 적용
@@ -608,21 +581,15 @@ public class StoryController extends Action {
 			file = multi.getFile(name);
 		}
 		
-		// end. 사진 업로드용 ============================================
-		
-		String email = multi.getParameter("email");
-		String pwd= multi.getParameter("pwd");
-		
 		try {
 			user.setEmail(multi.getParameter("email"));
-			user.setPwd(multi.getParameter("pwd"));
 			user.setName(multi.getParameter("name"));
 			user.setTel(multi.getParameter("tel"));
-			user.setBirth(multi.getParameter("birth"));
+			user.setPwd(multi.getParameter("pwd"));
 			user.setFilename(multi.getParameter("filename"));
+			user.setBirth(multi.getParameter("birth"));
 			user.setIp(req.getRemoteAddr());
 			
-			// + (사진 관련)
 			if (file != null) {
 				user.setFilename(filename);
 				user.setFilesize((int)file.length());
@@ -630,21 +597,18 @@ public class StoryController extends Action {
 				/*user.setFilename(" ");*/
 				/*user.setFilesize(0);*/
 			}
-			// ============
 			
-			int chk = userPro.updateUser(user);
+			int chk = dbPro.updateUser(user);
 			
 			req.setAttribute("chk", chk);
-			req.setAttribute("email", email);
-			req.setAttribute("pwd", pwd);
 			
 			System.out.println("수정여부: " + chk);
-			System.out.println("수정사항: "+user);
+			System.out.println("수정아 좀되라..==========: "+user);
 			
 			
 		} catch (Exception e) {e.printStackTrace();}
-		
-		return "/Project/view/user_updateUPro.jsp"; 
+			
+		return "/Project/view/user_updateDPro.jsp";
 	}
 	
 	public String user_deleteUPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {

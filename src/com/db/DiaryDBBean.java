@@ -301,37 +301,7 @@ public class DiaryDBBean {
 		
 	}
 	
-	// 일기 수정Pro 메소드 
-	/*public int updateDiary (DiaryDataBean diary) {
-		String sql ="";
-		Connection conn = getConnection();
-		PreparedStatement pstmt = null;
-		int chk= 0; // int 변수 하나 생성.
-		ResultSet rs = null; 
-		
-		try {
-			conn = getConnection();
-			sql = "update diary set diaryid=?, subject=?, content=? where num=? and email = ?";
-			pstmt = conn.prepareStatement(sql);
-		
-			pstmt.setString(1, diary.getDiaryid());
-			pstmt.setString(2, diary.getSubject());
-			pstmt.setString(3, diary.getContent());
-			pstmt.setInt(4, diary.getNum());
-			pstmt.setString(5, diary.getEmail());
-			
-			chk = pstmt.executeUpdate(); //컬럼이 업데이트가 되었을때 숫자를 반환
-			pstmt.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, null, pstmt);
-		}
-		return chk;
-	}*/
-	
-	// 일기 수정Pro 메소드 - 파일 업로드 수정 시도
+	// 일기 수정Pro 메소드 - 파일 업로드
 	public int updateDiary (DiaryDataBean diary) {
 		String sql ="";
 		Connection conn = getConnection();

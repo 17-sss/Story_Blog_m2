@@ -339,7 +339,7 @@ public class UserDBBean {
 		
 		try {
 			conn = getConnection();
-			sql = "update userlist set name=?, pwd=?, tel=?, birth=?, filename=? where email=?";
+			sql = "update userlist set name=?, pwd=?, tel=?, birth=?, filename=? where email=? and name=?";
 			pstmt = conn.prepareStatement(sql);
 		
 			pstmt.setString(1, user.getName());
@@ -348,6 +348,7 @@ public class UserDBBean {
 			pstmt.setString(4, user.getBirth());
 			pstmt.setString(5, user.getFilename());
 			pstmt.setString(6, user.getEmail());
+			pstmt.setString(7, user.getName());
 			
 			chk = pstmt.executeUpdate(); //컬럼이 업데이트가 되었을때 숫자를 반환
 			pstmt.executeUpdate();
