@@ -106,20 +106,20 @@
 							</div> -->
 					
 							<!-- 파일업로드  -->
-							<!-- <div class="w3-row w3-section">
+							<div class="w3-row w3-section">
 								<div class="w3-content">
 				 					파일 
 									&nbsp;<input class="w3-input" name="filename" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
 								</div>
-							</div> -->
+							</div>
 							
 							<!-- 파일업로드 - 다중테스트  --> 
-							<div class="w3-row w3-section">
+							<!-- <div class="w3-row w3-section">
 								<div class="w3-content">
 				 					파일 - 다중
 									&nbsp;<input class="w3-input" multiple="multiple" name="filename[]" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
 								</div>
-							</div>
+							</div> -->
 							
 							<!-- 내용 (SE2) -->
 							<div class="w3-row w3-section">
