@@ -109,7 +109,7 @@
 							<div class="w3-row w3-section">
 								<div class="w3-content">
 				 					ÆÄÀÏ 
-									&nbsp;<input class="w3-input" name="filename" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
+									&nbsp;<input class="w3-input" name="filename" type="file" style="font-size: 9pt;" size="60" maxlength="50" value="${diary.filename}" />
 								</div>
 							</div>
 		
