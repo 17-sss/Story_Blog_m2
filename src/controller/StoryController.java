@@ -571,6 +571,7 @@ public class StoryController extends Action {
 	}
 	// end. user ====================================
 	
+	
 	// admin ========================================
 	
 	
@@ -918,15 +919,15 @@ public class StoryController extends Action {
 	// header.jspf - /story/head
 	public String head(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession(); 
-		String pwd=req.getParameter("pwd");
-		
-		try {
-			UserDBBean userPro = UserDBBean.getInstance();
-			UserDataBean user = userPro.getUser((String)session.getAttribute("sessionID"), pwd);
-			
-			req.setAttribute("user", user); 
-			System.out.println("불러와라좀..: "+user);
-		} catch (Exception e) {e.printStackTrace();} 
+//		String pwd=req.getParameter("pwd");
+//		
+//		try {
+//			UserDBBean userPro = UserDBBean.getInstance();
+//			UserDataBean user = userPro.getUser((String)session.getAttribute("sessionID"), pwd);
+//			
+//			req.setAttribute("user", user); 
+//			System.out.println("불러와라좀..: "+user);
+//		} catch (Exception e) {e.printStackTrace();} 
 		
 		// 로그인이 안되었을 때
 		if(session.getAttribute("sessionID") == null)  {
@@ -934,7 +935,7 @@ public class StoryController extends Action {
 		}
 		// 회원관리 화면으로 이동 (admin)
 		else if(session.getAttribute("sessionID").equals("admin")) {       
-	        res.sendRedirect(req.getContextPath()+"/story/admin/ad_main");
+	        res.sendRedirect(req.getContextPath()+"/story/admin/accountList");
 	    }
 		// 로그인 되었을 때
 		else {
@@ -962,6 +963,22 @@ public class StoryController extends Action {
 	
 	// end. 헤더 테스트 ========================================
 	
-	
+	// Test ================================================
+	public String picTest(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		HttpSession session = req.getSession();
+
+		try {
+			UserDBBean dbPro = UserDBBean.getInstance();
+			UserDataBean user = dbPro.getUser((String)session.getAttribute("sessionID"));
+			System.out.println("??: "+(String)session.getAttribute("sessionID"));
+			req.setAttribute("user", user);
+
+			System.out.println("불러와라 제발: "+user);
+			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return "/Project/view/picTest.jsp";
+	}
+	// end. Test ================================================
 // {} class
 }

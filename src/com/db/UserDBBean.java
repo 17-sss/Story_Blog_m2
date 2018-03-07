@@ -179,6 +179,42 @@ public class UserDBBean {
 		
 	}
 	
+	// 회원 수정할때 정보 불러오기_2
+	public UserDataBean getUser (String email) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		UserDataBean user = null;
+		String sql = "";
+		try {
+			conn = getConnection();
+			sql="select * from userlist email = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			
+			user = new UserDataBean();
+			if(rs.next()) {
+				user.setEmail(rs.getString("email"));
+				user.setName(rs.getString("name"));
+				user.setPwd(rs.getString("pwd"));
+				user.setTel(rs.getString("tel"));
+				user.setBirth(rs.getString("birth"));
+				user.setCdate(rs.getTimestamp("cdate"));
+				user.setIp(rs.getString("ip"));
+				user.setFilename(rs.getString("filename"));
+				user.setFilesize(rs.getInt("filesize"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, rs, pstmt);
+		}
+	
+		return user;
+		
+	}
+	
 	 // 로그인시 아이디, 비밀번호 체크 메서드
     // 아이디, 비밀번호를 인자로 받는다.
     public int loginCheck(String email, String pwd) 
