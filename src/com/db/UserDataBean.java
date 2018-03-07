@@ -10,6 +10,8 @@ public class UserDataBean {
 	private String birth; //회원 생일
 	private Date cdate;	//회원 생성 날짜
 	private String ip; //회원 아이피
+	private String filename; // 회원 프로필
+	private int filesize; // 회원 프로필 사진 용량
 	
 	public String getEmail() {
 		return email;
@@ -53,11 +55,26 @@ public class UserDataBean {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public int getFilesize() {
+		return filesize;
+	}
+	public void setFilesize(int filesize) {
+		this.filesize = filesize;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserDataBean [email=" + email + ", name=" + name + ", pwd=" + pwd + ", tel=" + tel + ", birth=" + birth
-				+ ", cdate=" + cdate + ", ip=" + ip + "]";
+				+ ", cdate=" + cdate + ", ip=" + ip + ", filename=" + filename + ", filesize=" + filesize + "]";
 	}
+	
+
 	
 	
 	

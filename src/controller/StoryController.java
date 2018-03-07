@@ -42,16 +42,48 @@ public class StoryController extends Action {
 		UserDBBean dbPro = UserDBBean.getInstance();
 		UserDataBean user = new UserDataBean();
 		
-		user.setEmail(req.getParameter("email"));
-		user.setName(req.getParameter("name"));
-		user.setPwd(req.getParameter("pwd"));
-		user.setTel(req.getParameter("tel"));
-		user.setBirth(req.getParameter("birth"));
+		// 사진 업로드용 ============================================
+		String realFolder = ""; //웹 어플리케이션상의 절대경로
+		String encType = "euc-kr"; // 인코딩 타입
+		int maxSize = 3 *1024 * 1024; // 최대 업로드 될 파일 크기 .. 3MB (회원사진)
+		ServletContext context = req.getServletContext();
+		realFolder =context.getRealPath("fileSave");
+		MultipartRequest multi = null;
+		
+		// DefaultFileRenamePolicy는 중복된 파일 업로드할때 자동으로 Rename / aaa있으면 aaa(1)로
+		multi = new MultipartRequest(req, realFolder, maxSize, encType,  new DefaultFileRenamePolicy());
+		
+		Enumeration files = multi.getFileNames();
+		String filename="";
+		File file = null;
+		
+		if (files.hasMoreElements()) { // 만약 파일이 다수면 if를 while로..
+			String name = (String) files.nextElement();
+			filename = multi.getFilesystemName(name); // DefaultFileRenamePolicy 적용
+			String original = multi.getOriginalFileName(name); // 파일 원래 이름 (추가해도되고, 안해도..?)
+			String type = multi.getContentType(name); // 파일 타입 (추가해도되고, 안해도..?)
+			file = multi.getFile(name);
+		}
+		
+		// end. 사진 업로드용 ============================================
+		user.setEmail(multi.getParameter("email"));
+		user.setName(multi.getParameter("name"));
+		user.setPwd(multi.getParameter("pwd"));
+		user.setTel(multi.getParameter("tel"));
+		user.setBirth(multi.getParameter("birth"));
 		user.setIp(req.getRemoteAddr());
 		
+		// + (사진 관련)
+		if (file != null) {
+			user.setFilename(filename);
+			user.setFilesize((int)file.length());
+		} else {
+			/*user.setFilename(" ");*/
+			user.setFilesize(0);
+		}
+		// ============
 		System.out.println(user);
 		
-		user.setIp(req.getRemoteAddr());
 		dbPro.insertUser(user);
 		
 		res.sendRedirect(req.getContextPath()+"/story/index");
@@ -84,6 +116,7 @@ public class StoryController extends Action {
         HttpSession  session = req.getSession();
 		user.setEmail(req.getParameter("email"));
 		user.setPwd(req.getParameter("pwd"));
+		//user.setFilename(req.getParameter("filename"));
 		user.setIp(req.getRemoteAddr());
         
         // URL 및 로그인관련 전달 메시지
@@ -530,6 +563,7 @@ public class StoryController extends Action {
 			
 			req.setAttribute("diary", diary);
 			req.setAttribute("pageNum", pageNum);
+			System.out.println("유저 콘텐츠: "+diary);
 			
 		} catch (Exception e) {e.printStackTrace();}
 		
@@ -884,7 +918,16 @@ public class StoryController extends Action {
 	// header.jspf - /story/head
 	public String head(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession(); 
-		 
+		String pwd=req.getParameter("pwd");
+		
+		try {
+			UserDBBean userPro = UserDBBean.getInstance();
+			UserDataBean user = userPro.getUser((String)session.getAttribute("sessionID"), pwd);
+			
+			req.setAttribute("user", user); 
+			System.out.println("불러와라좀..: "+user);
+		} catch (Exception e) {e.printStackTrace();} 
+		
 		// 로그인이 안되었을 때
 		if(session.getAttribute("sessionID") == null)  {
 			res.sendRedirect(req.getContextPath()+"/story/index");
@@ -895,10 +938,12 @@ public class StoryController extends Action {
 	    }
 		// 로그인 되었을 때
 		else {
-	    	res.sendRedirect(req.getContextPath()+"/story/user_main");   
-		}  	
+	    	res.sendRedirect(req.getContextPath()+"/story/user_main"); 
+		} 
+		  	
 		return null;
 	}
+	
 	
 	// adheader.jspf - /story/admin/adhead
 	/*public String adhead(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 

@@ -115,8 +115,10 @@
 			</div>
 		
 		<div class="w3-card w3-round w3-white">
-        	<h4 class="w3-center">My Profile</h4>
+			<h4 class="w3-center">My Profile</h4>
          	<p class="w3-center"><img src="<%=request.getContextPath() %>/Project/img/Kirby_logo.jpg" alt="kirbylogo" class="w3-circle" style="height:106px;width:106px"></p>
+        	<h4 class="w3-center">${user.name}</h4>
+         	<p class="w3-center"><img src="/Story_Blog_m2/fileSave/${user.filename}" alt="${user.filename}" class="w3-circle" style="height:106px;width:106px"></p>
          	<br>
       	</div>
       	

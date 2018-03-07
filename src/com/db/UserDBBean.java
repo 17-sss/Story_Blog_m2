@@ -57,8 +57,8 @@ public class UserDBBean {
 		try {
 			
 			
-			sql = "insert into userlist(email, name, pwd, tel, birth, cdate, ip)";
-			sql += "values(?,?,?,?,?, sysdate, ?)";
+			sql = "insert into userlist(email, name, pwd, tel, birth, cdate, ip, filename, filesize)";
+			sql += "values(?,?,?,?,?, sysdate, ?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getEmail());
 			pstmt.setString(2, user.getName());
@@ -66,6 +66,8 @@ public class UserDBBean {
 			pstmt.setString(4, user.getTel());
 			pstmt.setString(5, user.getBirth());
 			pstmt.setString(6, user.getIp());
+			pstmt.setString(7, user.getFilename());
+			pstmt.setInt(8, user.getFilesize());
 		    pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -164,6 +166,8 @@ public class UserDBBean {
 				user.setBirth(rs.getString("birth"));
 				user.setCdate(rs.getTimestamp("cdate"));
 				user.setIp(rs.getString("ip"));
+				user.setFilename(rs.getString("filename"));
+				user.setFilesize(rs.getInt("filesize"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

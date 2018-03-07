@@ -92,7 +92,7 @@
 </head>
 <body>
 <div class="bgimg formpad">
-<form method="post" name="userInfo" class="w3-container w3-card-4 w3-white w3-text-pink w3-margin w3-animate-bottom w3-round" 
+<form method="post" name="userInfo" enctype="multipart/form-data" class="w3-container w3-card-4 w3-white w3-text-pink w3-margin w3-animate-bottom w3-round" 
 action="<%=request.getContextPath()%>/story/accountPro" onsubmit="return checkValue()">
 
 <h2 class="w3-center">Sign Up</h2>
@@ -104,9 +104,10 @@ action="<%=request.getContextPath()%>/story/accountPro" onsubmit="return checkVa
     <div class="w3-rest">
     
 	   <div>
+		 <input class="w3-button w3-blue w3-right" type="button" value="중복확인" onclick="confirmEmail(this.form)" style="font-size: 8pt;  display: inline-block;">	   
 	     <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*" style="display: inline-block;">	
 	     	<%-- <input type="hidden" name="email" value="<%= email %>"> --%>
-	     <input class="w3-button w3-blue w3-right" type="button" value="중복확인" onclick="confirmEmail(this.form)" style="font-size: 8pt;  display: inline-block;">
+	     
 	   </div>
      <!-- <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*" onkeydown="inputIdChk()">
      	  <input type="button" value="중복확인" onclick="openIdChk()">
@@ -151,6 +152,14 @@ action="<%=request.getContextPath()%>/story/accountPro" onsubmit="return checkVa
 	<div class="w3-rest w3-input w3-border">
 		 Birthday: 
 			&nbsp;<input name="birth" type="date">
+	</div>
+</div>
+
+<!-- 프로필 사진 입력 -->
+<div class="w3-row w3-section">
+	<div class="w3-rest w3-input w3-border">
+		 Photo: 
+			&nbsp;<input type="file" size="60" maxlength="50" name="filename">
 	</div>
 </div>
 
