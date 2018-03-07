@@ -108,7 +108,7 @@ public class UserDBBean {
 		String sql = "";
 		try {
 			conn = getConnection();
-			sql = "select * from (select rownum rnum, a.* from (select email, name, pwd, tel, birth, cdate, ip from userlist)"
+			sql = "select * from (select rownum rnum, a.* from (select email, name, pwd, tel, birth, cdate, ip, filename from userlist)"
 					+ " a) where rnum between ? and ? order by cdate desc";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -128,6 +128,7 @@ public class UserDBBean {
 					user.setBirth(rs.getString("birth"));
 					user.setCdate(rs.getTimestamp("cdate"));
 					user.setIp(rs.getString("ip"));
+					user.setFilename(rs.getString("filename"));
 					usList.add(user);
 				} while (rs.next()); 
 			}

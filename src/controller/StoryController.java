@@ -757,7 +757,7 @@ public class StoryController extends Action {
 			user.setName(multi.getParameter("name"));
 			user.setTel(multi.getParameter("tel"));
 			user.setBirth(multi.getParameter("birth"));
-			//user.setFilename(multi.getParameter("filename"));
+			user.setFilename(multi.getParameter("filename"));
 			user.setIp(req.getRemoteAddr());
 			
 			// + (사진 관련)
@@ -766,7 +766,7 @@ public class StoryController extends Action {
 				user.setFilesize((int)file.length());
 			} else {
 				/*user.setFilename(" ");*/
-				user.setFilesize(0);
+				/*user.setFilesize(0);*/
 			}
 			// ============
 			

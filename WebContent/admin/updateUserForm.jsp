@@ -82,7 +82,7 @@
 				<div class="w3-row w3-section">
 				  <div class="w3-col w3-blue w3-round" style="width:100px;">»çÁø</div>
 				    <div class="w3-rest">
-				      <input class="w3-input w3-border w3-left" type="file" size="60" maxlength="50" name="filename" value="${user.filename}" style="margin-left: 2%;">
+				      <input class="w3-input w3-border w3-left" type="file" size="60" maxlength="50" name="filename" style="margin-left: 2%;">
 				      
 				    </div>
 				</div>
@@ -97,6 +97,7 @@
 					<input type="hidden" name="email" value="${user.email}">
 					<input type="hidden" name="pwd" value="${user.pwd}">
 					<input type="hidden" name="pageNum" value="${pageNum}">
+					<input type="hidden" name="filename" value="${user.filename}">
 
 					
 					<input type="submit" value="Send" class="w3-button w3-large w3-pink">

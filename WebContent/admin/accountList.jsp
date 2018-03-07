@@ -1,33 +1,5 @@
-<%-- <%@page import="com.db.UserDataBean"%>
-<%@page import="java.util.List"%>
-<%@page import="com.db.UserDBBean"%>
-<%@page import="java.text.SimpleDateFormat"%> --%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%-- <% request.setCharacterEncoding("EUC-KR"); %> --%>
-
-<%-- <%
-	int pageSize= 10;
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	String pageNum = request.getParameter("pageNum");
-	if (pageNum == null || pageNum =="") {
-		pageNum = "1";
-	}
-	int currentPage = Integer.parseInt(pageNum);
-	int startRow = (currentPage - 1) * pageSize + 1;  
-	//사칙연산은 곱셈먼저.. +1은 맨나중에! 왼쪽에서부터 오른쪽으로 차례대로 계산
-	int endRow = currentPage * pageSize;
-	int count = 0;
-	int number = 0;
-	List usList = null;
-	UserDBBean dbPro = UserDBBean.getInstance();
-	count = dbPro.getUserCount();
-	//게시판에 있는 글 수 count
-	if (count > 0) {
-		usList = dbPro.getUsers(startRow, endRow); 
-	}
-	number = count - (currentPage - 1) * pageSize;
-%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,7 +21,6 @@
 	<div class="w3-container" style="margin-top:54px; margin-left: 10%;">
 	       <c:if test="${count==0}">
 	       
-	         <%-- <%if(count==0){%> --%>
 	       <div class="w3-container w3-white w3-round w3-margin">
 	       		
 	          	<h3 class="w3-center">전체 회원 수:${count}</h3>
@@ -61,11 +32,10 @@
 	       </c:if>
 	       
 	       <c:if test="${count!=0}">
-	       <%-- <% }else{ %> --%>
 	       <div class="w3-container w3-margin w3-white w3-round">
 	       		<h3 class="w3-center">전체 회원 수:${count}</h3>
 	       
-	       <table class="w3-table w3-bordered" width="900">
+	       <table class="w3-table w3-bordered" width="1100">
 	       <tr class="w3-pink w3-center">
 	       <td align="center" width="50">번호</td>
 	       <td align="center" width="100">회원 이메일</td>
@@ -75,11 +45,11 @@
 	       <td align="center" width="100">회원 생일</td>
 	       <td align="center" width="100">가입일</td>
 	       <td align="center" width="100">IP</td>
+	       <td align="center" width="100">사진</td>
 	       <td align="center" width="100">수정/삭제</td>
 	       </tr>
 	 
 	        <c:forEach var="user" items="${usList}">
-	       <%-- <% for (int i=0;i<usList.size();i++){UserDataBean user=(UserDataBean) usList.get(i);%> --%>
 	          <tr height="30">
 	          <td align="center" width="50">${number}</td>
 	          <c:set var="number" value="${number-1}" />
@@ -90,6 +60,7 @@
 	             	<td align="center" width="100">${user.birth}</td>
 	                <td align="center" width="100">${user.cdate}</td>
 	                <td align="center" width="100">${user.ip}</td>
+	                <td align="center" width="100">${user.filename}</td>
 	               	<td align="center" width="100">
 	               		<!-- 수정 삭제 만들기  -->
 	               		<form method="post" action="<%=request.getContextPath() %>/story/admin/updateUserForm">
@@ -109,7 +80,6 @@
 	               		</form>
 	               	</td>
 	          </tr>
-	          <%-- <%} %> --%>
 	          </c:forEach>
 	           
 	       </table>
@@ -135,7 +105,6 @@
 			</div>
 			
 	     </div>
-	    <%--  <%} %> --%>
 	     </c:if>
 	           
 	</div>

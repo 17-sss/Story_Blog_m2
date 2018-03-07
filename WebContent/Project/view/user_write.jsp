@@ -4,26 +4,6 @@
 <%
 	String ctx = request.getContextPath(); //콘텍스트명 얻어오기.
 %>
-<%-- <%    
-   	 	//제대로 utf-8환경이 아니라 한글 깨짐 그래서 임의로 추가                                                   
-	    request.setCharacterEncoding("EUC-KR");
-	   
-	    //콘솔 출력
-	    String subject = request.getParameter("subject");
-	    System.out.println("제목:"+subject);   
-%>
-<% 
-		int num=0;
-		String diaryid = request.getParameter("diaryid");
-		
-
-		if (diaryid==null) diaryid = "Main";
-		if (subject==null) subject = "제목없음";
-
-		if (request.getParameter("num")!=null) {
-			num = Integer.parseInt(request.getParameter("num"));
-		}
-%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
