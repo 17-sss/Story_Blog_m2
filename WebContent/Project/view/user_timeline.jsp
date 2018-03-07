@@ -65,8 +65,8 @@
         <c:forEach var="diary" items="${diaryList}">
 		<div class="w3-container w3-card w3-white w3-round w3-margin">
 			<br> 
-			<img src="<%=request.getContextPath()%>/Project/img/Kirby_1.png" alt="kirby1" class="w3-left w3-circle w3-margin-right"
-				style="width: 60px"> 
+			<img src="/Story_Blog_m2/fileSave/${filename}" alt="${filename}" class="w3-left w3-circle w3-margin-right"
+				style="width: 60px; height: 60px"> 
 			<!-- 날짜 출력 -->
 			<span class="w3-right w3-text-gray">${diary.cdate}</span>
 			<!-- 제목 출력 -->

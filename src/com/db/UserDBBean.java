@@ -55,8 +55,6 @@ public class UserDBBean {
 		
 		int number=0;
 		try {
-			
-			
 			sql = "insert into userlist(email, name, pwd, tel, birth, cdate, ip, filename, filesize)";
 			sql += "values(?,?,?,?,?, sysdate, ?,?,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -188,7 +186,7 @@ public class UserDBBean {
 		String sql = "";
 		try {
 			conn = getConnection();
-			sql="select * from userlist email = ?";
+			sql="select * from userlist where email = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs=pstmt.executeQuery();

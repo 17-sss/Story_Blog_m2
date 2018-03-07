@@ -105,33 +105,29 @@ public class StoryController extends Action {
 	// 유저 - 로그인
 	public String LoginPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		 // 로그인 화면에 입력된 아이디와 비밀번호를 가져온다
-        String email= req.getParameter("email");
+		HttpSession  session = req.getSession();
+		
+		String email= req.getParameter("email");
         String pwd = req.getParameter("pwd");
         System.out.println("LoginPro=============");
-     	// DB에서 아이디, 비밀번호 확인
+     	
+        // DB에서 아이디, 비밀번호 확인
         UserDBBean dbPro = UserDBBean.getInstance();
         int check = dbPro.loginCheck(email, pwd);
         
         UserDataBean user = new UserDataBean();
-        HttpSession  session = req.getSession();
-		user.setEmail(req.getParameter("email"));
-		user.setPwd(req.getParameter("pwd"));
-		//user.setFilename(req.getParameter("filename"));
-		user.setIp(req.getRemoteAddr());
-        
+       
         // URL 및 로그인관련 전달 메시지
         String msg = "";
-        
-        /*if(session.getAttribute("sessionID").equals("admin")) {
-        	res.sendRedirect("/Story_Blog_m2/story/accountForm");
-        }*/
-        
+ 
         if(check == 1)    // 로그인 성공
         {
             // 세션에 현재 아이디 세팅
         	session.setAttribute("sessionID", email);
-            
-			/* msg="/Story_Blog_m2/story/user_main"; */
+        	// 유저 정보 가져와서 헤더에 뿌려주기.
+        	user=dbPro.getUser(email);
+            session.setAttribute("name", user.getName());
+            session.setAttribute("filename", user.getFilename());
 			msg = "/Story_Blog_m2/story/head";
         }
         else if(check == 0) // 비밀번호가 틀릴경우
@@ -919,15 +915,6 @@ public class StoryController extends Action {
 	// header.jspf - /story/head
 	public String head(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession(); 
-//		String pwd=req.getParameter("pwd");
-//		
-//		try {
-//			UserDBBean userPro = UserDBBean.getInstance();
-//			UserDataBean user = userPro.getUser((String)session.getAttribute("sessionID"), pwd);
-//			
-//			req.setAttribute("user", user); 
-//			System.out.println("불러와라좀..: "+user);
-//		} catch (Exception e) {e.printStackTrace();} 
 		
 		// 로그인이 안되었을 때
 		if(session.getAttribute("sessionID") == null)  {
@@ -962,23 +949,6 @@ public class StoryController extends Action {
 	}*/
 	
 	// end. 헤더 테스트 ========================================
-	
-	// Test ================================================
-	public String picTest(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-		HttpSession session = req.getSession();
 
-		try {
-			UserDBBean dbPro = UserDBBean.getInstance();
-			UserDataBean user = dbPro.getUser((String)session.getAttribute("sessionID"));
-			System.out.println("??: "+(String)session.getAttribute("sessionID"));
-			req.setAttribute("user", user);
-
-			System.out.println("불러와라 제발: "+user);
-			
-		} catch (Exception e) {e.printStackTrace();}
-		
-		return "/Project/view/picTest.jsp";
-	}
-	// end. Test ================================================
 // {} class
 }
