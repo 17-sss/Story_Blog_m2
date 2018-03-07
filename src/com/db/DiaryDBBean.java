@@ -353,7 +353,8 @@ public class DiaryDBBean {
 			
 			chk = pstmt.executeUpdate(); //컬럼이 업데이트가 되었을때 숫자를 반환
 			pstmt.executeUpdate();
-
+			
+			System.out.println(diary);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

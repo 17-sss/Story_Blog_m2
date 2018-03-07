@@ -416,6 +416,7 @@ public class StoryController extends Action {
 			diary.setSubject(multi.getParameter("subject"));
 			diary.setContent(multi.getParameter("content"));
 			diary.setDiaryid(multi.getParameter("diaryid"));
+			diary.setFilename(multi.getParameter("filename"));
 			diary.setIp(req.getRemoteAddr());
 			
 			if (file != null) {
@@ -423,7 +424,7 @@ public class StoryController extends Action {
 				diary.setFilesize((int)file.length());
 			} else {
 				/*diary.setFilename(" ");*/
-				diary.setFilesize(0);
+				/*diary.setFilesize(0);*/
 			}
 			
 			int chk = diaPro.updateDiary(diary);
@@ -618,6 +619,7 @@ public class StoryController extends Action {
 			user.setName(multi.getParameter("name"));
 			user.setTel(multi.getParameter("tel"));
 			user.setBirth(multi.getParameter("birth"));
+			//user.setFilename(multi.getParameter("filename"));
 			user.setIp(req.getRemoteAddr());
 			
 			// + (사진 관련)
@@ -791,6 +793,7 @@ public class StoryController extends Action {
 			user.setName(multi.getParameter("name"));
 			user.setTel(multi.getParameter("tel"));
 			user.setBirth(multi.getParameter("birth"));
+			//user.setFilename(multi.getParameter("filename"));
 			user.setIp(req.getRemoteAddr());
 			
 			// + (사진 관련)
