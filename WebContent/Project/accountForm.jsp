@@ -106,7 +106,7 @@ action="<%=request.getContextPath()%>/story/accountPro" onsubmit="return checkVa
     
 	   <div>
 		 <input class="w3-button w3-blue w3-right" type="button" value="중복확인" onclick="confirmEmail(this.form)" style="font-size: 8pt;  display: inline-block;">	   
-	     <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*" style="display: inline-block;">	
+	     <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)* - 이메일 확인 후 가입해주세요." style="display: inline-block;">	
 	     	<%-- <input type="hidden" name="email" value="<%= email %>"> --%>
 	     
 	   </div>

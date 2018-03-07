@@ -186,7 +186,7 @@ public class StoryController extends Action {
 		}
 		number = count - (currentPage - 1) * pageSize;
 		
-		System.out.println(count+":"+diaryList);
+		System.out.println("일기장 수: "+count+"="+diaryList);
 		
 		int bottomLine = 3; 
 		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
@@ -619,7 +619,7 @@ public class StoryController extends Action {
 			user.setName(multi.getParameter("name"));
 			user.setTel(multi.getParameter("tel"));
 			user.setBirth(multi.getParameter("birth"));
-			//user.setFilename(multi.getParameter("filename"));
+			user.setFilename(multi.getParameter("filename"));
 			user.setIp(req.getRemoteAddr());
 			
 			// + (사진 관련)
@@ -628,7 +628,7 @@ public class StoryController extends Action {
 				user.setFilesize((int)file.length());
 			} else {
 				/*user.setFilename(" ");*/
-				user.setFilesize(0);
+				/*user.setFilesize(0);*/
 			}
 			// ============
 			
@@ -639,7 +639,7 @@ public class StoryController extends Action {
 			req.setAttribute("pwd", pwd);
 			
 			System.out.println("수정여부: " + chk);
-			System.out.println(user);
+			System.out.println("수정사항: "+user);
 			
 			
 		} catch (Exception e) {e.printStackTrace();}

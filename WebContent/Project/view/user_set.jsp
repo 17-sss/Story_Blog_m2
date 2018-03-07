@@ -67,7 +67,7 @@
 					      <input class="w3-input w3-left" type="file" size="60" maxlength="50" name="filename" value="${user.filename}" style="margin-left: 2%;">
 					    </div>
 					    <div class="w3-small w3-gray">
-					    	* 사진 수정할 경우, 다시 로그인해주세요.
+					    	* 수정할 경우, 다시 로그인해주세요.
 					    </div>
 					</div>
 					<div class="w3-row w3-section">
