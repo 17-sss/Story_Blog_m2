@@ -191,7 +191,7 @@ public class StoryController extends Action {
 		if (subject==null) subject = "하루의 끝";
 		
 		
-		int pageSize= 6;
+		int pageSize= 9;
 		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		String pageNum = req.getParameter("pageNum");
 		if (pageNum == null || pageNum =="") {

@@ -7,6 +7,20 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<title>Story Blog - User</title>
+	<style>
+		img {margin-bottom: -7px}
+		.w3-row-padding img {margin-bottom: 12px}
+	</style>
+	<script>
+		function myFunction() {
+		    var x = document.getElementById("myGrid");
+		    if (x.className === "w3-row") {
+		        x.className = "w3-row-padding";
+		    } else { 
+		        x.className = x.className.replace("w3-row-padding", "w3-row");
+		    }
+		}
+	</script>
 </head>
 <body>
 <!-- 전체 틀 div ★ -->  
@@ -62,24 +76,21 @@
        	</div>
 	    
         <!-- 사진) 일기 (메인) -->
-        <div class="w3-row-padding">
+        <div class="w3-row" id="myGrid" style="margin-bottom:128px">
+        <!-- <div class="w3-row-padding">  --><!-- <div class="w3-container w3-card w3-white w3-round w3-margin w3-center"> -->
         <c:forEach var="diary" items="${diaryList}">
 
 			<!-- 사진) 이미지 출력 -->
 			<c:if test="${diary.filename!=null}">
-				
-			<div class="w3-third w3-container w3-margin-bottom">
-				<div class="w3-container w3-white w3-padding w3-center">
-					<img src="/Story_Blog_m2/fileSave/${diary.filename}" alt="${diary.filename}" style="width: auto; height:200px;">
-					<div class="w3-container w3-white">
+				  <div class="w3-third">
+				     <img src="/Story_Blog_m2/fileSave/${diary.filename}" style="width:100%">
+				     <div class="w3-container w3-white">
 						<p>
 							<a href="<%=request.getContextPath()%>/story/user_content?num=${diary.num}&pageNum=${currentPage}"><b>${diary.subject}</b></a>
 						</p>
 						<p>${diary.cdate}</p>
 					</div>
-				</div>
-			</div>
-					
+				  </div>
 			</c:if>
 			
 		</c:forEach>

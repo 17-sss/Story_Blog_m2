@@ -62,15 +62,13 @@
        	</div>
 	    
         <!-- 사진) 일기 (메인) -->
-        <div class="w3-row-padding">
+        <div class="w3-row-padding"> <!-- <div class="w3-container w3-card w3-white w3-round w3-margin w3-center"> -->
         <c:forEach var="diary" items="${diaryList}">
 
 			<!-- 사진) 이미지 출력 -->
 			<c:if test="${diary.filename!=null}">
-				
-			<div class="w3-third w3-container w3-margin-bottom">
-				<div class="w3-container w3-white w3-padding w3-center">
-					<img src="/Story_Blog_m2/fileSave/${diary.filename}" alt="${diary.filename}" style="width: auto; height:200px;">
+				<div class="w3-third w3-container w3-margin-bottom">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename}" alt="${diary.filename}" style="width: 100%; vertical-align:top;">
 					<div class="w3-container w3-white">
 						<p>
 							<a href="<%=request.getContextPath()%>/story/user_content?num=${diary.num}&pageNum=${currentPage}"><b>${diary.subject}</b></a>
@@ -78,8 +76,17 @@
 						<p>${diary.cdate}</p>
 					</div>
 				</div>
-			</div>
-					
+			<%-- <div class="w3-third w3-container w3-padding w3-border w3-card w3-center"
+					style="width:; height:auto; vertical-align:top;">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename}" width="" height="auto" alt="${diary.filename}"
+						class="w3-margin" onclick="location.href=''">
+						<!-- 사진 주소로 이동 만들기 -->
+						<br>
+						<a href="<%=request.getContextPath()%>/story/user_content?num=${diary.num}&pageNum=${currentPage}">${diary.subject}</a>
+					<div class="w3-container w3-white">
+						<p>${diary.cdate}</p>
+					</div>
+				</div> --%>
 			</c:if>
 			
 		</c:forEach>
