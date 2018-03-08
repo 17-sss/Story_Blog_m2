@@ -1095,18 +1095,18 @@ public class StoryController extends Action {
 		HttpSession session = req.getSession(); 
 		UserDBBean dbPro = UserDBBean.getInstance();
         UserDataBean user = new UserDataBean();
-        
+     
 		// 로그인이 안되었을 때
 		if(session.getAttribute("sessionID") == null)  {
 			res.sendRedirect(req.getContextPath()+"/story/index");
 		}
 		// 회원관리 화면으로 이동 (admin)
-		else if(session.getAttribute("sessionID").equals("admin")) {     
+		/*else if(session.getAttribute("sessionID").equals("admin")) {     
 			user=dbPro.getUser((String)session.getAttribute("sessionID"));
             session.setAttribute("name", user.getName());
             session.setAttribute("filename", user.getFilename());
 	        res.sendRedirect(req.getContextPath()+"/story/admin/accountList");
-	    }
+	    }*/
 		// 로그인 되었을 때
 		else {
 	    	res.sendRedirect(req.getContextPath()+"/story/user_main"); 

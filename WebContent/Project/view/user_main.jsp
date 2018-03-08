@@ -70,7 +70,7 @@
 			<!-- 날짜 출력 -->
 			<span class="w3-right w3-text-gray">${diary.cdate}</span>
 			<!-- 제목 출력 -->
-			<b>제목:</b> ${diary.subject}
+			<b>제목: </b><a href="<%=request.getContextPath()%>/story/user_content?num=${diary.num}&pageNum=${currentPage}"><b>${diary.subject}</b></a>
 			<!-- 수정, 삭제 -->
 			<div style="margin-top: 6px;">
 				<form method="post" style="display: inline-block; margin-left: 10px;" class="w3-right" action="<%=request.getContextPath() %>/story/user_deleteDPro">
@@ -104,19 +104,43 @@
 
 			<!-- 이미지 출력 -->
 			<c:if test="${diary.filename0!=null}">
-				<p><img src="/Story_Blog_m2/fileSave/${diary.filename0}"width="400px" height="auto"></p>
+				<div class="w3-third w3-container w3-margin-bottom">
+					<div class="w3-container w3-white w3-padding w3-center">
+						<img src="/Story_Blog_m2/fileSave/${diary.filename0}" alt="${diary.filename0}" style="width: auto; height:200px;">
+					</div>
+				</div>		
 			</c:if>
+			
 			<c:if test="${diary.filename1!=null}">
-				<p><img src="/Story_Blog_m2/fileSave/${diary.filename1}"width="400px" height="auto"></p>
+				<div class="w3-third w3-container w3-margin-bottom">
+					<div class="w3-container w3-white w3-padding w3-center">
+						<img src="/Story_Blog_m2/fileSave/${diary.filename1}" alt="${diary.filename1}" style="width: auto; height:200px;">
+					</div>
+				</div>		
 			</c:if>
+			
 			<c:if test="${diary.filename2!=null}">
-				<p><img src="/Story_Blog_m2/fileSave/${diary.filename2}"width="400px" height="auto"></p>
+				<div class="w3-third w3-container w3-margin-bottom">
+					<div class="w3-container w3-white w3-padding w3-center">
+						<img src="/Story_Blog_m2/fileSave/${diary.filename2}" alt="${diary.filename2}" style="width: auto; height:200px;">
+					</div>
+				</div>		
 			</c:if>
+			
 			<c:if test="${diary.filename3!=null}">
-				<p><img src="/Story_Blog_m2/fileSave/${diary.filename3}"width="400px" height="auto"></p>
+				<div class="w3-third w3-container w3-margin-bottom">
+					<div class="w3-container w3-white w3-padding w3-center">
+						<img src="/Story_Blog_m2/fileSave/${diary.filename3}" alt="${diary.filename3}" style="width: auto; height:200px;">
+					</div>
+				</div>		
 			</c:if>
+			
 			<c:if test="${diary.filename4!=null}">
-				<p><img src="/Story_Blog_m2/fileSave/${diary.filename4}"width="400px" height="auto"></p>
+				<div class="w3-third w3-container w3-margin-bottom">
+					<div class="w3-container w3-white w3-padding w3-center">
+						<img src="/Story_Blog_m2/fileSave/${diary.filename4}" alt="${diary.filename4}" style="width: auto; height:200px;">
+					</div>
+				</div>		
 			</c:if>
 		</div>
 

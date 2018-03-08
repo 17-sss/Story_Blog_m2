@@ -70,7 +70,7 @@
 			<!-- 날짜 출력 -->
 			<span class="w3-right w3-text-gray">${diary.cdate}</span>
 			<!-- 제목 출력 -->
-			<b>제목:</b> ${diary.subject}
+			<b>제목: </b><a href="<%=request.getContextPath()%>/story/user_content?num=${diary.num}&pageNum=${currentPage}"><b>${diary.subject}</b></a>
 			<!-- 수정, 삭제 -->
 			<div style="margin-top: 6px;">
 				<form method="post" style="display: inline-block; margin-left: 10px;" class="w3-right" action="<%=request.getContextPath() %>/story/user_deleteDPro">
@@ -104,28 +104,28 @@
 
 			<!-- 이미지 출력 / 타임라인에선 사용안함.-->
 			<c:if test="${diary.filename0!=null}">
-				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
-					!Picture
+				<div class="w3-right w3-text-gray" style="font-size: 5pt;">
+					&nbsp;!Picture&nbsp;
 				</div>
 			</c:if>
 			<c:if test="${diary.filename1!=null}">
-				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
-					!Picture
+				<div class="w3-right w3-text-gray" style="font-size: 5pt;">
+					&nbsp;!Picture&nbsp;
 				</div>
 			</c:if>
 			<c:if test="${diary.filename2!=null}">
-				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
-					!Picture
+				<div class="w3-right w3-text-gray" style="font-size: 5pt;">
+					&nbsp;!Picture&nbsp;
 				</div>
 			</c:if>
 			<c:if test="${diary.filename3!=null}">
-				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
-					!Picture
+				<div class="w3-right w3-text-gray" style="font-size: 5pt;">
+					&nbsp;!Picture&nbsp;
 				</div>
 			</c:if>
 			<c:if test="${diary.filename4!=null}">
-				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
-					!Picture
+				<div class="w3-right w3-text-gray" style="font-size: 5pt;">
+					&nbsp;!Picture&nbsp;
 				</div>
 			</c:if>
 		</div>

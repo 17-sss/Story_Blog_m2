@@ -7,6 +7,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<title>Story Blog - User</title>
+	<script type="text/javascript">
+		function onClick(element) {
+		  document.getElementById("img01").src = element.src;
+		  document.getElementById("modal01").style.display = "block";
+		  var captionText = document.getElementById("caption");
+		  captionText.innerHTML = element.alt;
+		}
+	</script>
 </head>
 <body>
 <!-- 전체 틀 div ★ -->  
@@ -65,7 +73,7 @@
 				
 			<div class="w3-third w3-container w3-margin-bottom">
 				<div class="w3-container w3-white w3-padding w3-center">
-					<img src="/Story_Blog_m2/fileSave/${diary.filename0}" alt="${diary.filename0}" style="width: auto; height:200px;">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename0}" alt="${diary.filename0}" style="width: auto; height:200px;" onclick="onClick(this)">
 					<div class="w3-container w3-white">
 						<p>${diary.cdate}</p>
 					</div>
@@ -78,7 +86,7 @@
 				
 			<div class="w3-third w3-container w3-margin-bottom">
 				<div class="w3-container w3-white w3-padding w3-center">
-					<img src="/Story_Blog_m2/fileSave/${diary.filename1}" alt="${diary.filename1}" style="width: auto; height:200px;">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename1}" alt="${diary.filename1}" style="width: auto; height:200px;" onclick="onClick(this)">
 					<div class="w3-container w3-white">
 						<p>${diary.cdate}</p>
 					</div>
@@ -91,7 +99,7 @@
 				
 			<div class="w3-third w3-container w3-margin-bottom">
 				<div class="w3-container w3-white w3-padding w3-center">
-					<img src="/Story_Blog_m2/fileSave/${diary.filename2}" alt="${diary.filename2}" style="width: auto; height:200px;">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename2}" alt="${diary.filename2}" style="width: auto; height:200px;" onclick="onClick(this)">
 					<div class="w3-container w3-white">
 						<p>${diary.cdate}</p>
 					</div>
@@ -104,7 +112,7 @@
 				
 			<div class="w3-third w3-container w3-margin-bottom">
 				<div class="w3-container w3-white w3-padding w3-center">
-					<img src="/Story_Blog_m2/fileSave/${diary.filename3}" alt="${diary.filename3}" style="width: auto; height:200px;">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename3}" alt="${diary.filename3}"  style="width: auto; height:200px;" onclick="onClick(this)">
 					<div class="w3-container w3-white">
 						<p>${diary.cdate}</p>
 					</div>
@@ -117,7 +125,7 @@
 				
 			<div class="w3-third w3-container w3-margin-bottom">
 				<div class="w3-container w3-white w3-padding w3-center">
-					<img src="/Story_Blog_m2/fileSave/${diary.filename4}" alt="${diary.filename4}" style="width: auto; height:200px;">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename4}" alt="${diary.filename4}" style="width: auto; height:200px;" onclick="onClick(this)">
 					<div class="w3-container w3-white">
 						<p>${diary.cdate}</p>
 					</div>
@@ -126,7 +134,16 @@
 			</c:if>
 		
 		</div>
-
+		
+		<!-- 모달로 띄우기 -->
+		
+		<div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+    		<span class="w3-button w3-black w3-xlarge w3-display-topright">×</span>
+	    	<div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+	      		<img id="img01" class="w3-image">
+	      		<p id="caption"></p>
+	    	</div>
+  		</div>
 			
 		<!-- end. 일기 (타임라인) -->	
       	

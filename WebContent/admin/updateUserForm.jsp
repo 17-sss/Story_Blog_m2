@@ -75,7 +75,7 @@
 				<div class="w3-row w3-section">
 				  <div class="w3-col w3-blue w3-round" style="width:100px;">»ýÀÏ</div>
 				    <div class="w3-rest">
-				      <input class="w3-input w3-border"  name="birth" type="text" value="${user.birth}" style="margin-left: 2%;">
+				      <input class="w3-input w3-border"  name="birth" type="date" value="${user.birth}" style="margin-left: 2%;">
 				    </div>
 				</div>
 				
