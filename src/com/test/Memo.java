@@ -2,17 +2,21 @@ package com.test;
 
 import java.io.File;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.db.DiaryDBBean;
 import com.db.UserDBBean;
 import com.db.UserDataBean;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class Memo {
+
 		// 파일 복수
 	/*// 6) fileSave 폴더 webcontent폴더 안에 만들기
 		String realFolder = ""; // 웹 어플리케이션상의 절대경로

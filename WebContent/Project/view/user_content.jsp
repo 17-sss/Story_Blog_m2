@@ -60,19 +60,69 @@
 			<!-- 내용 출력 -->
 			<p>${diary.content}</p>
 
-			<!-- 이미지 출력 -->
-			<c:if test="${diary.filename!=null}">
-			<%-- <div>
-				<p><img src="/Story_Blog_m2/fileSave/${diary.filename}"width="700px" height="auto"></p>
-			</div> --%>
-				<div class="w3-third w3-container w3-margin w3-border w3-card w3-center" style="width: 600px; height:auto;">
-					<img src="/Story_Blog_m2/fileSave/${diary.filename}" width="500px" height="auto" alt="${diary.filename}"
-						class="w3-hover-opacity w3-margin" onclick="location.href=''">
-					<br>
+			<!-- 이미지 출력 1 -->
+			<c:if test="${diary.filename0!=null}">
+				
+			<div class="w3-third w3-container w3-margin-bottom">
+				<div class="w3-container w3-white w3-padding w3-center">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename0}" alt="${diary.filename0}" style="width: auto; height:200px;">
 					<div class="w3-container w3-white">
 						<p>${diary.cdate}</p>
 					</div>
 				</div>
+			</div>		
+			</c:if>
+			
+			<!-- 이미지 출력 2 -->
+			<c:if test="${diary.filename1!=null}">
+				
+			<div class="w3-third w3-container w3-margin-bottom">
+				<div class="w3-container w3-white w3-padding w3-center">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename1}" alt="${diary.filename1}" style="width: auto; height:200px;">
+					<div class="w3-container w3-white">
+						<p>${diary.cdate}</p>
+					</div>
+				</div>
+			</div>		
+			</c:if>
+			
+			<!-- 이미지 출력 3 -->
+			<c:if test="${diary.filename2!=null}">
+				
+			<div class="w3-third w3-container w3-margin-bottom">
+				<div class="w3-container w3-white w3-padding w3-center">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename2}" alt="${diary.filename2}" style="width: auto; height:200px;">
+					<div class="w3-container w3-white">
+						<p>${diary.cdate}</p>
+					</div>
+				</div>
+			</div>		
+			</c:if>
+			
+			<!-- 이미지 출력 4 -->
+			<c:if test="${diary.filename3!=null}">
+				
+			<div class="w3-third w3-container w3-margin-bottom">
+				<div class="w3-container w3-white w3-padding w3-center">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename3}" alt="${diary.filename3}" style="width: auto; height:200px;">
+					<div class="w3-container w3-white">
+						<p>${diary.cdate}</p>
+					</div>
+				</div>
+			</div>		
+			</c:if>
+			
+			<!-- 이미지 출력 5 -->
+			<c:if test="${diary.filename4!=null}">
+				
+			<div class="w3-third w3-container w3-margin-bottom">
+				<div class="w3-container w3-white w3-padding w3-center">
+					<img src="/Story_Blog_m2/fileSave/${diary.filename4}" alt="${diary.filename4}" style="width: auto; height:200px;">
+					<div class="w3-container w3-white">
+						<p>${diary.cdate}</p>
+					</div>
+				</div>
+			</div>		
 			</c:if>
 		
 		</div>

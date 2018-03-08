@@ -103,8 +103,20 @@
 			<p>${diary.content}</p>
 
 			<!-- 이미지 출력 -->
-			<c:if test="${diary.filename!=null}">
-				<p><img src="/Story_Blog_m2/fileSave/${diary.filename}"width="400px" height="auto"></p>
+			<c:if test="${diary.filename0!=null}">
+				<p><img src="/Story_Blog_m2/fileSave/${diary.filename0}"width="400px" height="auto"></p>
+			</c:if>
+			<c:if test="${diary.filename1!=null}">
+				<p><img src="/Story_Blog_m2/fileSave/${diary.filename1}"width="400px" height="auto"></p>
+			</c:if>
+			<c:if test="${diary.filename2!=null}">
+				<p><img src="/Story_Blog_m2/fileSave/${diary.filename2}"width="400px" height="auto"></p>
+			</c:if>
+			<c:if test="${diary.filename3!=null}">
+				<p><img src="/Story_Blog_m2/fileSave/${diary.filename3}"width="400px" height="auto"></p>
+			</c:if>
+			<c:if test="${diary.filename4!=null}">
+				<p><img src="/Story_Blog_m2/fileSave/${diary.filename4}"width="400px" height="auto"></p>
 			</c:if>
 		</div>
 

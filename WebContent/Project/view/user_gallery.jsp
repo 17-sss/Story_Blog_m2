@@ -46,7 +46,7 @@
 		<!-- 사진) 일기가 없을 때 -->	
         <c:if test="${count==0}">
         <div class="w3-container w3-card w3-white w3-round w3-margin">
-       		<h3 class="w3-center">사진 수:${count}</h3>
+       		<h3 class="w3-center">사진 합계:${countT}</h3>
 
 	        <div class="w3-center w3-container">
 	       		<p class="w3-pink">사진을 첨부해서 일기를 써주세요!!</p>
@@ -58,7 +58,7 @@
 	    <!-- 사진) 일기가 있을 때 -->
 	    <c:if test="${count!=0}">
 	    <div class="w3-container w3-card w3-white w3-round w3-margin">
-       		<h3 class="w3-center">사진 수:${count}</h3>
+       		<h3 class="w3-center">사진 합계:${countT}</h3>
        	</div>
 	    
         <!-- 사진) 일기 (메인) -->
@@ -66,19 +66,45 @@
         <c:forEach var="diary" items="${diaryList}">
 
 			<!-- 사진) 이미지 출력 -->
-			<c:if test="${diary.filename!=null}">
+			<c:if test="${diary.filename0!=null}">
 				
-			<div class="w3-third w3-container w3-margin-bottom">
-				<div class="w3-container w3-white w3-padding w3-center">
-					<img src="/Story_Blog_m2/fileSave/${diary.filename}" alt="${diary.filename}" style="width: auto; height:200px;">
-					<div class="w3-container w3-white">
-						<p>
-							<a href="<%=request.getContextPath()%>/story/user_content?num=${diary.num}&pageNum=${currentPage}"><b>${diary.subject}</b></a>
-						</p>
-						<p>${diary.cdate}</p>
+				<div class="w3-third w3-container w3-margin-bottom">
+					<div class="w3-container w3-white w3-padding w3-center">
+						<img src="/Story_Blog_m2/fileSave/${diary.filename0}" alt="${diary.filename0}" style="width: auto; height:200px;">
+						<div class="w3-container w3-white">
+							<p>
+								<a href="<%=request.getContextPath()%>/story/user_content?num=${diary.num}&pageNum=${currentPage}"><b>${diary.subject}</b></a>
+							</p>
+							<p>
+								<span>${diary.cdate}</span>
+								<c:if test="${diary.filename1!=null}">
+									<span class="w3-left w3-red w3-border" style="font-size: 5pt;">
+									&nbsp;+&nbsp;
+									</span>
+								</c:if>
+				
+								<c:if test="${diary.filename2!=null}">
+									<span class="w3-left w3-blue w3-border" style="font-size: 5pt;">
+										&nbsp;+&nbsp;
+									</span>
+								</c:if>
+				
+								<c:if test="${diary.filename3!=null}">
+									<span class="w3-left w3-green w3-border " style="font-size: 5pt;">
+										&nbsp;+&nbsp;
+									</span>
+								</c:if>
+				
+								<c:if test="${diary.filename4!=null}">
+									<span class="w3-left w3-white w3-border" style="font-size: 5pt;">
+										&nbsp;+&nbsp;
+									</span>
+								</c:if>
+							</p>
+							
+						</div>
 					</div>
 				</div>
-			</div>
 					
 			</c:if>
 			

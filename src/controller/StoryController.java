@@ -232,13 +232,15 @@ public class StoryController extends Action {
 		int endRow = currentPage * pageSize;
 		
 		int count = 0;
+		int countT = 0;
 		int number = 0;
 		List diaryList = null;
 		DiaryDBBean dbPro = DiaryDBBean.getInstance();
 		count = dbPro.getImgDiaryCount(diaryid, (String)session.getAttribute("sessionID"));
+		countT = dbPro.getImgDiaryCountTotal(diaryid, (String)session.getAttribute("sessionID"));
 		//게시판에 있는 글 수 count
 		if (count > 0) {
-			diaryList = dbPro.getImgDiaries(startRow, endRow, (String)session.getAttribute("sessionID"), diaryid);
+			diaryList = dbPro.getDiaries(startRow, endRow, (String)session.getAttribute("sessionID"), diaryid);
 		}
 		number = count - (currentPage - 1) * pageSize;
 		
@@ -254,6 +256,7 @@ public class StoryController extends Action {
 		req.setAttribute("subject", subject);
 		req.setAttribute("diaryid", diaryid);
 		req.setAttribute("count", count);
+		req.setAttribute("countT", countT);
 		req.setAttribute("diaryList", diaryList);
 		req.setAttribute("currentPage", currentPage);
 		req.setAttribute("startPage", startPage);
@@ -361,21 +364,28 @@ public class StoryController extends Action {
 		multi = new MultipartRequest(req, realFolder, maxSize, encType,  new DefaultFileRenamePolicy());
 		
 		Enumeration files = multi.getFileNames();
-		String filename="";
-		File file = null;
-		// =================================================
+		String[] filename = new String[5];
+		File[] file = new File[5];
+		int index = 0;
+		
+		String[] original = new String[5];
+		String[] type = new String[5];
+		
 		// 7) 
-		if (files.hasMoreElements()) { // 만약 파일이 다수면 if를 while로..
+		while (files.hasMoreElements()) { // 만약 파일이 다수면 if를 while로..
 			String name = (String) files.nextElement();
-			filename = multi.getFilesystemName(name); // DefaultFileRenamePolicy 적용
-			String original = multi.getOriginalFileName(name); // 파일 원래 이름 (추가해도되고, 안해도..?)
-			String type = multi.getContentType(name); // 파일 타입 (추가해도되고, 안해도..?)
-			file = multi.getFile(name);
+			filename[index] = multi.getFilesystemName(name);
+			original[index] = multi.getOriginalFileName(name);
+			type[index] = multi.getContentType(name);
+			file[index] = multi.getFile(name);
+			index++;
 		}
 		
 		int num = Integer.parseInt(multi.getParameter("num"));
+		
 		String pageNum = multi.getParameter("pageNum");
 		if (pageNum == null || pageNum == "") {pageNum = "1";}
+		
 		String diaryid = multi.getParameter("diaryid");
 		if (diaryid==null) diaryid = "Main";
 		
@@ -385,16 +395,42 @@ public class StoryController extends Action {
 			diary.setSubject(multi.getParameter("subject"));
 			diary.setContent(multi.getParameter("content"));
 			diary.setDiaryid(multi.getParameter("diaryid"));
-			diary.setFilename(multi.getParameter("filename"));
+			diary.setFilename0(multi.getParameter("filename0"));
+			diary.setFilename1(multi.getParameter("filename1"));
+			diary.setFilename2(multi.getParameter("filename2"));
+			diary.setFilename3(multi.getParameter("filename3"));
+			diary.setFilename4(multi.getParameter("filename4"));
 			diary.setIp(req.getRemoteAddr());
 			
-			if (file != null) {
-				diary.setFilename(filename);
-				diary.setFilesize((int)file.length());
-			} else {
-				/*diary.setFilename(" ");*/
-				/*diary.setFilesize(0);*/
+			if (file[4] != null) {
+				diary.setFilename0(filename[4]);
+				diary.setFilesize0((int) file[4].length()); 
+				
+			} 
+			
+			if (file[3] != null) {
+				diary.setFilename1(filename[3]);
+				diary.setFilesize1((int) file[3].length()); 
+				
+			} 
+			
+			if (file[2] != null) {
+				diary.setFilename2(filename[2]);
+				diary.setFilesize2((int) file[2].length()); 
+				
 			}
+			
+			if (file[1] != null) {
+				diary.setFilename3(filename[1]);
+				diary.setFilesize3((int) file[1].length()); 
+				
+			} 
+			
+			if (file[0] != null) {
+				diary.setFilename4(filename[0]);
+				diary.setFilesize4((int) file[0].length()); 
+				
+			} else {}
 			
 			int chk = diaPro.updateDiary(diary);
 			
@@ -429,7 +465,7 @@ public class StoryController extends Action {
 		return "/Project/view/user_deleteDPro.jsp"; 
 	} 
 	
-	// 유저 - 일기 쓰기 폼 (사진 다수)
+	// 유저 - 일기 쓰기 폼 
 	public String user_write(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		String subject = req.getParameter("subject");
 	    System.out.println("제목:"+subject);
@@ -448,7 +484,7 @@ public class StoryController extends Action {
 		return  "/Project/view/user_write.jsp"; 
 	}
 	
-	// 유저 - 일기 쓰기 폼 전송
+	// 유저 - 일기 쓰기 폼 전송 (사진 다수)
 	public String user_writePro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession();
 		DiaryDataBean diary = new DiaryDataBean();

@@ -108,8 +108,33 @@
 							<!-- 파일업로드  -->
 							<div class="w3-row w3-section">
 								<div class="w3-content">
-				 					파일 
-									&nbsp;<input class="w3-input" name="filename" type="file" style="font-size: 9pt;" size="60" maxlength="50" value="${diary.filename}" />
+				 					파일 1
+									&nbsp;<input class="w3-input" name="filename0" type="file" style="font-size: 9pt;" size="60" maxlength="50" value="${diary.filename0}"/>
+								</div>
+							</div>
+							
+							<div class="w3-row w3-section">
+								<div class="w3-content">
+				 					파일 2
+									&nbsp;<input class="w3-input" name="filename1" type="file" style="font-size: 9pt;" size="60" maxlength="50" value="${diary.filename1}"/>
+								</div>
+							</div>
+							<div class="w3-row w3-section">
+								<div class="w3-content">
+				 					파일 3
+									&nbsp;<input class="w3-input" name="filename2" type="file" style="font-size: 9pt;" size="60" maxlength="50" value="${diary.filename2}"/>
+								</div>
+							</div>
+							<div class="w3-row w3-section">
+								<div class="w3-content">
+				 					파일 4
+									&nbsp;<input class="w3-input" name="filename3" type="file" style="font-size: 9pt;" size="60" maxlength="50" value="${diary.filename3}"/>
+								</div>
+							</div>
+							<div class="w3-row w3-section">
+								<div class="w3-content">
+				 					파일 5
+									&nbsp;<input class="w3-input" name="filename4" type="file" style="font-size: 9pt;" size="60" maxlength="50" value="${diary.filename4}"/>
 								</div>
 							</div>
 		
@@ -143,7 +168,12 @@
 							<input type="hidden" name="diaryid" value="${diary.diaryid}">
 							<input type="hidden" name="email" value="${diary.email}">
 							<input type="hidden" name="num" value="${diary.num}">
-							<input type="hidden" name="filename" value="${diary.filename}">
+							<input type="hidden" name="filename0" value="${diary.filename0}">
+							<input type="hidden" name="filename1" value="${diary.filename1}">
+							<input type="hidden" name="filename2" value="${diary.filename2}">
+							<input type="hidden" name="filename3" value="${diary.filename3}">
+							<input type="hidden" name="filename4" value="${diary.filename4}">
+				
 							<%-- <input type="hidden" name="filesize" value="${diary.filesize}"> --%>
 							<input type="hidden" name="pageNum" value="${pageNum}">	
 							

@@ -103,10 +103,16 @@
 			<p>${diary.content}</p>
 
 			<!-- 이미지 출력 / 타임라인에선 사용안함.-->
-			<c:if test="${diary.filename!=null}">
+			<c:if test="${diary.filename0!=null}">
 				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
 					!Picture
 				</div>
+				
+				<c:if test="${diary.filename1!=null}">
+					<div class="w3-right w3-light-gray" style="font-size: 5pt;">
+						!
+					</div>
+				</c:if>
 			</c:if>
 		</div>
 

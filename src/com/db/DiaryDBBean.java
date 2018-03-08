@@ -156,10 +156,11 @@ public class DiaryDBBean {
 		
 		return x;
 	}
-	// 각 일기장의 사진 수
-		public int getImgDiaryCount(String diaryid, String email) throws SQLException {
+	// 각 일기장의 사진 전체 갯수 카운트
+		public int getImgDiaryCountTotal(String diaryid, String email) throws SQLException {
 			int x = 0;
-			String sql = "SELECT nvl(count(filename),0) FROM diary WHERE diaryid = ? and email=?";
+			String sql = "SELECT nvl(count(filename0),0) + nvl(count(filename1),0) + nvl(count(filename2),0) + nvl(count(filename3),0) + nvl(count(filename4),0) "
+					+ "FROM diary WHERE diaryid = ? and email=?";
 			Connection conn = getConnection();
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -180,6 +181,31 @@ public class DiaryDBBean {
 			
 			return x;
 		}
+	// 각 일기장의 사진 페이징 카운트
+		public int getImgDiaryCount(String diaryid, String email) throws SQLException {
+			int x = 0;
+			String sql = "SELECT nvl(count(*),0) FROM diary WHERE diaryid = ? and email=?";
+			Connection conn = getConnection();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int number = 0;
+			
+			try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, diaryid);
+			pstmt.setString(2, email);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) { x = rs.getInt(1); }
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(conn, rs, pstmt);
+			}
+			
+			return x;
+		}		
+		
 	
 	// 일기(목록) 가져오기
 	public List getDiaries(int startRow, int endRow, String email, String diaryid) {
@@ -193,8 +219,8 @@ public class DiaryDBBean {
 		String sql = "";
 		try {
 			conn = getConnection();
-			sql = "select * from (select rownum rnum, b.* from (select num, email, diaryid, subject, cdate, content, ip, filename "
-					+ "from diary where diaryid = ? and email = ? order by cdate desc) b) where rnum between ? and ?"; //filename 추가
+			sql = "select * from (select rownum rnum, b.* from (select num, email, diaryid, subject, cdate, content, ip, filename0, filename1, filename2, "
+					+ "filename3, filename4 from diary where diaryid = ? and email = ? order by cdate desc) b) where rnum between ? and ?"; //filename 추가
 			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, diaryid);
@@ -214,7 +240,11 @@ public class DiaryDBBean {
 					diary.setCdate(rs.getTimestamp("cdate"));
 					diary.setContent(rs.getString("content"));
 					diary.setIp(rs.getString("ip"));
-					diary.setFilename(rs.getString("filename")); //이미지(파일)
+					diary.setFilename0(rs.getString("filename0")); //이미지(파일)
+					diary.setFilename1(rs.getString("filename1"));
+					diary.setFilename2(rs.getString("filename2"));
+					diary.setFilename3(rs.getString("filename3"));
+					diary.setFilename4(rs.getString("filename4"));
 					diaryList.add(diary);
 				} while (rs.next()); 
 			}
@@ -226,7 +256,7 @@ public class DiaryDBBean {
 		return diaryList;
 		
 	}
-	// 이미지만 불러오기.
+	// 이미지만 불러오기. // 파일 복수에선 쓰지 않음. (현재 쓰지않음) 
 	public List getImgDiaries (int startRow, int endRow, String email, String diaryid) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -238,8 +268,9 @@ public class DiaryDBBean {
 		String sql = "";
 		try {
 			conn = getConnection();
-			sql = "select * from (select rownum rnum, b.* from (select num, email, diaryid, subject, cdate, content, ip, filename "
-					+ "from diary where diaryid = ? and email = ? and filename is not null order by cdate desc) b) where rnum between ? and ?"; //filename 추가
+			sql = "select * from (select rownum rnum, b.* from (select num, email, diaryid, subject, cdate, content, ip, filename0, filename1, filename2, filename3, filename4 "
+					+ "from diary where diaryid = ? and email = ? and filename0 is not null and filename1 is not null and filename2 is not null and filename3 is not null and filename4 is not null"
+					+ " order by cdate desc) b) where rnum between ? and ?"; //filename 추가
 			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, diaryid);
@@ -259,7 +290,11 @@ public class DiaryDBBean {
 					diary.setCdate(rs.getTimestamp("cdate"));
 					diary.setContent(rs.getString("content"));
 					diary.setIp(rs.getString("ip"));
-					diary.setFilename(rs.getString("filename")); //이미지(파일)
+					diary.setFilename0(rs.getString("filename0")); //이미지(파일)
+					diary.setFilename1(rs.getString("filename1"));
+					diary.setFilename2(rs.getString("filename2"));
+					diary.setFilename3(rs.getString("filename3"));
+					diary.setFilename4(rs.getString("filename4"));
 					diaryList.add(diary);
 				} while (rs.next()); 
 			}
@@ -297,8 +332,16 @@ public class DiaryDBBean {
 				diary.setCdate(rs.getTimestamp("cdate"));
 				diary.setContent(rs.getString("content"));
 				diary.setIp(rs.getString("ip"));
-				diary.setFilename(rs.getString("filename"));
-				diary.setFilesize(rs.getInt("filesize"));
+				diary.setFilename0(rs.getString("filename0"));
+				diary.setFilesize0(rs.getInt("filesize0"));
+				diary.setFilename1(rs.getString("filename1"));
+				diary.setFilesize1(rs.getInt("filesize1"));
+				diary.setFilename2(rs.getString("filename2"));
+				diary.setFilesize2(rs.getInt("filesize2"));
+				diary.setFilename3(rs.getString("filename3"));
+				diary.setFilesize3(rs.getInt("filesize3"));
+				diary.setFilename4(rs.getString("filename4"));
+				diary.setFilesize4(rs.getInt("filesize4"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -320,15 +363,20 @@ public class DiaryDBBean {
 		
 		try {
 			conn = getConnection();
-			sql = "update diary set diaryid=?, subject=?, content=?, filename=? where num=? and email = ?";
+			sql = "update diary set diaryid=?, subject=?, content=?, filename0 =?, filename1 =?, filename2 =?,";
+			sql +=" filename3 =?, filename4 =? where num=? and email = ?";
 			pstmt = conn.prepareStatement(sql);
 		
 			pstmt.setString(1, diary.getDiaryid());
 			pstmt.setString(2, diary.getSubject());
 			pstmt.setString(3, diary.getContent());
-			pstmt.setString(4, diary.getFilename());
-			pstmt.setInt(5, diary.getNum());
-			pstmt.setString(6, diary.getEmail());
+			pstmt.setString(4, diary.getFilename0());
+			pstmt.setString(5, diary.getFilename1());
+			pstmt.setString(6, diary.getFilename2());
+			pstmt.setString(7, diary.getFilename3());
+			pstmt.setString(8, diary.getFilename4());
+			pstmt.setInt(9, diary.getNum());
+			pstmt.setString(10, diary.getEmail());
 			
 			chk = pstmt.executeUpdate(); //컬럼이 업데이트가 되었을때 숫자를 반환
 			pstmt.executeUpdate();
