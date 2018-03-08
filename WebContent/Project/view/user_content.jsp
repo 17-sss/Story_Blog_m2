@@ -36,7 +36,7 @@
 			<span class="w3-right w3-text-gray">${diary.cdate}</span>
 			<!-- 제목 출력 -->
 			<b>제목:</b> ${diary.subject}
-			<!-- 수정, 삭제 -->
+			<!-- 수정, 목록, 삭제 -->
 			<div style="margin-top: 6px;">
 				<form method="post" style="display: inline-block; margin-left: 10px;" class="w3-right" action="<%=request.getContextPath() %>/story/user_deleteDPro">
 					<input type="submit" class="w3-button w3-red w3-small" value="삭제">
@@ -50,7 +50,9 @@
 					
 				<form method="post" style="display: inline-block; margin-left: 10px;" class="w3-right" action="<%=request.getContextPath() %>/story/user_updateDForm">
 					<input type="submit" class="w3-button w3-blue w3-small" value="수정">
-					<input type="button" style="display: inline-block; margin-left: 10px;" class="w3-button w3-right w3-yellow w3-small" value="목록" onclick="location.href='/Story_Blog_m2/story/user_gallery'" >
+					 
+					 <input type="button" style="display: inline-block; margin-left: 10px;" class="w3-button w3-right w3-yellow w3-small" value="목록" onclick="history.back();" >
+					<!-- <input type="button" style="display: inline-block; margin-left: 10px;" class="w3-button w3-right w3-yellow w3-small" value="목록" onclick="location.href='/Story_Blog_m2/story/user_gallery'" > -->
 					
 					<!-- hidden으로  updateDForm에 넘기기!!!  -->
                		<input type="hidden" name="diaryid" value="${diary.diaryid}">
@@ -60,7 +62,7 @@
 				
 				
 			</div>
-			<!-- end. 수정, 삭제 -->
+			<!-- end. 수정, 목록, 삭제 -->
 			
 			<!-- 이메일 출력 -->		
 			<p class="w3-text-gray" style="font-size: 9pt;">${diary.email}</p>
