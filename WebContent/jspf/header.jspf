@@ -293,7 +293,8 @@
       	</div>
       	<button class="w3-button w3-bar-item w3-center w3-light-gray" onclick="location.href='<%=request.getContextPath() %>/story/user_set'">My Page</button>
       	
-      	<div class="w3-bar-item w3-center w3-margin-left w3-margin-right" style="margin-top: 50%;">
+      	<!-- <div class="w3-bar-item w3-center w3-margin-left w3-margin-right" style="margin-top: 50%;"> -->
+      	<div style="margin-left: 5%; margin-top: 50%;">
 	      	<div class="watch">
 				<div class="watch--inner"></div>
 				<div class="watch--day day">
