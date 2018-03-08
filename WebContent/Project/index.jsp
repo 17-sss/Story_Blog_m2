@@ -9,7 +9,7 @@
 	<!-- <link rel="stylesheet" href="../w3.css"> -->
 
 	<style>
-	/*=================== 메인화면 ===================*/
+	/*=================== 메인화면 ====================*/
 		body,h1 {font-family: "consolas", sans-serif}
 		body, html {height: 100%}
 		.bgimg {
