@@ -95,34 +95,34 @@
 							
 							<!-- 파일업로드 - 다중테스트  --> 
 							<div class="w3-row w3-section">
-								<div class="w3-content">
-				 					파일 1
-									&nbsp;<input class="w3-input" name="filename0" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
+								<div class="w3-content" style="font-size: 11pt;">
+				 					<b>파일 1 [갤러리 메인 사진]</b>
+									&nbsp;<input class="w3-input w3-light-blue" name="filename0" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
 								</div>
 							</div>
 							
 							<div class="w3-row w3-section">
-								<div class="w3-content">
+								<div class="w3-content" style="font-size: 9pt;">
 				 					파일 2
-									&nbsp;<input class="w3-input" name="filename1" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
+									&nbsp;<input class="w3-input" name="filename1" type="file" style="font-size: 7pt;" size="60" maxlength="50"/>
 								</div>
 							</div>
 							<div class="w3-row w3-section">
-								<div class="w3-content">
+								<div class="w3-content" style="font-size: 9pt;">
 				 					파일 3
-									&nbsp;<input class="w3-input" name="filename2" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
+									&nbsp;<input class="w3-input" name="filename2" type="file" style="font-size: 7pt;" size="60" maxlength="50"/>
 								</div>
 							</div>
 							<div class="w3-row w3-section">
-								<div class="w3-content">
+								<div class="w3-content" style="font-size: 9pt;">
 				 					파일 4
-									&nbsp;<input class="w3-input" name="filename3" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
+									&nbsp;<input class="w3-input" name="filename3" type="file" style="font-size: 7pt;" size="60" maxlength="50"/>
 								</div>
 							</div>
 							<div class="w3-row w3-section">
-								<div class="w3-content">
+								<div class="w3-content" style="font-size: 9pt;">
 				 					파일 5
-									&nbsp;<input class="w3-input" name="filename4" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
+									&nbsp;<input class="w3-input" name="filename4" type="file" style="font-size: 7pt;" size="60" maxlength="50"/>
 								</div>
 							</div>
 							

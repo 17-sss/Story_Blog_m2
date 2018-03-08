@@ -107,12 +107,26 @@
 				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
 					!Picture
 				</div>
-				
-				<c:if test="${diary.filename1!=null}">
-					<div class="w3-right w3-light-gray" style="font-size: 5pt;">
-						!
-					</div>
-				</c:if>
+			</c:if>
+			<c:if test="${diary.filename1!=null}">
+				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
+					!Picture
+				</div>
+			</c:if>
+			<c:if test="${diary.filename2!=null}">
+				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
+					!Picture
+				</div>
+			</c:if>
+			<c:if test="${diary.filename3!=null}">
+				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
+					!Picture
+				</div>
+			</c:if>
+			<c:if test="${diary.filename4!=null}">
+				<div class="w3-right w3-light-gray" style="font-size: 5pt;">
+					!Picture
+				</div>
 			</c:if>
 		</div>
 
