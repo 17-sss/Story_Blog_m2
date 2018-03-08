@@ -74,7 +74,6 @@
 					    <div class="w3-rest">
 					      <input type="submit" value="¼öÁ¤" class="w3-button w3-right w3-large w3-pink">
 						  <input type="hidden" name="email" value="${user.email}">
-					      <input type="hidden" name="pwd" value="${user.pwd}">
 					      <input type="hidden" name="filename" value="${user.filename}">
 					    </div>
 					</div>

@@ -606,7 +606,7 @@ public class StoryController extends Action {
 	
 	// 유저 - 마이페이지 
 	public String user_set(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
-		HttpSession session = req.getSession();
+		/*HttpSession session = req.getSession();
 		
 		try {
 			UserDBBean userPro = UserDBBean.getInstance();
@@ -618,7 +618,18 @@ public class StoryController extends Action {
 		} catch (Exception e) {}
 		
 		return  "/Project/view/user_set.jsp"; 
+	}*/	
+		HttpSession session = req.getSession();
+		
+		try {
+			UserDBBean userPro = UserDBBean.getInstance();
+			UserDataBean user = userPro.getUser((String)session.getAttribute("sessionID"));
+			
+			req.setAttribute("user", user); 
+		} catch (Exception e) {}
+		return "/Project/view/user_set.jsp"; 
 	}
+	
 	
 	public String user_updateUPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		UserDataBean user = new UserDataBean();
@@ -675,7 +686,7 @@ public class StoryController extends Action {
 			
 		} catch (Exception e) {e.printStackTrace();}
 			
-		return "/Project/view/user_updateDPro.jsp";
+		return "/Project/view/user_updateUPro.jsp";
 	}
 	
 	public String user_deleteUPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
@@ -842,7 +853,6 @@ public class StoryController extends Action {
 			req.setAttribute("chk", chk);
 			req.setAttribute("pageNum", pageNum);
 			req.setAttribute("email", email);
-			req.setAttribute("pwd", pwd);
 			
 			System.out.println("수정여부: " + chk);
 			System.out.println(user);

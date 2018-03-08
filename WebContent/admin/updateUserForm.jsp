@@ -95,7 +95,6 @@
 				<div class="w3-right">
 				
 					<input type="hidden" name="email" value="${user.email}">
-					<input type="hidden" name="pwd" value="${user.pwd}">
 					<input type="hidden" name="pageNum" value="${pageNum}">
 					<input type="hidden" name="filename" value="${user.filename}">
 
