@@ -49,8 +49,8 @@
 						<!-- 묶음 -->
 						<div class="w3-border w3-margin  w3-text-pink">
 							
-							<!-- 일기장 분류 (select) -->
-							<div class="w3-row w3-section">
+							<!-- 일기장 분류 (select) / 미완이라 봉인 -->
+							<%-- <div class="w3-row w3-section">
 								<div class="w3-content">
 				 					일기장 선택
 									&nbsp;
@@ -59,9 +59,9 @@
 									    <option value="${diaryid}">${diaryid}</option>
 									</select>
 								
-									<%-- <input class="w3-input" name="diaryid" type="text" value="${diaryid}"> --%>
+									<input class="w3-input" name="diaryid" type="text" value="${diaryid}">
 								</div>
-							</div>
+							</div> --%>
 	
 							<!-- 제목 -->
 							<div class="w3-row w3-section">

@@ -202,7 +202,7 @@
 	<!-- 기본 디자인 (중앙) -->
 	  <div class="w3-display-middle">
 	    
-	    <h1 class="w3-jumbo w3-animate-top"><a href="index.jsp" id="nounder">Story Blog</a></h1>
+	    <h1 class="w3-jumbo w3-animate-top"><a href="index" id="nounder">Story Blog</a></h1>
 	    <hr class="w3-border-gray" style="margin:auto; width:40%">
 	    <p class="w3-large w3-center">You & I</p>
 	 
