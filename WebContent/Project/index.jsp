@@ -236,9 +236,9 @@
 			      <input type="text" placeholder="이메일을 입력하세요" name="email" required>
 			    <label id="label-text"><b>Password</b></label>
 			      <input type="password" placeholder="비밀번호를 입력하세요" name="pwd" required>
-			    <label id="label-text" class="w3-right">
+			    <!-- <label id="label-text" class="w3-right">
 			    	<input type="checkbox" checked="checked">Remember me
-			    </label>	
+			    </label> -->	
 	    		
 		    	<div class="w3-center">
 		    		 <input class="w3-button w3-pink w3-large" id="btn" type="submit" value="Login"/>
@@ -258,7 +258,7 @@
 				      <button type="button" onclick="document.getElementById('login').style.display='none'" 
 				      			class="cancelbtn w3-button w3-red">Cancel</button>
 			      </p>
-			      <span class="psw">Forgot <a href="#">password?</a></span>
+			     <!--  <span class="psw">Forgot <a href="#">password?</a></span> -->
     	    </div>
     	      <!-- end. 비번 찾으실? (미완) -->
 		  </form>
