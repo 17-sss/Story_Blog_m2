@@ -1,4 +1,4 @@
-package com.db;
+/*package com.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -64,9 +64,8 @@ public class DiaryDBBean {
 			
 			System.out.println(diary.getEmail()); // Test
 			
-			sql = "insert into diary(num, email, diaryid, subject, cdate, content, ip, filename0, filesize0, filename1, filesize1,";
-			sql += "filename2, filesize2,filename3, filesize3,filename4, filesize4)";
-			sql += "values(?,?,?,?,sysdate,?,?,?,?,?,?,?,?,?,?,?,?)"; //+ filename, filesize 추가 / ? 추가 ( 다중 파일 업로드 )
+			sql = "insert into diary(num, email, diaryid, subject, cdate, content, ip, filename, filesize)";
+			sql += "values(?,?,?,?,sysdate,?,?,?,?)"; //+ filename, filesize 추가 / ? 두개 추가 [파일업로드용]
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, number);
@@ -75,16 +74,8 @@ public class DiaryDBBean {
 			pstmt.setString(4, diary.getSubject());
 			pstmt.setString(5, diary.getContent());
 			pstmt.setString(6, diary.getIp());
-			pstmt.setString(7, diary.getFilename0()); //+
-			pstmt.setInt(8, diary.getFilesize0()); //+
-			pstmt.setString(9, diary.getFilename1()); //+
-			pstmt.setInt(10, diary.getFilesize1()); //+
-			pstmt.setString(11, diary.getFilename2()); //+
-			pstmt.setInt(12, diary.getFilesize2()); //+
-			pstmt.setString(13, diary.getFilename3()); //+
-			pstmt.setInt(14, diary.getFilesize3()); //+
-			pstmt.setString(15, diary.getFilename4()); //+
-			pstmt.setInt(16, diary.getFilesize4()); //+
+			pstmt.setString(7, diary.getFilename()); //+
+			pstmt.setInt(8, diary.getFilesize()); //+
 			
 			
 			pstmt.executeUpdate();
@@ -366,3 +357,4 @@ public class DiaryDBBean {
 	}
 }
 
+*/

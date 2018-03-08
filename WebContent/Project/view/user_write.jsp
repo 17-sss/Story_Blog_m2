@@ -86,20 +86,45 @@
 							</div> -->
 					
 							<!-- 파일업로드  -->
-							<div class="w3-row w3-section">
+							<!-- <div class="w3-row w3-section">
 								<div class="w3-content">
 				 					파일 
 									&nbsp;<input class="w3-input" name="filename" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
 								</div>
-							</div>
+							</div> -->
 							
 							<!-- 파일업로드 - 다중테스트  --> 
-							<!-- <div class="w3-row w3-section">
+							<div class="w3-row w3-section">
 								<div class="w3-content">
-				 					파일 - 다중
-									&nbsp;<input class="w3-input" multiple="multiple" name="filename[]" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
+				 					파일 1
+									&nbsp;<input class="w3-input" name="filename0" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
 								</div>
-							</div> -->
+							</div>
+							
+							<div class="w3-row w3-section">
+								<div class="w3-content">
+				 					파일 2
+									&nbsp;<input class="w3-input" name="filename1" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
+								</div>
+							</div>
+							<div class="w3-row w3-section">
+								<div class="w3-content">
+				 					파일 3
+									&nbsp;<input class="w3-input" name="filename2" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
+								</div>
+							</div>
+							<div class="w3-row w3-section">
+								<div class="w3-content">
+				 					파일 4
+									&nbsp;<input class="w3-input" name="filename3" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
+								</div>
+							</div>
+							<div class="w3-row w3-section">
+								<div class="w3-content">
+				 					파일 5
+									&nbsp;<input class="w3-input" name="filename4" type="file" style="font-size: 9pt;" size="60" maxlength="50"/>
+								</div>
+							</div>
 							
 							<!-- 내용 (SE2) -->
 							<div class="w3-row w3-section">

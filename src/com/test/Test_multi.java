@@ -1,4 +1,4 @@
-/*package com.test;
+package com.test;
 
 import java.io.File;
 import java.util.Enumeration;
@@ -14,6 +14,25 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class Test_multi {
+	public String user_write(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
+		String subject = req.getParameter("subject");
+	    System.out.println("제목:"+subject);
+	    
+	    int num=0;
+		String diaryid = req.getParameter("diaryid");
+		
+		if (diaryid==null) diaryid = "Main";
+		if (subject==null) subject = "제목없음";
+
+		if (req.getParameter("num")!=null) {num = Integer.parseInt(req.getParameter("num"));}
+		
+		req.setAttribute("diaryid", diaryid);
+		req.setAttribute("subject", subject);
+		
+		return  "/Project/view/user_write.jsp"; 
+	}
+	
+	// 유저 - 일기 쓰기 폼 전송
 	public String user_writePro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
 		HttpSession session = req.getSession();
 		DiaryDataBean diary = new DiaryDataBean();
@@ -63,17 +82,38 @@ public class Test_multi {
 		diary.setIp(req.getRemoteAddr());
 		
 		// 8)
-		for (int i=0; i<file.length; i++) {
-			if (file[i] != null) {
-				//보류.. setfile~ 이것들.. databean에서 더만들어야하나 아니면 []..?
-				diary.setFilename(filename[i]);
-				diary.setFilesize((int) file[i].length()); 
-				
-			} else {
-				diary.setFilename(" ");
-				diary.setFilesize(0);
-			}
+		if (file[4] != null) {
+			diary.setFilename0(filename[4]);
+			diary.setFilesize0((int) file[4].length()); 
+			
+		} 
+		
+		if (file[3] != null) {
+			diary.setFilename1(filename[3]);
+			diary.setFilesize1((int) file[3].length()); 
+			
+		} 
+		
+		if (file[2] != null) {
+			diary.setFilename2(filename[2]);
+			diary.setFilesize2((int) file[2].length()); 
+			
 		}
+		
+		if (file[1] != null) {
+			diary.setFilename3(filename[1]);
+			diary.setFilesize3((int) file[1].length()); 
+			
+		} 
+		
+		if (file[0] != null) {
+			diary.setFilename4(filename[0]);
+			diary.setFilesize4((int) file[0].length()); 
+			
+		} else {}
+			
+		
+	
 		
 		// =================================================
 		
@@ -86,5 +126,28 @@ public class Test_multi {
 		
 		return null;
 	}
+	
+	/* 수정사항. - (DiaryDBBean) insertDiary
+	 *  sql = "insert into diary(num, email, diaryid, subject, cdate, content, ip, filename0, filesize0, filename1, filesize1,";
+			sql += "filename2, filesize2,filename3, filesize3,filename4, filesize4)";
+			sql += "values(?,?,?,?,sysdate,?,?,?,?,?,?,?,?,?,?,?,?)"; //+ filename, filesize 추가 / ? 추가 ( 다중 파일 업로드 )
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, number);
+			pstmt.setString(2, diary.getEmail()); // !!
+			pstmt.setString(3, diary.getDiaryid());
+			pstmt.setString(4, diary.getSubject());
+			pstmt.setString(5, diary.getContent());
+			pstmt.setString(6, diary.getIp());
+			pstmt.setString(7, diary.getFilename0()); //+
+			pstmt.setInt(8, diary.getFilesize0()); //+
+			pstmt.setString(9, diary.getFilename1()); //+
+			pstmt.setInt(10, diary.getFilesize1()); //+
+			pstmt.setString(11, diary.getFilename2()); //+
+			pstmt.setInt(12, diary.getFilesize2()); //+
+			pstmt.setString(13, diary.getFilename3()); //+
+			pstmt.setInt(14, diary.getFilesize3()); //+
+			pstmt.setString(15, diary.getFilename4()); //+
+			pstmt.setInt(16, diary.getFilesize4()); //+
+	 */
 }
-*/

@@ -14,8 +14,18 @@ public class DiaryDataBean {
 	private Date cdate; // 날짜
 	private String content; // 내용
 	private String ip; // 아이피
-	private String filename; // 파일이름
-	private int filesize; // 파일크기
+	// 파일 업로드
+	private String filename0; // 파일이름
+	private int filesize0; // 파일크기
+	private String filename1;
+	private int filesize1; 
+	private String filename2; 
+	private int filesize2; 
+	private String filename3; 
+	private int filesize3;
+	private String filename4; 
+	private int filesize4;
+	
 	public int getNum() {
 		return num;
 	}
@@ -68,24 +78,79 @@ public class DiaryDataBean {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-	public String getFilename() {
-		return filename;
+	
+	
+	public String getFilename0() {
+		return filename0;
 	}
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setFilename0(String filename0) {
+		this.filename0 = filename0;
 	}
-	public int getFilesize() {
-		return filesize;
+	public int getFilesize0() {
+		return filesize0;
 	}
-	public void setFilesize(int filesize) {
-		this.filesize = filesize;
+	public void setFilesize0(int filesize0) {
+		this.filesize0 = filesize0;
 	}
+	public String getFilename1() {
+		return filename1;
+	}
+	public void setFilename1(String filename1) {
+		this.filename1 = filename1;
+	}
+	public int getFilesize1() {
+		return filesize1;
+	}
+	public void setFilesize1(int filesize1) {
+		this.filesize1 = filesize1;
+	}
+	public String getFilename2() {
+		return filename2;
+	}
+	public void setFilename2(String filename2) {
+		this.filename2 = filename2;
+	}
+	public int getFilesize2() {
+		return filesize2;
+	}
+	public void setFilesize2(int filesize2) {
+		this.filesize2 = filesize2;
+	}
+	public String getFilename3() {
+		return filename3;
+	}
+	public void setFilename3(String filename3) {
+		this.filename3 = filename3;
+	}
+	public int getFilesize3() {
+		return filesize3;
+	}
+	public void setFilesize3(int filesize3) {
+		this.filesize3 = filesize3;
+	}
+	public String getFilename4() {
+		return filename4;
+	}
+	public void setFilename4(String filename4) {
+		this.filename4 = filename4;
+	}
+	public int getFilesize4() {
+		return filesize4;
+	}
+	public void setFilesize4(int filesize4) {
+		this.filesize4 = filesize4;
+	}
+	
 	@Override
 	public String toString() {
 		return "DiaryDataBean [num=" + num + ", email=" + email + ", diaryid=" + diaryid + ", subject=" + subject
-				+ ", cdate=" + cdate + ", content=" + content + ", ip=" + ip + ", filename=" + filename + ", filesize="
-				+ filesize + "]";
+				+ ", cdate=" + cdate + ", content=" + content + ", ip=" + ip + ", filename0=" + filename0
+				+ ", filesize0=" + filesize0 + ", filename1=" + filename1 + ", filesize1=" + filesize1 + ", filename2="
+				+ filename2 + ", filesize2=" + filesize2 + ", filename3=" + filename3 + ", filesize3=" + filesize3
+				+ ", filename4=" + filename4 + ", filesize4=" + filesize4 + "]";
 	}
+	
+	
 	
 	
 	

@@ -1,4 +1,4 @@
-package controller;
+/*package controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -18,7 +18,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.sist.msk.Action;
 
-public class StoryController extends Action {
+public class Bak_single_StoryController extends Action {
 	
 	// user ====================================
 	public String index(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
@@ -78,7 +78,7 @@ public class StoryController extends Action {
 			user.setFilename(filename);
 			user.setFilesize((int)file.length());
 		} else {
-			/*user.setFilename(" ");*/
+			user.setFilename(" ");
 			user.setFilesize(0);
 		}
 		// ============
@@ -392,8 +392,8 @@ public class StoryController extends Action {
 				diary.setFilename(filename);
 				diary.setFilesize((int)file.length());
 			} else {
-				/*diary.setFilename(" ");*/
-				/*diary.setFilesize(0);*/
+				diary.setFilename(" ");
+				diary.setFilesize(0);
 			}
 			
 			int chk = diaPro.updateDiary(diary);
@@ -429,7 +429,7 @@ public class StoryController extends Action {
 		return "/Project/view/user_deleteDPro.jsp"; 
 	} 
 	
-	// 유저 - 일기 쓰기 폼 (사진 다수)
+	// 유저 - 일기 쓰기 폼
 	public String user_write(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		String subject = req.getParameter("subject");
 	    System.out.println("제목:"+subject);
@@ -466,21 +466,16 @@ public class StoryController extends Action {
 		multi = new MultipartRequest(req, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
 
 		Enumeration files = multi.getFileNames();
-		String[] filename = new String[5];
-		File[] file = new File[5];
-		int index = 0;
-		
-		String[] original = new String[5];
-		String[] type = new String[5];
+		String filename = "";
+		File file = null;
 		
 		// 7) 
-		while (files.hasMoreElements()) { // 만약 파일이 다수면 if를 while로..
+		if (files.hasMoreElements()) { // 만약 파일이 다수면 if를 while로..
 			String name = (String) files.nextElement();
-			filename[index] = multi.getFilesystemName(name);
-			original[index] = multi.getOriginalFileName(name);
-			type[index] = multi.getContentType(name);
-			file[index] = multi.getFile(name);
-			index++;
+			filename = multi.getFilesystemName(name); // DefaultFileRenamePolicy 적용
+			String original = multi.getOriginalFileName(name); // 파일 원래 이름 (추가해도되고, 안해도..?)
+			String type = multi.getContentType(name); // 파일 타입 (추가해도되고, 안해도..?)
+			file = multi.getFile(name);
 		}
 		// =================================================
 		
@@ -498,43 +493,17 @@ public class StoryController extends Action {
 		diary.setIp(req.getRemoteAddr());
 		
 		// 8)
-		if (file[4] != null) {
-			diary.setFilename0(filename[4]);
-			diary.setFilesize0((int) file[4].length()); 
-			
-		} 
-		
-		if (file[3] != null) {
-			diary.setFilename1(filename[3]);
-			diary.setFilesize1((int) file[3].length()); 
-			
-		} 
-		
-		if (file[2] != null) {
-			diary.setFilename2(filename[2]);
-			diary.setFilesize2((int) file[2].length()); 
-			
+		if (file != null) {
+			diary.setFilename(filename);
+			diary.setFilesize((int) file.length());
+		} else {
+			diary.setFilename(" ");
+			diary.setFilesize(0);
 		}
-		
-		if (file[1] != null) {
-			diary.setFilename3(filename[1]);
-			diary.setFilesize3((int) file[1].length()); 
-			
-		} 
-		
-		if (file[0] != null) {
-			diary.setFilename4(filename[0]);
-			diary.setFilesize4((int) file[0].length()); 
-			
-		} else {}
-			
-		
-	
-		
 		// =================================================
 		
 		System.out.println(diary);
-		//9) insertDiary 메소드 수정 (복수 개로 할시 필수 수정)
+		//9) insertDiary 메소드 수정 
 		dbPro.insertDiary(diary);
 		
 		req.setAttribute("pageNum", pageNum);
@@ -625,8 +594,8 @@ public class StoryController extends Action {
 				user.setFilename(filename);
 				user.setFilesize((int)file.length());
 			} else {
-				/*user.setFilename(" ");*/
-				/*user.setFilesize(0);*/
+				user.setFilename(" ");
+				user.setFilesize(0);
 			}
 			
 			int chk = dbPro.updateUser(user);
@@ -796,8 +765,8 @@ public class StoryController extends Action {
 				user.setFilename(filename);
 				user.setFilesize((int)file.length());
 			} else {
-				/*user.setFilename(" ");*/
-				/*user.setFilesize(0);*/
+				user.setFilename(" ");
+				user.setFilesize(0);
 			}
 			// ============
 			
@@ -1081,7 +1050,7 @@ public class StoryController extends Action {
 	
 	
 	// adheader.jspf - /story/admin/adhead
-	/*public String adhead(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
+	public String adhead(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		HttpSession session = req.getSession(); 
 		 
 		// admin 아닐 경우 (안먹힘)
@@ -1093,9 +1062,10 @@ public class StoryController extends Action {
 			res.sendRedirect(req.getContextPath()+"/story/admin/ad_main");
 		}
 		return null;
-	}*/
+	}
 	
 	// end. 헤더 테스트 ========================================
 
 // {} class
 }
+*/
