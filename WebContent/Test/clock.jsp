@@ -7,8 +7,8 @@
 	<title>Insert title here</title>
 	<style type="text/css">
 		.watch {
-			width: 220px;
-			height: 220px;
+			width: 132px;
+			height: 132px;
 			background: black;
 			border-radius: 50%;
 			display: -webkit-box;
@@ -82,8 +82,8 @@
 		}
 		
 		.day {
-			width: 220px;
-			height: 220px;
+			width: 132px;
+			height: 132px;
 			position: absolute;
 			background: #789abc;
 			left: 0;
@@ -92,8 +92,8 @@
 		
 		.day--ground {
 			position: absolute;
-			width: 220px;
-			height: 80px;
+			width: 132px;
+			height: 48px;
 			background: green;
 			bottom: 0;
 		}
