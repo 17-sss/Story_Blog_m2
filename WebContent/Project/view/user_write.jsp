@@ -103,25 +103,25 @@
 							
 							<div class="w3-row w3-section">
 								<div class="w3-content" style="font-size: 9pt;">
-				 					颇老 2
+				 					颇老 2 <span class="w3-border" style="font-size: 9pt; color: red;">♂♂♂♂</span>
 									&nbsp;<input class="w3-input" name="filename1" type="file" style="font-size: 7pt;" size="60" maxlength="50"/>
 								</div>
 							</div>
 							<div class="w3-row w3-section">
 								<div class="w3-content" style="font-size: 9pt;">
-				 					颇老 3
+				 					颇老 3 <span class="w3-border" style="font-size: 9pt; color: #FFFF8F;">♂♂♂♂</span>
 									&nbsp;<input class="w3-input" name="filename2" type="file" style="font-size: 7pt;" size="60" maxlength="50"/>
 								</div>
 							</div>
 							<div class="w3-row w3-section">
 								<div class="w3-content" style="font-size: 9pt;">
-				 					颇老 4
+				 					颇老 4 <span class="w3-border" style="font-size: 9pt; color: green;">♂♂♂♂</span>
 									&nbsp;<input class="w3-input" name="filename3" type="file" style="font-size: 7pt;" size="60" maxlength="50"/>
 								</div>
 							</div>
 							<div class="w3-row w3-section">
 								<div class="w3-content" style="font-size: 9pt;">
-				 					颇老 5
+				 					颇老 5 <span class="w3-border" style="font-size: 9pt; color: #F6F6F6;">♂♂♂♂</span>
 									&nbsp;<input class="w3-input" name="filename4" type="file" style="font-size: 7pt;" size="60" maxlength="50"/>
 								</div>
 							</div>

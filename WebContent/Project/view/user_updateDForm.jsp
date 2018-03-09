@@ -107,38 +107,55 @@
 							
 							<!-- 파일업로드  -->
 							<div class="w3-row w3-section">
-								<div class="w3-content" style="font-size: 11pt;">
-				 					<b>파일 1 [갤러리 메인 사진]</b>
-									&nbsp;<input class="w3-input w3-light-blue" name="filename0" type="file" style="font-size: 9pt;" size="60" maxlength="50" value="${diary.filename0}"/>
+								<div class="w3-content" style="font-size: 9pt;">
+				 					파일 1 <span class="w3-border" style="font-size: 9pt; color: blue;">&nbsp;No&nbsp;</span>
+				 					<span style="font-size: 8pt;">
+										&nbsp;<input class="w3-border" name="filename1" type="file" size="60" maxlength="50" value="${diary.filename0}"/>
+										&nbsp;수정 전 파일: <input class="w3-center" type="text" value="${diary.filename0}" placeholder="파일 없음" readonly>
+										<b>[갤러리 메인 사진]</b> 
+									</span>
 								</div>
 							</div>
 							
 							<div class="w3-row w3-section">
 								<div class="w3-content" style="font-size: 9pt;">
-				 					파일 2
-									&nbsp;<input class="w3-input" name="filename1" type="file" style="font-size: 7pt;" size="60" maxlength="50" value="${diary.filename1}"/>
+				 					파일 2 <span class="w3-border" style="font-size: 9pt; color: red;">■■■■</span>
+				 					<span style="font-size: 8pt;">
+										&nbsp;<input class="w3-border" name="filename1" type="file" size="60" maxlength="50" value="${diary.filename1}"/>
+										&nbsp;수정 전 파일: <input class="w3-center" type="text" value="${diary.filename1}" placeholder="파일 없음" readonly>
+									</span>
 								</div>
 							</div>
-							<div class="w3-row w3-section">
-								<div class="w3-content" style="font-size: 9pt;">
-				 					파일 3
-									&nbsp;<input class="w3-input" name="filename2" type="file" style="font-size: 7pt;" size="60" maxlength="50" value="${diary.filename2}"/>
-								</div>
-							</div>
-							<div class="w3-row w3-section">
-								<div class="w3-content" style="font-size: 9pt;">
-				 					파일 4
-									&nbsp;<input class="w3-input" name="filename3" type="file" style="font-size: 7pt;" size="60" maxlength="50" value="${diary.filename3}"/>
-								</div>
-							</div>
-							<div class="w3-row w3-section">
-								<div class="w3-content" style="font-size: 9pt;">
-				 					파일 5
-									&nbsp;<input class="w3-input" name="filename4" type="file" style="font-size: 7pt;" size="60" maxlength="50" value="${diary.filename4}"/>
-								</div>
-							</div>
-		
 							
+							<div class="w3-row w3-section">
+								<div class="w3-content" style="font-size: 9pt;">
+				 					파일 3 <span class="w3-border" style="font-size: 9pt; color: #FFFF8F;">■■■■</span>
+				 					<span style="font-size: 8pt;">
+										&nbsp;<input class="w3-border" name="filename1" type="file" size="60" maxlength="50" value="${diary.filename2}"/>
+										&nbsp;수정 전 파일: <input class="w3-center" type="text" value="${diary.filename2}" placeholder="파일 없음" readonly>
+									</span>
+								</div>
+							</div>
+							
+							<div class="w3-row w3-section">
+								<div class="w3-content" style="font-size: 9pt;">
+				 					파일 4 <span class="w3-border" style="font-size: 9pt; color: green;">■■■■</span>
+				 					<span style="font-size: 8pt;">
+										&nbsp;<input class="w3-border" name="filename1" type="file" size="60" maxlength="50" value="${diary.filename3}"/>
+										&nbsp;수정 전 파일: <input class="w3-center" type="text" value="${diary.filename3}" placeholder="파일 없음" readonly>
+									</span>
+								</div>
+							</div>
+							
+							<div class="w3-row w3-section">
+								<div class="w3-content" style="font-size: 9pt;">
+				 					파일 5 <span class="w3-border" style="font-size: 9pt; color: #F6F6F6;">■■■■</span>
+				 					<span style="font-size: 8pt;">
+										&nbsp;<input class="w3-border" name="filename1" type="file" size="60" maxlength="50" value="${diary.filename3}"/>
+										&nbsp;수정 전 파일: <input class="w3-center" type="text" value="${diary.filename3}" placeholder="파일 없음" readonly>
+									</span>
+								</div>
+							</div>	
 							
 							<!-- 내용 (SE2) -->
 							<div class="w3-row w3-section">
