@@ -110,7 +110,7 @@
 								<div class="w3-content" style="font-size: 9pt;">
 				 					파일 1 <span class="w3-border" style="font-size: 9pt; color: blue;">&nbsp;No&nbsp;</span>
 				 					<span style="font-size: 8pt;">
-										&nbsp;<input class="w3-border" name="filename1" type="file" size="60" maxlength="50" value="${diary.filename0}"/>
+										&nbsp;<input class="w3-border" name="filename0" type="file" size="60" maxlength="50" value="${diary.filename0}"/>
 										&nbsp;수정 전 파일: <input class="w3-center" type="text" value="${diary.filename0}" placeholder="파일 없음" readonly>
 										<b>[갤러리 메인 사진]</b> 
 									</span>
@@ -131,7 +131,7 @@
 								<div class="w3-content" style="font-size: 9pt;">
 				 					파일 3 <span class="w3-border" style="font-size: 9pt; color: #FFFF8F;">■■■■</span>
 				 					<span style="font-size: 8pt;">
-										&nbsp;<input class="w3-border" name="filename1" type="file" size="60" maxlength="50" value="${diary.filename2}"/>
+										&nbsp;<input class="w3-border" name="filename2" type="file" size="60" maxlength="50" value="${diary.filename2}"/>
 										&nbsp;수정 전 파일: <input class="w3-center" type="text" value="${diary.filename2}" placeholder="파일 없음" readonly>
 									</span>
 								</div>
@@ -141,7 +141,7 @@
 								<div class="w3-content" style="font-size: 9pt;">
 				 					파일 4 <span class="w3-border" style="font-size: 9pt; color: green;">■■■■</span>
 				 					<span style="font-size: 8pt;">
-										&nbsp;<input class="w3-border" name="filename1" type="file" size="60" maxlength="50" value="${diary.filename3}"/>
+										&nbsp;<input class="w3-border" name="filename3" type="file" size="60" maxlength="50" value="${diary.filename3}"/>
 										&nbsp;수정 전 파일: <input class="w3-center" type="text" value="${diary.filename3}" placeholder="파일 없음" readonly>
 									</span>
 								</div>
@@ -151,8 +151,8 @@
 								<div class="w3-content" style="font-size: 9pt;">
 				 					파일 5 <span class="w3-border" style="font-size: 9pt; color: #F6F6F6;">■■■■</span>
 				 					<span style="font-size: 8pt;">
-										&nbsp;<input class="w3-border" name="filename1" type="file" size="60" maxlength="50" value="${diary.filename3}"/>
-										&nbsp;수정 전 파일: <input class="w3-center" type="text" value="${diary.filename3}" placeholder="파일 없음" readonly>
+										&nbsp;<input class="w3-border" name="filename4" type="file" size="60" maxlength="50" value="${diary.filename4}"/>
+										&nbsp;수정 전 파일: <input class="w3-center" type="text" value="${diary.filename4}" placeholder="파일 없음" readonly>
 									</span>
 								</div>
 							</div>	

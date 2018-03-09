@@ -18,7 +18,7 @@
 				display: -ms-flexbox;
 				display: flex;
 				-webkit-box-pack: center;
-				-webkit-justify-content: center;
+				-webkit-justify-content: center;	
 				-ms-flex-pack: center;
 				justify-content: center;
 				-webkit-box-align: center;
@@ -53,21 +53,21 @@
 				-webkit-transform: rotate(0deg);
 				transform: rotate(0deg);
 				position: absolute;
-				background: #333;
+				background: gray;
 				left: calc(50% - 2.5px);
 				top: calc(50% - 90px);
 			}
 			
 			.watch--sec {
-				width: 5px;
-				height: 130px;
-				border-radius: 10px;
+				width: 4.5px;
+				height: 117px;
+				border-radius: 9px;
 				-webkit-transform-origin: center 100px;
 				transform-origin: center 100px;
 				-webkit-transform: rotate(0deg);
 				transform: rotate(0deg);
 				position: absolute;
-				background: #666;
+				background: #670000;
 				left: calc(50% - 2.5px);
 				top: calc(50% - 100px);
 			}

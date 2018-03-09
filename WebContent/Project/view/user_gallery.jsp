@@ -80,7 +80,7 @@
 								<span style="margin-left: 13%;">
 									<c:if test="${diary.filename1!=null}">
 										<span class="w3-left w3-red w3-border" style="font-size: 4pt;">
-										&nbsp;-&nbsp;
+										&nbsp;+&nbsp;
 										</span>
 									</c:if>
 									<c:if test="${diary.filename1==null}">
@@ -90,7 +90,7 @@
 									</c:if>
 									<c:if test="${diary.filename2!=null}">
 										<span class="w3-left w3-yellow w3-border" style="font-size: 4pt;">
-										&nbsp;-&nbsp;
+										&nbsp;+&nbsp;
 										</span>
 									</c:if>
 									<c:if test="${diary.filename2==null}">
@@ -141,7 +141,7 @@
 								<span style="margin-left: 13%;">
 									<c:if test="${diary.filename1!=null}">
 										<span class="w3-left w3-red w3-border" style="font-size: 4pt;">
-										&nbsp;-&nbsp;
+										&nbsp;+&nbsp;
 										</span>
 									</c:if>
 									<c:if test="${diary.filename1==null}">
@@ -151,7 +151,7 @@
 									</c:if>
 									<c:if test="${diary.filename2!=null}">
 										<span class="w3-left w3-yellow w3-border" style="font-size: 4pt;">
-										&nbsp;-&nbsp;
+										&nbsp;+&nbsp;
 										</span>
 									</c:if>
 									<c:if test="${diary.filename2==null}">
