@@ -38,6 +38,7 @@
   <jsp-config>
   	<jsp-property-group>
   		<url-pattern>/Project/view/*</url-pattern>
+  		<url-pattern>/Project/admin/*</url-pattern>
   		<include-prelude>/jspf/header.jspf</include-prelude>
 		<!-- <include-coda>/jspf/footer.jspf</include-coda> -->
   	</jsp-property-group>
