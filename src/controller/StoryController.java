@@ -19,8 +19,6 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.sist.msk.Action;
 
 public class StoryController extends Action {
-	
-	// user ====================================
 	public String index(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
 		return  "/Project/index.jsp"; 
 	}
@@ -718,43 +716,38 @@ public class StoryController extends Action {
 	// end. 유저 - 마이페이지 ============================= 
 	
 	
-	// end. user ====================================
-	
-	
-	// admin ========================================
-	
-	
 	// 관리자 유저관리
 	// /story/admin/accountList
-	public String accountList(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
-		int pageSize= 10;
+	public String accountList(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+		int pageSize = 10;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		String pageNum = req.getParameter("pageNum");
-		if (pageNum == null || pageNum =="") {
+		if (pageNum == null || pageNum == "") {
 			pageNum = "1";
 		}
 		int currentPage = Integer.parseInt(pageNum);
-		int startRow = (currentPage - 1) * pageSize + 1;  
-		//사칙연산은 곱셈먼저.. +1은 맨나중에! 왼쪽에서부터 오른쪽으로 차례대로 계산
+		int startRow = (currentPage - 1) * pageSize + 1;
+		// 사칙연산은 곱셈먼저.. +1은 맨나중에! 왼쪽에서부터 오른쪽으로 차례대로 계산
 		int endRow = currentPage * pageSize;
 		int count = 0;
 		int number = 0;
 		List usList = null;
 		UserDBBean dbPro = UserDBBean.getInstance();
 		count = dbPro.getUserCount();
-		//게시판에 있는 글 수 count
+		// 게시판에 있는 글 수 count
 		if (count > 0) {
-			usList = dbPro.getUsers(startRow, endRow); 
+			usList = dbPro.getUsers(startRow, endRow);
 		}
 		number = count - (currentPage - 1) * pageSize;
-		
-		int bottomLine = 3; 
+
+		int bottomLine = 3;
 		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-		int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; //곱셈, 나눗셈먼저.
-		int endPage = startPage + bottomLine -1;
-		
-		if (endPage > pageCount) endPage = pageCount;
-		
+		int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; // 곱셈, 나눗셈먼저.
+		int endPage = startPage + bottomLine - 1;
+
+		if (endPage > pageCount)
+			endPage = pageCount;
+
 		req.setAttribute("count", count);
 		req.setAttribute("usList", usList);
 		req.setAttribute("currentPage", currentPage);
@@ -763,57 +756,52 @@ public class StoryController extends Action {
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("number", number);
 		req.setAttribute("endPage", endPage);
-		
-		return  "/admin/accountList.jsp"; 
+
+		return "/Project/admin/accountList.jsp";
 	}
-	
-	
-	// /story/admin/adLogoutPro
-	public String adLogoutPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
-		HttpSession session = req.getSession();
-	    session.invalidate(); // 모든세션정보 삭제
-	    res.sendRedirect(req.getContextPath()+"/story/index"); // 로그인 화면으로 다시 돌아간다.
-		
-	    return null; 
-	}
+
 	
 	
 	// /story/admin/updateUserForm
-	public String updateUserForm(HttpServletRequest req, HttpServletResponse res) throws Throwable { 
-		String email=req.getParameter("email");
-		String pwd=req.getParameter("pwd");
+	public String updateUserForm(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+		String email = req.getParameter("email");
+		String pwd = req.getParameter("pwd");
 		String pageNum = req.getParameter("pageNum");
-		if (pageNum == null || pageNum == "") { pageNum = "1"; }
+		if (pageNum == null || pageNum == "") {
+			pageNum = "1";
+		}
 		try {
 			UserDBBean userPro = UserDBBean.getInstance();
 			UserDataBean user = userPro.getUser(email, pwd);
-			
-			req.setAttribute("user", user); 
-		} catch (Exception e) {}
-		return "/admin/updateUserForm.jsp"; 
+
+			req.setAttribute("user", user);
+		} catch (Exception e) {
+		}
+		return "/Project/admin/updateUserForm.jsp";
 	}
+
 	
 	
 	// /story/admin/updateUserPro
-	public String updateUserPro(HttpServletRequest req, HttpServletResponse res) throws Throwable { 
+	public String updateUserPro(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 		UserDataBean user = new UserDataBean();
 		UserDBBean userPro = UserDBBean.getInstance();
-		
+
 		// 사진 업로드용 ============================================
-		String realFolder = ""; //웹 어플리케이션상의 절대경로
+		String realFolder = ""; // 웹 어플리케이션상의 절대경로
 		String encType = "euc-kr"; // 인코딩 타입
-		int maxSize = 3 *1024 * 1024; // 최대 업로드 될 파일 크기 .. 3MB (회원사진)
+		int maxSize = 3 * 1024 * 1024; // 최대 업로드 될 파일 크기 .. 3MB (회원사진)
 		ServletContext context = req.getServletContext();
-		realFolder =context.getRealPath("userSave");
+		realFolder = context.getRealPath("userSave");
 		MultipartRequest multi = null;
-		
+
 		// DefaultFileRenamePolicy는 중복된 파일 업로드할때 자동으로 Rename / aaa있으면 aaa(1)로
-		multi = new MultipartRequest(req, realFolder, maxSize, encType,  new DefaultFileRenamePolicy());
-		
+		multi = new MultipartRequest(req, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
+
 		Enumeration files = multi.getFileNames();
-		String filename="";
+		String filename = "";
 		File file = null;
-		
+
 		if (files.hasMoreElements()) { // 만약 파일이 다수면 if를 while로..
 			String name = (String) files.nextElement();
 			filename = multi.getFilesystemName(name); // DefaultFileRenamePolicy 적용
@@ -821,14 +809,16 @@ public class StoryController extends Action {
 			String type = multi.getContentType(name); // 파일 타입 (추가해도되고, 안해도..?)
 			file = multi.getFile(name);
 		}
-		
+
 		// end. 사진 업로드용 ============================================
-		
+
 		String email = multi.getParameter("email");
-		String pwd= multi.getParameter("pwd");
+		String pwd = multi.getParameter("pwd");
 		String pageNum = multi.getParameter("pageNum");
-		if (pageNum == null || pageNum == "") {pageNum = "1";}
-		
+		if (pageNum == null || pageNum == "") {
+			pageNum = "1";
+		}
+
 		try {
 			user.setEmail(multi.getParameter("email"));
 			user.setPwd(multi.getParameter("pwd"));
@@ -837,268 +827,65 @@ public class StoryController extends Action {
 			user.setBirth(multi.getParameter("birth"));
 			user.setFilename(multi.getParameter("filename"));
 			user.setIp(req.getRemoteAddr());
-			
+
 			// + (사진 관련)
 			if (file != null) {
 				user.setFilename(filename);
-				user.setFilesize((int)file.length());
+				user.setFilesize((int) file.length());
 			} else {
-				/*user.setFilename(" ");*/
-				/*user.setFilesize(0);*/
+				/* user.setFilename(" "); */
+				/* user.setFilesize(0); */
 			}
 			// ============
-			
+
 			int chk = userPro.updateUser(user);
-			
+
 			req.setAttribute("chk", chk);
 			req.setAttribute("pageNum", pageNum);
 			req.setAttribute("email", email);
-			
+
 			System.out.println("수정여부: " + chk);
 			System.out.println(user);
-			
-			
-		} catch (Exception e) {e.printStackTrace();}
-		
-		return  "/admin/updateUserPro.jsp"; 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "/Project/admin/updateUserPro.jsp";
 	}
+
 	
 	
 	// /story/admin/deleteUserPro
-	public String deleteUserPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+	public String deleteUserPro(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 		UserDataBean user = new UserDataBean();
-		
+
 		String pageNum = req.getParameter("pageNum");
-		if (pageNum == null || pageNum == "") {pageNum = "1";}
+		if (pageNum == null || pageNum == "") {
+			pageNum = "1";
+		}
 		String email = req.getParameter("email");
 		String pwd = req.getParameter("pwd");
-		
+
 		user.setEmail(req.getParameter("email"));
 		user.setPwd(req.getParameter("pwd"));
 		user.setName(req.getParameter("name"));
 		user.setTel(req.getParameter("tel"));
 		user.setBirth(req.getParameter("birth"));
-		
+
 		UserDBBean dbPro = UserDBBean.getInstance();
-		
+
 		int check = dbPro.deleteUser(email, pwd);
-		
+
 		System.out.println("삭제여부: " + check);
-		
+
 		req.setAttribute("pwd", pwd);
 		req.setAttribute("email", email);
 		req.setAttribute("check", check);
-		
-		return "/admin/deleteUserPro.jsp"; 
-	}
-	
-	
-	// 관리자 일기장
-	// /story/admin/ad_deleteDPro
-	public String ad_deleteDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
-		
-		HttpSession session = req.getSession();
-		
-		String diaryid = req.getParameter("diaryid");
-		String pageNum = req.getParameter("pageNum");
-		if (pageNum == null || pageNum == "") {pageNum = "1";}
-		int num = Integer.parseInt(req.getParameter("num"));
-		
-		DiaryDBBean dbPro = DiaryDBBean.getInstance();
-		
-		int check = dbPro.deleteDiary(num, (String)session.getAttribute("sessionID"), diaryid);
-		
-		req.setAttribute("check", check);
-		
-		return "/admin/adView/ad_deleteDPro.jsp"; 
-	}
-	
-	
-	// /story/admin/ad_gallery
-	public String ad_gallery(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-		return "/admin/adView/ad_gallery.jsp";
-	}
-	
-	
-	// /story/admin/ad_main
-	public String ad_main(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-		String diaryid = req.getParameter("diaryid");
-		String subject = req.getParameter("subject");
-		
-		if (diaryid==null) diaryid = "Main"; 
-		if (subject==null) subject = "하루의 끝";
 
-		req.setAttribute("diaryid", diaryid);
-		req.setAttribute("subject", subject);
-		
-		return "/admin/adView/ad_main.jsp";
+		return "/Project/admin/deleteUserPro.jsp";
 	}
-	
-	
-	// /story/admin/ad_timeline
-	public String ad_timeline(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-		HttpSession session = req.getSession();
-		
-		String diaryid = req.getParameter("diaryid");
-		String subject = req.getParameter("subject");
-		
-		if (diaryid==null) diaryid = "Main"; 
-		if (subject==null) subject = "하루의 끝";
-		
-		
-		int pageSize= 5;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		String pageNum = req.getParameter("pageNum");
-		if (pageNum == null || pageNum =="") {
-			pageNum = "1";
-		}
-		int currentPage = Integer.parseInt(pageNum);
-		
-		int startRow = (currentPage - 1) * pageSize + 1;
-		int endRow = currentPage * pageSize;
-		
-		int count = 0;
-		int number = 0;
-		List diaryList = null;
-		DiaryDBBean dbPro = DiaryDBBean.getInstance();
-		count = dbPro.getDiaryCount(diaryid, (String)session.getAttribute("sessionID"));
-		//게시판에 있는 글 수 count
-		if (count > 0) {
-			diaryList = dbPro.getDiaries(startRow, endRow, (String)session.getAttribute("sessionID"), diaryid);
-		}
-		number = count - (currentPage - 1) * pageSize;
-		
-		System.out.println(count+":"+diaryList);
-		
-		int bottomLine = 3; 
-		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-		int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine; //곱셈, 나눗셈먼저.
-		int endPage = startPage + bottomLine -1;
-		
-		if (endPage > pageCount) endPage = pageCount;
-		
-		req.setAttribute("subject", subject);
-		req.setAttribute("diaryid", diaryid);
-		req.setAttribute("count", count);
-		req.setAttribute("diaryList", diaryList);
-		req.setAttribute("currentPage", currentPage);
-		req.setAttribute("startPage", startPage);
-		req.setAttribute("bottomLine", bottomLine);
-		req.setAttribute("pageCount", pageCount);
-		req.setAttribute("number", number);
-		req.setAttribute("endPage", endPage);
-		
-		return "/admin/adView/ad_timeline.jsp";
-	}
-	
-	
-	// /story/admin/ad_updateDForm 
-	public String ad_updateDForm(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-		HttpSession session = req.getSession();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		String diaryid = req.getParameter("diaryid");
-		if (diaryid==null) diaryid="Main";
-		String pageNum = req.getParameter("pageNum");
-			if (pageNum == null || pageNum == "") { 
-				pageNum = "1"; 
-			}
-		int num = Integer.parseInt(req.getParameter("num"));
-		
-		try {
-			DiaryDBBean diaryPro = DiaryDBBean.getInstance();
-			DiaryDataBean diary = diaryPro.getDiary(num, (String)session.getAttribute("sessionID"), diaryid);
-			
-			req.setAttribute("diary", diary); 
-		} catch (Exception e) {}
-		
-		return "/admin/adView/ad_updateDForm.jsp";
-	}
-	
-	
-	// /story/admin/ad_updateDPro
-	public String ad_updateDPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-		DiaryDataBean diary = new DiaryDataBean();
-		DiaryDBBean diaPro = DiaryDBBean.getInstance();
-		int num = Integer.parseInt(req.getParameter("num"));
-		String pageNum = req.getParameter("pageNum");
-		if (pageNum == null || pageNum == "") {pageNum = "1";}
-		String diaryid = req.getParameter("diaryid");
-		if (diaryid==null) diaryid = "Main";
-		
-		try {
-			diary.setNum(num);
-			diary.setEmail(req.getParameter("email"));
-			diary.setSubject(req.getParameter("subject"));
-			diary.setContent(req.getParameter("content"));
-			diary.setDiaryid(req.getParameter("diaryid"));
-			diary.setIp(req.getRemoteAddr());
-			
-			int chk = diaPro.updateDiary(diary);
-			
-			req.setAttribute("chk", chk);
-			req.setAttribute("pageNum", pageNum);
-			
-			System.out.println("수정여부: " + chk);
-			System.out.println(diary);
-			
-			
-		} catch (Exception e) {e.printStackTrace();}
-		
-		return "/admin/adView/ad_updateDPro.jsp";
-	}
-	
-	
-	// /story/admin/ad_write
-	public String ad_write(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-		String subject = req.getParameter("subject");
-	    System.out.println("제목:"+subject);
-	    
-	    int num=0;
-		String diaryid = req.getParameter("diaryid");
-		
-		if (diaryid==null) diaryid = "Main";
-		if (subject==null) subject = "제목없음";
 
-		if (req.getParameter("num")!=null) {num = Integer.parseInt(req.getParameter("num"));}
-		
-		req.setAttribute("diaryid", diaryid);
-		req.setAttribute("subject", subject);
-		
-		return "/admin/adView/ad_write.jsp";
-	}
-	
-	
-	// /story/admin/ad_writePro
-	public String ad_writePro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
-		HttpSession session = req.getSession();
-		DiaryDataBean diary = new DiaryDataBean();
-		DiaryDBBean dbPro = DiaryDBBean.getInstance();
-		
-		String pageNum = req.getParameter("pageNum");
-		if (pageNum == null || pageNum == "") {pageNum = "1";}
-		
-		String diaryid = req.getParameter("diaryid");
-		if (diaryid==null) diaryid = "Main";
-		
-		//diary.setNum(num);
-		diary.setEmail((String)session.getAttribute("sessionID")); 
-		diary.setSubject(req.getParameter("subject"));
-		diary.setContent(req.getParameter("content"));
-		diary.setDiaryid(req.getParameter("diaryid"));
-		diary.setIp(req.getRemoteAddr());
-		
-		System.out.println(diary);
-		
-		dbPro.insertDiary(diary);
-		
-		req.setAttribute("pageNum", pageNum);
-		res.sendRedirect("ad_timeline?pageNum="+pageNum+"&diaryid="+diaryid);
-		
-		return null;
-	}
-	// end. admin ========================================
-	
-	
 	// 헤더 테스트 ==========================================
 	// header.jspf - /story/head
 	public String head(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
@@ -1110,13 +897,6 @@ public class StoryController extends Action {
 		if(session.getAttribute("sessionID") == null)  {
 			res.sendRedirect(req.getContextPath()+"/story/index");
 		}
-		// 회원관리 화면으로 이동 (admin)
-		/*else if(session.getAttribute("sessionID").equals("admin")) {     
-			user=dbPro.getUser((String)session.getAttribute("sessionID"));
-            session.setAttribute("name", user.getName());
-            session.setAttribute("filename", user.getFilename());
-	        res.sendRedirect(req.getContextPath()+"/story/admin/accountList");
-	    }*/
 		// 로그인 되었을 때
 		else {
 	    	res.sendRedirect(req.getContextPath()+"/story/user_main"); 
@@ -1124,24 +904,6 @@ public class StoryController extends Action {
 		  	
 		return null;
 	}
-	
-	
-	// adheader.jspf - /story/admin/adhead
-	/*public String adhead(HttpServletRequest req, HttpServletResponse res)  throws Throwable { 
-		HttpSession session = req.getSession(); 
-		 
-		// admin 아닐 경우 (안먹힘)
-		if(!session.getAttribute("sessionID").equals("admin"))  {
-			session.invalidate();
-			res.sendRedirect(req.getContextPath()+"/story/index");
-		}
-		else {
-			res.sendRedirect(req.getContextPath()+"/story/admin/ad_main");
-		}
-		return null;
-	}*/
-	
-	// end. 헤더 테스트 ========================================
 
 // {} class
 }
