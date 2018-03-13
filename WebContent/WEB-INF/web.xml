@@ -41,12 +41,6 @@
   		<include-prelude>/jspf/header.jspf</include-prelude>
 		<!-- <include-coda>/jspf/footer.jspf</include-coda> -->
   	</jsp-property-group>
-  	
-  	<jsp-property-group>
-  		<url-pattern>/admin/*</url-pattern>
-  		<include-prelude>/jspf/adheader.jspf</include-prelude>
-  	</jsp-property-group>
-  	
   </jsp-config>
   
   
