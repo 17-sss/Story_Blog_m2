@@ -35,6 +35,16 @@
    		<url-pattern>/story/*</url-pattern>	
   </servlet-mapping>
   
+  <servlet>
+	  	<servlet-name>admin</servlet-name>
+	  	<servlet-class>controller.AdminController</servlet-class>
+  </servlet>
+	
+  <servlet-mapping>
+  		<servlet-name>admin</servlet-name>
+   		<url-pattern>/story/admin/*</url-pattern>	
+  </servlet-mapping>
+  
   <jsp-config>
   	<jsp-property-group>
   		<url-pattern>/Project/view/*</url-pattern>
