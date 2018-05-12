@@ -57,10 +57,10 @@
             return false;
         } 
         
-       /*  if(form.idDuplication.value != "idCheck"){
+       if(form.idDuplication.value != "idCheck"){
             alert("아이디 중복체크를 해주세요.");
             return false;
-        } */
+        }
         else {
         	alert("가입이 완료되었습니다.");
         }
@@ -75,17 +75,19 @@
     			"width=500, height=300, resizable = no, scrollbars = no");
     }
     
-    function inputIdChk() {
-		document.userInfo.idDuplication.value = "idUncheck";
-	} */
-
+   */
 	function confirmEmail() {
 		if (document.userInfo.email.value == "") {
-			alert("이메일을 입력하세요. (중복확인)");
+			alert("이메일을 입력하세요.");
 			return;
 		}
 		url = "confirmEmail?email=" + document.userInfo.email.value;
 		open(url, "confirm", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizeble=no, width=400, height=150");
+		document.userInfo.idDuplication.value="idCheck";
+	}
+    
+    function inputIdChk() {
+		document.userInfo.idDuplication.value = "idUncheck";
 	}
 </script>
 
@@ -103,16 +105,13 @@ action="<%=request.getContextPath()%>/story/accountPro" onsubmit="return checkVa
 <div class="w3-row w3-section">
   <div class="w3-col" style="width:50px"></div>
     <div class="w3-rest">
-    
-	   <div>
-		 <input class="w3-button w3-blue w3-right" type="button" value="중복확인" onclick="confirmEmail(this.form)" style="font-size: 8pt;  display: inline-block;">	   
-	     <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)* - 이메일 확인 후 가입해주세요." style="display: inline-block;">	
-	     	<%-- <input type="hidden" name="email" value="<%= email %>"> --%>
-	     
-	   </div>
-     <!-- <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*" onkeydown="inputIdChk()">
-     	  <input type="button" value="중복확인" onclick="openIdChk()">
-      	  <input type="hidden" name="idDuplication" value="idUncheck"> -->
+    	<input class="w3-button w3-blue w3-right" type="button" value="중복확인" onclick="confirmEmail(this.form)" style="font-size: 8pt;  display: inline-block;">
+    	<input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)*" onkeydown="inputIdChk()"> 
+		<input type="hidden" name="idDuplication" value="idUncheck">
+		
+		<%-- <input class="w3-button w3-blue w3-right" type="button" value="중복확인" onclick="confirmEmail(this.form)" style="font-size: 8pt;  display: inline-block;">	   
+	    <input class="w3-input w3-border"  name="email" type="email" placeholder="E-mail (ID)* - 이메일 확인 후 가입해주세요." style="display: inline-block;">	
+	    <input type="hidden" name="email" value="<%= email %>"> --%>
     </div>
 </div>
 

@@ -108,8 +108,8 @@ public class UserDBBean {
 		String sql = "";
 		try {
 			conn = getConnection();
-			sql = "select * from (select rownum rnum, a.* from (select email, name, pwd, tel, birth, cdate, ip, filename from userlist)"
-					+ " a) where rnum between ? and ? order by cdate desc";
+			sql = "select * from (select rownum rnum, a.* from (select email, name, pwd, tel, birth, cdate, ip, filename from userlist order by cdate desc)"
+					+ " a) where rnum between ? and ?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
